@@ -11,8 +11,14 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      decathlonid: {
+        type: Sequelize.STRING
+      },
       url: {
         type: Sequelize.STRING
+      },
+      expiringdate: {
+        type: Sequelize.DATE
       },
       user_id: {
         type: Sequelize.INTEGER

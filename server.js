@@ -15,8 +15,8 @@ app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: false }));
 
 app.get("/welcome", (request, result) => {
-  //aboutService.getTeamDescriptionByIdList([1, 2, 3, 4, 5])
-  aboutService.getTeamDescription()
+  aboutService.getTeamDescriptionByIdList([1, 2])
+  //aboutService.getTeamDescription()
   .then(info => {
     //console.log("info=", info);
     result.json(info);
