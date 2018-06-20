@@ -17,6 +17,7 @@ app.get("/welcome", handlers.getWelcome);
 
 //http://localhost:8080/feedbacks/TOKEN_2
 app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
+app.post("/feedbacks", handlers.postNewFeedback);
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));
