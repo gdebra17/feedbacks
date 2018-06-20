@@ -1,27 +1,22 @@
 const express = require("express");
 const path = require("path");
 
-const aboutService = require("./services/aboutService");
+const handlers = require("./handlers/index");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: path.resolve(process.cwd(), ".env.local") });
 }
 
 const app = express();
-
 app.use("/static", express.static("./build/static"));
-
 app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: false }));
 
-app.get("/welcome", (request, result) => {
-  aboutService.getTeamDescriptionByIdList([1, 2])
-  //aboutService.getTeamDescription()
-  .then(info => {
-    //console.log("info=", info);
-    result.json(info);
-  });
-});
+
+app.get("/welcome", handlers.getWelcome);
+
+//http://localhost:8080/feedbacks/TOKEN_2
+app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));

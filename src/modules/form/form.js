@@ -52,20 +52,22 @@ export default class Form extends React.Component {
                 Upload a picture
             </h5>
           </div>
-          <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-            <div className="card-body">
-              <button type="button" className="btn btn-outline-primary btn-file btn-sm">
-              <input type="file" accept="image/*" capture="camera" name="file-input"/>
+
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+              <button type="button" class="btn btn-outline-primary btn-file">
+                <input type="file" accept="image/*" capture="camera" name="file-input"/>
               </button>
-              {/* <div className="input-group mb-3">
-  <div className="custom-file">
-    <input type="file" className="custom-file-input" id="inputGroupFile02" />
-    <label className="custom-file-label" for="inputGroupFile02">Choose file</label>
-  </div>
-  <div className="input-group-append">
-    <span className="input-group-text" id="">Upload</span>
-  </div> */}
-            {/* </div> */}
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile02" />
+                  <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                  <span class="input-group-text" id="">Upload</span>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
