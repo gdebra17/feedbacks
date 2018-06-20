@@ -1,0 +1,26 @@
+.arrow {
+  width: 20px;
+  height: 20px;
+}
+
+[aria-expanded="false"] .arrowOpen {
+    display: block;
+}
+
+[aria-expanded="false"] .arrowClose {
+    display: none;
+}
+
+[aria-expanded="true"] .arrowOpen {
+    display: none;
+}
+
+[aria-expanded="true"] .arrowClose {
+    display: block;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
