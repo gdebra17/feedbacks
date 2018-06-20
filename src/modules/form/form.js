@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './form.css';
 
 export default class Form extends React.Component {
@@ -54,9 +55,18 @@ export default class Form extends React.Component {
 
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div className="card-body">
-              <button type="button" className="btn btn-outline-primary btn-file">
-                <input type="file" accept="image/*" capture="camera" name="file-input"/>
+              <button type="button" className="btn btn-outline-primary btn-file btn-sm">
+              <input type="file" accept="image/*" capture="camera" name="file-input"/>
               </button>
+              {/* <div className="input-group mb-3">
+  <div className="custom-file">
+    <input type="file" className="custom-file-input" id="inputGroupFile02" />
+    <label className="custom-file-label" for="inputGroupFile02">Choose file</label>
+  </div>
+  <div className="input-group-append">
+    <span className="input-group-text" id="">Upload</span>
+  </div> */}
+            {/* </div> */}
             </div>
           </div>
         </div>
