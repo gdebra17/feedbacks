@@ -16,7 +16,11 @@
     "operatorsAliases": false
   },
   "production": {
-    "use_env_variable": "DATABASE",
-    "dialect": "postgres"
+    "username": "root",
+    "password": null,
+    "database": "feedbacks_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
   }
 }
