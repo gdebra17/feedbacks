@@ -1,21 +1,20 @@
 const db = require('./../models/index');
 const operator = db.sequelize.Op;
 
-function newFeedback(feedbackToken) {
+function newFeedback() {
   const newFeedback = {
-    header : {feedbackToken},
+    header : {},
     messages : [],
     senders : [],
   }
   return newFeedback;
 }
 
-function getFeedbackDetailByToken(feedbackToken) {
-  console.log("services/getFeedbackDetailByToken:", feedbackToken);
-  const feedbackResult = newFeedback(feedbackToken);
-  const userIdList = [];
-  let feedbackId = null;
+function dbUserToFacadeUser(dbUser) {
+  return {name: dbUser.name, mail: dbUser.mail}
+}
 
+function getFeedbackIdByToken(feedbackToken) {
   return db.feedbacks.findAll({
     where: {
       token: feedbackToken,
@@ -23,7 +22,23 @@ function getFeedbackDetailByToken(feedbackToken) {
     raw: true
   })
   .then(dbFeedbacks => {
-    feedbackId = dbFeedbacks[0].id;
+    return dbFeedbacks[0].id;
+  })
+}
+
+function getFeedbackDetailById(feedbackId) {
+  console.log("services/getFeedbackDetailById:", feedbackId);
+  const feedbackResult = newFeedback();
+  const userIdList = [];
+
+  return db.feedbacks.findAll({
+    where: {
+      id: feedbackId,
+    },
+    raw: true
+  })
+  .then(dbFeedbacks => {
+    feedbackResult.header.token = dbFeedbacks[0].token;
     feedbackResult.header.topic = dbFeedbacks[0].topic;
     feedbackResult.header.senderId = dbFeedbacks[0].user_id;
     feedbackResult.header.productId = dbFeedbacks[0].product_id;
@@ -61,5 +76,6 @@ function getFeedbackDetailByToken(feedbackToken) {
 }
 
 module.exports = {
-  getFeedbackDetailByToken: getFeedbackDetailByToken,
+  getFeedbackIdByToken: getFeedbackIdByToken,
+  getFeedbackDetailById: getFeedbackDetailById,
 }
