@@ -53,10 +53,17 @@ export default class Form extends React.Component {
           </a>
 
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-            <div className="card-body">
-              <button type="button" className="btn btn-outline-primary btn-file">
-                <input type="file" accept="image/*" capture="camera" name="file-input"/>
-              </button>
+            <div className="card-body photo">
+              <i class="fas fa-camera fa-3x" type="file" accept="image/*" capture="camera" />
+            </div>
+            <div className="card-body photo">
+              <h4> - OR - </h4>
+            </div>
+            <div className="card-body photo">
+              <input type="file" accept="image/*" />
+            </div>
+            <div className="card-body photo">
+              <input type="submit" value="Upload" />
             </div>
           </div>
         </div>
