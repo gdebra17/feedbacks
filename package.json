@@ -22,6 +22,7 @@
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.37.10",
+    "uuid-v4": "^0.1.0",
     "ws": "^5.2.0"
   },
   "proxy": "http://localhost:8080",

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import './App.css';
+import TestForm from "./modules/form/TestForm";
+import Form from "./modules/form/form";
 //import './App.css';
 //import About from "./modules/about/About";
 import Tchat from "./modules/Tchat/Tchat";
@@ -8,10 +11,6 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-
-
-import Form from "./modules/form/form";
-//import About from "./modules/about/About";
 
 
 class App extends Component {

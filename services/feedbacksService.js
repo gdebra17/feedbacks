@@ -1,5 +1,6 @@
 const db = require('./../models/index');
 const operator = db.sequelize.Op;
+const uuid = require('uuid-v4');
 
 function newFeedback() {
   const newFeedback = {
@@ -45,12 +46,6 @@ function getFeedbackDetailById(feedbackId) {
   const feedbackResult = newFeedback();
   const userIdList = [];
 
-  // return db.feedbacks.findAll({
-  //   where: {
-  //     id: feedbackId,
-  //   },
-  //   raw: true
-  // })
   return db.sequelize.query('SELECT * FROM feedbacks f left outer join products p on p.id=f.product_id WHERE f.id = :feedbackId ',
     { replacements: { feedbackId: feedbackId }, type: db.sequelize.QueryTypes.SELECT })
   .then(dbFeedbacks => {
@@ -84,7 +79,72 @@ function getFeedbackDetailById(feedbackId) {
   });
 }
 
+
+function createNewFeedback(username, mail, path_image_user, topic, content, decathlonid, photo) {
+
+  let currentUserId = null;
+  let currentProductId = null;
+  let currentFeedbackId = null;
+  let currentFeedbackToken = null;
+  let currentMessageId = null;
+
+  return db.users.findAll({
+    where: {
+      mail: mail,
+    },
+    raw: true
+  })
+  .then(users => {
+    if (users.length > 1) {
+      throw new Error(`too many users with mail ${mail}`);
+    } else if (users.length === 1) {
+      //console.log("createNewFeedback: user already existing");
+      return users[0];
+    } else {
+      //console.log("createNewFeedback: create new users");
+      return db.users.create({name: username, mail: mail, path_image: path_image_user, type: "CUSTOMER", token: uuid()});
+    }
+  })
+  .then(user => {
+    currentUserId = user.id;
+    console.log("createNewFeedback: currentUserId=", currentUserId);
+    return db.products.findAll({
+      where: {
+        decathlonid: decathlonid,
+      },
+      raw: true
+    })
+  })
+  .then(products => {
+    if (products.length !== 1) {
+      throw new Error(`problem with product decathlonid ${decathlonid}`);
+    } else {
+      currentProductId = products[0].id;
+      console.log("createNewFeedback: currentProductId=", currentProductId);
+      return db.feedbacks.create({user_id: currentUserId, product_id: currentProductId, topic: topic, token: uuid()});
+    }
+  })
+  .then(feedback => {
+    console.log("feedback=", feedback);
+    currentFeedbackId = feedback.id;
+    currentFeedbackToken = feedback.token;
+    console.log("createNewFeedback: currentFeedbackId=", currentFeedbackId, ", currentFeedbackToken=", currentFeedbackToken);
+    return db.messages.create({feedback_id: currentFeedbackId, user_id: currentUserId, content: content, read: false});
+  })
+  .then(message => {
+    currentMessageId = message.id;
+    console.log("createNewFeedback: currentMessageId=", currentMessageId);
+    return currentFeedbackToken;
+  })
+  .catch(error => {
+    console.log("createNewFeedback ERROR:", error.message);
+    return {error: error.message};
+  })
+
+}
+
 module.exports = {
   getFeedbackIdByToken: getFeedbackIdByToken,
   getFeedbackDetailById: getFeedbackDetailById,
+  createNewFeedback: createNewFeedback,
 }
