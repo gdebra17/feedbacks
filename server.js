@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const Websocket = require("ws");
+const http = require("http");
 
 const aboutService = require("./services/aboutService");
 
@@ -29,6 +31,15 @@ app.get("*", (request, result)=>{
 
 const port = process.env.PORT || 8080;
 
-app.listen(port, function() {
+const server = http.createServer();
+const wss = new Websocket.Server({server});
+
+wss.on("connection", (ws) => {
+  console.log("HELLO");
+});
+
+server.on("request", app);
+
+server.listen(port, function() {
   console.log(`Server listening on port ${port}`);
 });

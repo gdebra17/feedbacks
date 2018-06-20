@@ -6,6 +6,9 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import { addUser } from './store/tchat/actions/index'
+
+
 
 
 window.googleConnectCallback = function(googleUser){
@@ -28,6 +31,8 @@ window.googleConnectCallback = function(googleUser){
   store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect});
   store.dispatch({type: "SET_CONNECTION_FLAG"});
 };
+store.dispatch(addUser('Me'));
+
 
 
 ReactDOM.render(
