@@ -6,13 +6,11 @@ export default class Form extends React.Component {
     return (
       <div id="accordion">
         <div className="card mt-3">
-          <div className="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <h5 className="mb-0">
-                Concerned bike part
-            </h5>
+          <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h5 className="mb-0">Concerned bike part</h5>
             <div className="arrowOpen"><img className="arrow" src="/images/down2.png" alt=""/></div>
             <div className="arrowClose"><img className="arrow" src="/images/up2.png" alt=""/></div>
-          </div>
+          </a>
 
           <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" data-toggle="collapse" data-target="#collapseTwo">
             <div className="card-body">
@@ -31,11 +29,11 @@ export default class Form extends React.Component {
           </div>
         </div>
         <div className="card">
-          <div className="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <h5 className="mb-0">
-                Your improvement idea
-            </h5>
-          </div>
+          <a className="card-header" id="headingTwo" data-toggle="collapse" href="#collapseTwo" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h5 className="mb-0">Your improvement idea</h5>
+            <div className="arrowOpen"><img className="arrow" src="/images/down2.png" alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src="/images/up2.png" alt=""/></div>
+          </a>
           <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div className="card-body">
               <textarea className="form-control" id="formcontrol1" rows="5"></textarea>
@@ -46,11 +44,13 @@ export default class Form extends React.Component {
           </div>
         </div>
         <div className="card">
-          <div className="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <a className="card-header" id="headingThree" data-toggle="collapse" href="#collapseThree" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             <h5 className="mb-0">
                 Upload a picture
             </h5>
-          </div>
+            <div className="arrowOpen"><img className="arrow" src="/images/down2.png" alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src="/images/up2.png" alt=""/></div>
+          </a>
 
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div className="card-body">
@@ -61,11 +61,13 @@ export default class Form extends React.Component {
           </div>
         </div>
         <div className="card">
-          <div className="card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <a className="card-header" id="headingFour" data-toggle="collapse" href="#collapseFour" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
             <h5 className="mb-0">
                 Send your feedback !
             </h5>
-          </div>
+            <div className="arrowOpen"><img className="arrow" src="/images/down2.png" alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src="/images/up2.png" alt=""/></div>
+          </a>
           <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div className="card-body">
               Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
