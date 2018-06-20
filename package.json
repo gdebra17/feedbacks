@@ -19,6 +19,10 @@
     "sequelize": "^4.37.10"
   },
   "proxy": "http://localhost:8080",
+  "production": {
+    "use_env_variable": "VAR_NAME",
+    "dialect": "postgres"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "react-scripts start",
