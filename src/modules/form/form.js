@@ -49,10 +49,10 @@ export default class Form extends React.Component {
           </div>
           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
-              <button type="button" class="btn btn-outline-primary btn-file btn-sm">
+              {/* <button type="button" class="btn btn-outline-primary btn-file btn-sm">
               <input type="file" accept="image/*" name="file-input"/>
 
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
