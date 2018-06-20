@@ -49,18 +49,10 @@ export default class Form extends React.Component {
           </div>
           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
-              <button type="button" class="btn btn-outline-primary btn-file">
-                <input type="file" accept="image/*" capture="camera" name="file-input"/>
+              <button type="button" class="btn btn-outline-primary btn-file btn-sm">
+              <input type="file" accept="image/*" name="file-input"/>
+
               </button>
-              <div class="input-group mb-3">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="inputGroupFile02" />
-                  <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                </div>
-                <div class="input-group-append">
-                  <span class="input-group-text" id="">Upload</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

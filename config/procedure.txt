@@ -5,6 +5,8 @@ node_modules/.bin/sequelize init    => creation dans le projet des 4 repertoires
 
 >> copier le config.sample.json en config.json et mettre à jouer user et pwd
 
+createuser --interactive feedback
+
 node_modules/.bin/sequelize db:create
 => creation de la base de donnée
 
