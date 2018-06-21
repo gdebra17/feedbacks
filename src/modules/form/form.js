@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './form.css';
-import Header from "../header/header";
+import Header from "../header/Header";
 const arrowDown = require ("./images/down2.png");
 const arrowUp = require ("./images/up2.png");
 
