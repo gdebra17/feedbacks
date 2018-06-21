@@ -40,7 +40,11 @@
 }
 
 .active {
-    background: #f00;
+  background: #f00;
+}
+
+.selected {
+  
 }
 
 .list-group-item list-group-item-action {

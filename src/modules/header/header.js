@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './header.css';
-let test2 = require ("./images/test2.png")
+
+let triban100 = require ("./images/triban100hor.jpg")
+
 
 export default class Header extends React.Component {
   render() {
     return (
-      <div className="mainHeader">
-        <img className="test" src={test2} alt="" className="responsive rounded"/>
+      <div className="header">
+        <img src={triban100} className="img-fluid rounded" alt="..."/>
       </div>
     );
   }
