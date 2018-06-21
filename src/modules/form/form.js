@@ -56,18 +56,17 @@ export default class Form extends React.Component {
   fileUpload(file){
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("random_value", "42");
     return fetch("/upload-file", {
       method: "POST",
       body: formData
     });
   }
 
-  handleSubmitPhoto = (event) => {
-    event.preventDefault();
-    this.fileUpload(this.state.photo)
-      .then(response => console.log(response.json()))
-  }
+  // handleSubmitPhoto = (event) => {
+  //   event.preventDefault();
+  //   this.fileUpload(this.state.photo)
+  //     .then(response => console.log(response.json()))
+  // }
 
   handleName = (event) => {
     //console.log("event.target.value ", event.target.value);
@@ -81,13 +80,29 @@ export default class Form extends React.Component {
   }
 
 
+  fileUpload(file){
+    const formData = new FormData();
+    formData.append("file", file);
+    return fetch("/upload-file", {
+      method: "POST",
+      body: formData
+    });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append("decathlonid", this.state.form.decathlonid);
+    formData.append("topic", this.state.form.topic);
+    formData.append("content", this.state.form.content);
+    formData.append("photo", this.state.form.photo);
+    formData.append("username", this.state.form.username);
+    formData.append("mail", this.state.form.mail);
 
     fetch("/feedbacks", {
       method: "POST",
-      body: JSON.stringify({...this.state.form}),
-      headers: { "Content-Type": "application/json" }
+      body: formData,
+      //headers: { "Content-Type": "application/json" }
     })
       .then(response => response.json())
       .then(result => {
