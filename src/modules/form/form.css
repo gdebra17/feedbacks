@@ -37,6 +37,7 @@
   justify-content:center;
   align-content: center;
   text-align:center;
+}
 
 .active {
     background: #f00;

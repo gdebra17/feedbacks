@@ -8,7 +8,6 @@ import About from "./modules/about/About";
 //import Tchat from "./modules/Tchat/Tchat";
 // import Tchat0 from "./modules/Tchat/Tchat0";
 import Buttons from "./modules/Buttons";
-import Header from "./modules/header/header";
 
 class App extends Component {
   render() {
@@ -16,9 +15,8 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-            <Route path="/" component={Buttons}/>
-            <Route exact path="/" component={Header}/>
-            <Route exact path="/" component={Form}/>
+            <Route exact path="/" component={Buttons}/>
+            <Route exact path="/feedback" component={Form}/>
             {/* <Route exact path="/chats" component={Tchat} /> */}
             {/* <Route exact path="/user" component={Tchat0} /> */}
             <Route exact path="/testform" component={TestForm} />

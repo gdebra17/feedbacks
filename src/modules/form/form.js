@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './form.css';
+import Header from "../header/header";
 const arrowDown = require ("./images/down2.png");
 const arrowUp = require ("./images/up2.png");
 
@@ -9,12 +10,19 @@ export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      decathlonid: "8377732",
-      topic: "",
-      feedback: "",
-      photo: null,
-      username: "",
-      mail: "",
+      form: {
+        decathlonid: "8377732",
+        topic: "",
+        feedback: "",
+        photo: null,
+        username: "",
+        mail: "",
+      },
+      fetchResult: {
+        status: null,
+        data: null,
+        errorMessage: null,
+      }
     };
   }
 
@@ -47,19 +55,46 @@ export default class Form extends React.Component {
     event.preventDefault();
     this.fileUpload(this.state.photo)
       .then(response => console.log(response.json()))
-
   }
+
+  handleName = (event) => {
+    console.log("event.target.value ", event.target.value);
+    this.setState({username: event.target.value});
+  }
+
+  handleMail = (event) => {
+    console.log("event.target.value ", event.target.value);
+    this.setState({mail: event.target.value});
+  }
+
 
   handleSubmit = (event) => {
-    console.log("event ", event);
-    console.log("event.target ", event.target);
-    console.log("event.target.value ", event.target.value);
-    // this.setState({topic: event.target.value})
+    event.preventDefault();
+
+    fetch("/feedbacks", {
+      method: "POST",
+      body: JSON.stringify(this.state.form),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        this.setState({
+          fetchResult: {
+            status: result.status,
+            data: result.data,
+            errorMessage: result.errorMessage,
+          }
+        });
+      })
   }
+
 
 
   render() {
     return (
+      <div className="container">
+        <Header />
       <div id="accordion">
         <div className="card mt-3">
           <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -119,7 +154,7 @@ export default class Form extends React.Component {
               <input onChange={this.handlePhoto} type="file" accept="image/*" />
             </div>
             <div className="card-body nav justify-content-center">
-              <input type="submit" value="Upload" />
+              <input type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3" value="Upload" />
 
             </div>
             </form>
@@ -135,15 +170,12 @@ export default class Form extends React.Component {
           </a>
           <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div className="card-body">
-
-              <form>
-
+              <form onSubmit={this.handleSubmitInfoUser}>
                 <div className="form-group">
-                  <input type="text" className="form-control" id="exampleInputName" placeholder="Enter your Name"/>
+                  <input onChange={this.handleName} type="text" className="form-control" id="name" placeholder="Enter your Name"/>
                 </div>
-
                 <div className="form-group">
-                  <input type="email" className="form-control" id="exampleInputEmail" placeholder="Enter your email address"/>
+                  <input onChange={this.handleMail} type="email" className="form-control" id="mail" placeholder="Enter your email address"/>
                   <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <button type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
@@ -152,6 +184,7 @@ export default class Form extends React.Component {
           </div>
         </div>
       </div>
+            </div>
     )
   }
 

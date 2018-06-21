@@ -1,6 +1,8 @@
-.mainHeader{
-  margin-top: 1px;
-  background-color: papayawhip;
-  display: flex;
+.header{
+  margin-top: 10px;
   justify-content: center;
 }
+
+/* img {
+  max-height: 20%;
+} */
