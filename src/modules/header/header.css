@@ -1,0 +1,6 @@
+.mainHeader{
+  margin-top: 1px;
+  background-color: papayawhip;
+  display: flex;
+  justify-content: center;
+}
