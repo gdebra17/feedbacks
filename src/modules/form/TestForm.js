@@ -12,6 +12,11 @@ class TestForm extends Component {
         topic: "Brakes",
         content: "I have a little problem with my brakes. Please see my photo.",
         decathlonid: "8377732",
+      },
+      fetchResult: {
+        status: "xxx",
+        data: "xxx",
+        errorMessage: "xxx",
       }
     };
     this.handleChange = this.handleChange.bind(this);
@@ -33,9 +38,13 @@ class TestForm extends Component {
       headers: { "Content-Type": "application/json" }
     })
       .then(response => response.json())
-      .then(data => {
+      .then(result => {
         this.setState({
-          feebackToken: data,
+          fetchResult: {
+            status: result.status,
+            data: result.data,
+            errorMessage: result.errorMessage,
+          }
         });
       })
   }
@@ -52,7 +61,9 @@ class TestForm extends Component {
           <div className="mt-3">decathlonid : <input type="text" id="decathlonid" className="form-control" value={this.state.form.decathlonid} onChange={this.handleChange}/></div>
           <button type="submit" className="btn btn-primary mt-3">Submit</button>
         </form>
-        <div className="mt-3">feebackToken : {this.state.feebackToken}</div>
+        <div className="mt-3">fetchResult data (feedbackToken) : {this.state.fetchResult.data}</div>
+        <div className="mt-3">fetchResult status : {this.state.fetchResult.status}</div>
+        <div className="mt-3">fetchResult errorMessage : {this.state.fetchResult.errorMessage}</div>
       </div>
     );
   }

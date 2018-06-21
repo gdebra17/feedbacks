@@ -134,11 +134,11 @@ function createNewFeedback(username, mail, path_image_user, topic, content, deca
   .then(message => {
     currentMessageId = message.id;
     console.log("createNewFeedback: currentMessageId=", currentMessageId);
-    return currentFeedbackToken;
+    return {status: "succeeded", data: currentFeedbackToken};
   })
   .catch(error => {
     console.log("createNewFeedback ERROR:", error.message);
-    return {error: error.message};
+    return {status: "error", errorMessage: error.message};
   })
 
 }
