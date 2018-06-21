@@ -9,17 +9,6 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: path.resolve(process.cwd(), ".env.local") });
 }
 
-// We load the package and specify the destination of uploaded files
-const multer = require("multer");
-const upload = multer({ dest: path.join(__dirname, "uploads/") });
-
-// We specify that we upload a file from the input nammed my_file
-app.post("/upload-file", upload.single("my_file"), function (request, result) {
-  // request.file is the file
-  // request.body will hold the text fields, if there were any
-  result.json("done");
-});
-
 const app = express();
 app.use("/static", express.static("./build/static"));
 app.use(require("body-parser").json());
@@ -37,7 +26,6 @@ app.get("*", (request, result)=>{
 });
 
 const port = process.env.PORT || 8080;
-
 
 const server = http.createServer();
 const wss = new Websocket.Server({server});
