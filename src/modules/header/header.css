@@ -1,6 +1,8 @@
 .mainHeader{
   margin-top: 1px;
-  background-color: papayawhip;
-  display: flex;
-  justify-content: center;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
 }

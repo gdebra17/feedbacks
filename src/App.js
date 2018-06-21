@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-            <Route path="/" component={Buttons}/>
+            <Route path="/feedback" component={Buttons}/>
             <Route exact path="/" component={Header}/>
             <Route exact path="/" component={Form}/>
             {/* <Route exact path="/chats" component={Tchat} /> */}

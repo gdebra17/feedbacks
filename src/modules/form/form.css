@@ -37,7 +37,16 @@
   justify-content:center;
   align-content: center;
   text-align:center;
+}
 
 .active {
     background: #f00;
+}
+
+.list-group-item list-group-item-action {
+  background-color: papayawhip;
+}
+
+.monactive{
+  background-color: red;
 }

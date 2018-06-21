@@ -4,6 +4,17 @@ import './form.css';
 const arrowDown = require ("./images/down2.png");
 const arrowUp = require ("./images/up2.png");
 
+
+function LineTopic(props) {
+  let currentStyle = "list-group-item list-group-item-action";
+  if (props.activeTopic === props.label) {
+    currentStyle = currentStyle + " active";
+  }
+  return (
+    <li className={currentStyle}>{props.label}</li>
+  )
+}
+
 export default class Form extends React.Component {
 
   constructor(props) {
@@ -59,6 +70,8 @@ export default class Form extends React.Component {
 
 
   render() {
+
+
     return (
       <div id="accordion">
         <div className="card mt-3">
@@ -67,20 +80,19 @@ export default class Form extends React.Component {
             <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
             <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
-
           <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" data-toggle="collapse" data-target="#collapseTwo">
             <form onClick={this.handleTopic}>
             <div className="card-body">
               <ul className="list-group">
-                <li className="list-group-item list-group-item-action">Handlebar</li>
-                <li className="list-group-item list-group-item-action">Saddle</li>
-                <li className="list-group-item list-group-item-action">Brakes</li>
-                <li className="list-group-item list-group-item-action">Frame/Fork</li>
-                <li className="list-group-item list-group-item-action">Bicycle drive</li>
-                <li className="list-group-item list-group-item-action">Wheels</li>
-                <li className="list-group-item list-group-item-action">Pedals</li>
-                <li className="list-group-item list-group-item-action">Derailleurs</li>
-                <li className="list-group-item list-group-item-action">Accessories</li>
+                <LineTopic label="Handlebar" activeTopic={this.state.topic}/>
+                <LineTopic label="Saddle" activeTopic={this.state.topic}/>
+                <LineTopic label="Brakes" activeTopic={this.state.topic}/>
+                <LineTopic label="Frame" activeTopic={this.state.topic}/>
+                <LineTopic label="Bicycle drive" activeTopic={this.state.topic}/>
+                <LineTopic label="Wheels" activeTopic={this.state.topic}/>
+                <LineTopic label="Pedals" activeTopic={this.state.topic}/>
+                <LineTopic label="Derailleurs" activeTopic={this.state.topic}/>
+                <LineTopic label="Accessories" activeTopic={this.state.topic}/>
               </ul>
             </div>
             </form>
@@ -100,7 +112,6 @@ export default class Form extends React.Component {
                 <button type="button" onClick={this.handleFeedback} className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Confirm</button>
               </form>
             </div>
-
           </div>
         </div>
         <div className="card">
@@ -111,7 +122,6 @@ export default class Form extends React.Component {
             <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
             <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
-
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
 
             <form onSubmit={this.handleSubmitPhoto}>
@@ -154,6 +164,4 @@ export default class Form extends React.Component {
       </div>
     )
   }
-
-
 };
