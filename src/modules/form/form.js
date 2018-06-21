@@ -1,21 +1,45 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './form.css';
+import Header from "../header/header";
+const arrowDown = require ("./images/down2.png");
+const arrowUp = require ("./images/up2.png");
+
+
+function LineTopic(props) {
+  let currentStyle = "list-group-item list-group-item-action";
+  if (props.activeTopic === props.label) {
+    currentStyle = currentStyle + " active";
+  }
+  return (
+    <li className={currentStyle}>{props.label}</li>
+  )
+}
 
 export default class Form extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      decathlonid: "8377732",
-      topic: "",
-      feedback: "",
-      photo: null,
-      username: "",
-      mail: "",
+      form: {
+        decathlonid: "8377732",
+        topic: "",
+        feedback: "",
+        photo: null,
+        username: "",
+        mail: "",
+      },
+      fetchResult: {
+        status: null,
+        data: null,
+        errorMessage: null,
+      }
     };
   }
 
   handleTopic = (event) => {
     this.setState({topic: event.target.innerText})
+    console.log(event.target);
     console.log(this.state);
   }
 
@@ -43,40 +67,71 @@ export default class Form extends React.Component {
     event.preventDefault();
     this.fileUpload(this.state.photo)
       .then(response => console.log(response.json()))
-
   }
+
+  handleName = (event) => {
+    console.log("event.target.value ", event.target.value);
+    this.setState({username: event.target.value});
+  }
+
+  handleMail = (event) => {
+    console.log("event.target.value ", event.target.value);
+    this.setState({mail: event.target.value});
+  }
+
 
   handleSubmit = (event) => {
-    console.log("event ", event);
-    console.log("event.target ", event.target);
-    console.log("event.target.value ", event.target.value);
-    // this.setState({topic: event.target.value})
+
+    event.preventDefault();
+
+    fetch("/feedbacks", {
+      method: "POST",
+      body: JSON.stringify({...this.state.form}),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        this.setState({
+          fetchResult: {
+            status: result.status,
+            data: result.data,
+            errorMessage: result.errorMessage,
+          }
+        });
+      })
   }
 
+
+
   render() {
+
+
     return (
+      <div className="container">
+        <Header />
       <div id="accordion">
         <div className="card mt-3">
           <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <h5 className="mb-0">Concerned bike part</h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
-
           <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" data-toggle="collapse" data-target="#collapseTwo">
             <form onClick={this.handleTopic}>
             <div className="card-body">
               <ul className="list-group">
-                <li className="list-group-item list-group-item-action">Handlebar</li>
-                <li className="list-group-item list-group-item-action">Saddle</li>
-                <li className="list-group-item list-group-item-action">Brakes</li>
-                <li className="list-group-item list-group-item-action">Frame/Fork</li>
-                <li className="list-group-item list-group-item-action">Bicycle drive</li>
-                <li className="list-group-item list-group-item-action">Wheels</li>
-                <li className="list-group-item list-group-item-action">Pedals</li>
-                <li className="list-group-item list-group-item-action">Derailleurs</li>
-                <li className="list-group-item list-group-item-action">Accessories</li>
-                </ul>
+                <LineTopic label="Handlebar" activeTopic={this.state.topic}/>
+                <LineTopic label="Saddle" activeTopic={this.state.topic}/>
+                <LineTopic label="Brakes" activeTopic={this.state.topic}/>
+                <LineTopic label="Frame" activeTopic={this.state.topic}/>
+                <LineTopic label="Bicycle drive" activeTopic={this.state.topic}/>
+                <LineTopic label="Wheels" activeTopic={this.state.topic}/>
+                <LineTopic label="Pedals" activeTopic={this.state.topic}/>
+                <LineTopic label="Derailleurs" activeTopic={this.state.topic}/>
+                <LineTopic label="Accessories" activeTopic={this.state.topic}/>
+
+              </ul>
             </div>
             </form>
           </div>
@@ -84,8 +139,8 @@ export default class Form extends React.Component {
         <div className="card">
           <a className="card-header" id="headingTwo" data-toggle="collapse" href="#collapseTwo" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <h5 className="mb-0">Your improvement idea</h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
           <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 
@@ -95,7 +150,6 @@ export default class Form extends React.Component {
                 <button type="button" onClick={this.handleFeedback} className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Confirm</button>
               </form>
             </div>
-
           </div>
         </div>
         <div className="card">
@@ -103,17 +157,18 @@ export default class Form extends React.Component {
             <h5 className="mb-0">
                 Upload a picture
             </h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
-
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+
             <form onSubmit={this.handleSubmitPhoto}>
             <div className="card-body photo">
               <input onChange={this.handlePhoto} type="file" accept="image/*" />
             </div>
             <div className="card-body nav justify-content-center">
-              <input type="submit" value="Upload" />
+              <input type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3" value="Upload" />
+
             </div>
             </form>
           </div>
@@ -123,18 +178,26 @@ export default class Form extends React.Component {
             <h5 className="mb-0">
                 Send your feedback !
             </h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
           <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div className="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                  <input onChange={this.handleName} type="text" className="form-control" id="name" placeholder="Enter your Name"/>
+                </div>
+                <div className="form-group">
+                  <input onChange={this.handleMail} type="email" className="form-control" id="mail" placeholder="Enter your email address"/>
+                  <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <button type="submit" onKeyPress={this.handleSubmit} className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
+            </div>
     )
   }
-
-
 };
