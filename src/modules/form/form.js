@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './form.css';
 
 export default class Form extends React.Component {
+
+
   render() {
     return (
       <div id="accordion">
@@ -25,7 +27,7 @@ export default class Form extends React.Component {
                 <li className="list-group-item list-group-item-action">Pedals</li>
                 <li className="list-group-item list-group-item-action">Derailleurs</li>
                 <li className="list-group-item list-group-item-action">Accessories</li>
-                </ul>
+              </ul>
             </div>
           </div>
         </div>
@@ -80,7 +82,19 @@ export default class Form extends React.Component {
           </a>
           <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div className="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+              <form>
+
+                <div className="form-group">
+                  <input type="text" className="form-control" id="exampleInputName" placeholder="Enter your Name"/>
+                </div>
+
+                <div className="form-group">
+                  <input type="email" className="form-control" id="exampleInputEmail" placeholder="Enter your email address"/>
+                  <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <button type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
+              </form>
             </div>
           </div>
         </div>
