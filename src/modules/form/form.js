@@ -28,6 +28,7 @@ export default class Form extends React.Component {
 
   handleTopic = (event) => {
     this.setState({topic: event.target.innerText})
+    console.log(event.target);
     console.log(this.state);
   }
 
@@ -69,11 +70,12 @@ export default class Form extends React.Component {
 
 
   handleSubmit = (event) => {
+
     event.preventDefault();
 
     fetch("/feedbacks", {
       method: "POST",
-      body: JSON.stringify(this.state.form),
+      body: JSON.stringify({...this.state.form}),
       headers: { "Content-Type": "application/json" }
     })
       .then(response => response.json())
@@ -107,8 +109,8 @@ export default class Form extends React.Component {
             <form onClick={this.handleTopic}>
             <div className="card-body">
               <ul className="list-group">
-                <li className="list-group-item list-group-item-action">Handlebar</li>
-                <li className="list-group-item list-group-item-action">Saddle</li>
+                <li className="list-group-item list-group-item-action selected">Handlebar</li>
+                <li className="list-group-item list-group-item-action selected">Saddle</li>
                 <li className="list-group-item list-group-item-action">Brakes</li>
                 <li className="list-group-item list-group-item-action">Frame/Fork</li>
                 <li className="list-group-item list-group-item-action">Bicycle drive</li>
@@ -170,7 +172,7 @@ export default class Form extends React.Component {
           </a>
           <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div className="card-body">
-              <form onSubmit={this.handleSubmitInfoUser}>
+              <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <input onChange={this.handleName} type="text" className="form-control" id="name" placeholder="Enter your Name"/>
                 </div>
@@ -178,7 +180,7 @@ export default class Form extends React.Component {
                   <input onChange={this.handleMail} type="email" className="form-control" id="mail" placeholder="Enter your email address"/>
                   <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
-                <button type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
+                <button type="submit" onKeyPress={this.handleSubmit} className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
               </form>
             </div>
           </div>
