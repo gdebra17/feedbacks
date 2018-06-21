@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const Websocket = require("ws");
 const http = require("http");
-// const upload = multer({ dest: path.join(__dirname, "uploads/") });
+
 const handlers = require("./handlers/index");
 
 if (process.env.NODE_ENV !== "production") {
@@ -11,9 +11,10 @@ if (process.env.NODE_ENV !== "production") {
 
 const app = express();
 app.use("/static", express.static("./build/static"));
+app.use("/uploads", express.static("./uploads"));
+
 app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: false }));
-
 
 app.get("/welcome", handlers.getWelcome);
 

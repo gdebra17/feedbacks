@@ -80,7 +80,7 @@ function getFeedbackDetailById(feedbackId) {
 }
 
 
-function createNewFeedback(username, mail, path_image_user, topic, content, decathlonid, photo) {
+function createNewFeedback(username, mail, pathImageUser, topic, content, decathlonid, pathPhoto) {
 
   let currentUserId = null;
   let currentProductId = null;
@@ -102,7 +102,7 @@ function createNewFeedback(username, mail, path_image_user, topic, content, deca
       return users[0];
     } else {
       //console.log("createNewFeedback: create new users");
-      return db.users.create({name: username, mail: mail, path_image: path_image_user, type: "CUSTOMER", token: uuid()});
+      return db.users.create({name: username, mail: mail, path_image: pathImageUser, type: "CUSTOMER", token: uuid()});
     }
   })
   .then(user => {
@@ -121,11 +121,11 @@ function createNewFeedback(username, mail, path_image_user, topic, content, deca
     } else {
       currentProductId = products[0].id;
       //console.log("createNewFeedback: currentProductId=", currentProductId);
-      return db.feedbacks.create({user_id: currentUserId, product_id: currentProductId, topic: topic, token: uuid()});
+      return db.feedbacks.create({user_id: currentUserId, product_id: currentProductId, topic: topic, token: uuid()})
     }
   })
   .then(feedback => {
-    console.log("feedback=", feedback);
+    //console.log("feedback=", feedback);
     currentFeedbackId = feedback.id;
     currentFeedbackToken = feedback.token;
     //console.log("createNewFeedback: currentFeedbackId=", currentFeedbackId, ", currentFeedbackToken=", currentFeedbackToken);
@@ -134,7 +134,16 @@ function createNewFeedback(username, mail, path_image_user, topic, content, deca
   .then(message => {
     currentMessageId = message.id;
     //console.log("createNewFeedback: currentMessageId=", currentMessageId);
-    return currentFeedbackToken;
+    if (pathPhoto) {
+      return db.uploads.create({message_id: currentMessageId, content: pathPhoto})
+      .then(upload => {
+        currentUploadId = upload.id;
+        //console.log("createNewFeedback: currentUploadId=", currentUploadId);
+        return currentFeedbackToken;
+      })
+    } else {
+      return currentFeedbackToken;
+    }
   })
   .catch(error => {
     //console.log("createNewFeedback ERROR:", error.message);
