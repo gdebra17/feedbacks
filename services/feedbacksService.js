@@ -28,7 +28,7 @@ function dbUserToFacade(dbUser) {
 }
 
 
-function getFeedbackIdByToken(feedbackToken) {
+function getFeedbackHeaderByToken(feedbackToken) {
   return db.feedbacks.findAll({
     where: {
       token: feedbackToken,
@@ -36,7 +36,7 @@ function getFeedbackIdByToken(feedbackToken) {
     raw: true
   })
   .then(dbFeedbacks => {
-    return dbFeedbacks[0].id;
+    return dbFeedbacks[0];
   })
 }
 
@@ -107,7 +107,7 @@ function createNewFeedback(username, mail, path_image_user, topic, content, deca
   })
   .then(user => {
     currentUserId = user.id;
-    console.log("createNewFeedback: currentUserId=", currentUserId);
+    //console.log("createNewFeedback: currentUserId=", currentUserId);
     return db.products.findAll({
       where: {
         decathlonid: decathlonid,
@@ -120,7 +120,7 @@ function createNewFeedback(username, mail, path_image_user, topic, content, deca
       throw new Error(`problem with product decathlonid ${decathlonid}`);
     } else {
       currentProductId = products[0].id;
-      console.log("createNewFeedback: currentProductId=", currentProductId);
+      //console.log("createNewFeedback: currentProductId=", currentProductId);
       return db.feedbacks.create({user_id: currentUserId, product_id: currentProductId, topic: topic, token: uuid()});
     }
   })
@@ -128,23 +128,36 @@ function createNewFeedback(username, mail, path_image_user, topic, content, deca
     console.log("feedback=", feedback);
     currentFeedbackId = feedback.id;
     currentFeedbackToken = feedback.token;
-    console.log("createNewFeedback: currentFeedbackId=", currentFeedbackId, ", currentFeedbackToken=", currentFeedbackToken);
-    return db.messages.create({feedback_id: currentFeedbackId, user_id: currentUserId, content: content, read: false});
+    //console.log("createNewFeedback: currentFeedbackId=", currentFeedbackId, ", currentFeedbackToken=", currentFeedbackToken);
+    return addNewMessageToFeedback(currentFeedbackId, content, currentUserId);
   })
   .then(message => {
     currentMessageId = message.id;
-    console.log("createNewFeedback: currentMessageId=", currentMessageId);
-    return {status: "succeeded", data: currentFeedbackToken};
+    //console.log("createNewFeedback: currentMessageId=", currentMessageId);
+    return currentFeedbackToken;
   })
   .catch(error => {
-    console.log("createNewFeedback ERROR:", error.message);
-    return {status: "error", errorMessage: error.message};
+    //console.log("createNewFeedback ERROR:", error.message);
+    return {errorMessage: error.message};
   })
-
 }
 
+function addNewMessageToFeedback(feebackId, messageContent, userId) {
+  return db.messages.create({feedback_id: feebackId, user_id: userId, content: messageContent, read: false})
+  .then(message => {
+    //console.log("addNewMessageToFeedback: newMessage Id=", message.id);
+    return message;
+  })
+  .catch(error => {
+    //console.log("addNewMessageToFeedback ERROR:", error.message);
+    return {errorMessage: error.message};
+  })
+}
+
+
 module.exports = {
-  getFeedbackIdByToken: getFeedbackIdByToken,
+  getFeedbackHeaderByToken: getFeedbackHeaderByToken,
   getFeedbackDetailById: getFeedbackDetailById,
   createNewFeedback: createNewFeedback,
+  addNewMessageToFeedback: addNewMessageToFeedback,
 }
