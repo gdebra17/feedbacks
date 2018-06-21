@@ -54,7 +54,7 @@ function getFeedbackHeaderByToken(feedbackToken) {
 
 
 function getFeedbackDetailById(feedbackId) {
-  console.log("services/getFeedbackDetailById:", feedbackId);
+  //console.log("services/getFeedbackDetailById:", feedbackId);
   const feedbackResult = newFeedback();
 
   return db.sequelize.query('SELECT * FROM feedbacks f left outer join products p on p.id=f.product_id WHERE f.id = :feedbackId ',
@@ -66,7 +66,6 @@ function getFeedbackDetailById(feedbackId) {
       { replacements: { feedbackId: feedbackId }, type: db.sequelize.QueryTypes.SELECT })
   })
   .then(dbMessagesUser => {
-    console.log("dbMessagesUser=", dbMessagesUser);
     return Promise.all(
       dbMessagesUser.map(dbMessageUser => {
         return db.uploads.findAll({
@@ -76,17 +75,14 @@ function getFeedbackDetailById(feedbackId) {
           raw: true
         })
         .then(dbUploads => {
-          console.log("dbUploads=", dbUploads);
           return dbMessageUserToFacade(dbMessageUser, dbUploads);
         })
       })
     )
     .then(values => {
-      console.log("values=", values);
       feedbackResult.messages = values;
       return feedbackResult
     });
-    console.log("return=")
   })
 }
 

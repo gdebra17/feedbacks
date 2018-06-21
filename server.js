@@ -22,6 +22,7 @@ app.get("/welcome", handlers.getWelcome);
 app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
 app.post("/feedbacks", handlers.postNewFeedback);
 app.post("/messages", handlers.postNewMessage);
+app.get("/products", handlers.getAllProducts);
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));
