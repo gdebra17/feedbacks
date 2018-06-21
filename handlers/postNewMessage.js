@@ -1,4 +1,5 @@
 const feedbacksService = require("./../services/feedbacksService");
+const usersService = require("./../services/usersService");
 
 function postNewMessage(request, result) {
   console.log("handlers/postNewMessage:", request.body);
@@ -9,14 +10,16 @@ function postNewMessage(request, result) {
   return feedbacksService.getFeedbackHeaderByToken(feedbackToken)
   .then(feedbackHeader => {
     //console.log("handlers/postNewMessage:", feedbackHeader);
-    let currentUserId = null;
     if (userToken) {
       //console.log("handlers/postNewMessage: message is added by userToken", userToken);
+      return usersService.getUserHeaderByToken(userToken).
+      then(dbUser => {
+        return {feedbackId: feedbackHeader.id, userId: dbUser.id};
+      })
     } else {
-      currentUserId = feedbackHeader.user_id;
-      //console.log("handlers/postNewMessage: message is added by feedback creator", currentUserId);
+      //console.log("handlers/postNewMessage: message is added by feedback creator", feedbackHeader.user_id);
+      return {feedbackId: feedbackHeader.id, userId: feedbackHeader.user_id};
     }
-    return {feedbackId: feedbackHeader.id, userId: currentUserId}
   })
   .then(data => {
     //console.log("handlers/postNewMessage: insert data=", data);

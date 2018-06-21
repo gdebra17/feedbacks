@@ -107,7 +107,7 @@ class TestForm extends Component {
         <form className="mt-5" onSubmit={this.handleSubmitAddmessage}>
           <div className="mt-3">feedbackToken : <input type="text" id="feedbackToken" className="form-control" value={this.state.formAddmessage.feedbackToken} onChange={this.handleChangeAddmessage}/></div>
           <div className="mt-3">messageContent : <input type="text" id="messageContent" className="form-control" value={this.state.formAddmessage.messageContent} onChange={this.handleChangeAddmessage}/></div>
-          <div className="mt-3">userToken : <input readOnly type="text" id="userToken" className="form-control" value={this.state.formAddmessage.userToken} onChange={this.handleChangeAddmessage}/></div>
+          <div className="mt-3">userToken : <input type="text" id="userToken" className="form-control" value={this.state.formAddmessage.userToken} onChange={this.handleChangeAddmessage}/></div>
           <button type="submit" className="btn btn-primary mt-3">Submit</button>
         </form>
         <div>
