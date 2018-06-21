@@ -23,14 +23,14 @@ function postNewFeedback(request, result) {
     const mail = request.body.mail;
     const pathImageUser = request.body.path_image_user;
     const topic = request.body.topic;
-    const feebackcontent = request.body.feebackcontent;
+    const content = request.body.content;
     const decathlonid = request.body.decathlonid;
     let pathPhoto;
     if (request.file) {
       pathPhoto = request.file.filename;
     }
 
-    return feedbacksService.createNewFeedback(username, mail, pathImageUser, topic, feebackcontent, decathlonid, pathPhoto)
+    return feedbacksService.createNewFeedback(username, mail, pathImageUser, topic, content, decathlonid, pathPhoto)
     .then(infos => {
       if (infos.errorMessage) {
         result.json({status: "error", errorMessage: infos.errorMessage});

@@ -2,6 +2,8 @@ const db = require('./../models/index');
 const operator = db.sequelize.Op;
 const uuid = require('uuid-v4');
 
+const usersService = require("./usersService");
+
 function newFeedback() {
   const newFeedback = {
     header : {},
@@ -111,7 +113,7 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
       return users[0];
     } else {
       //console.log("createNewFeedback: create new users");
-      return db.users.create({name: username, mail: mail, path_image: pathImageUser, type: "CUSTOMER", token: uuid()});
+      return usersService.createNewCustomerUser(username, mail, pathImageUser);
     }
   })
   .then(user => {

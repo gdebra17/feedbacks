@@ -78,7 +78,7 @@ export default class Form extends React.Component {
     const formData = new FormData();
     formData.append("decathlonid", this.state.form.decathlonid);
     formData.append("topic", this.state.form.topic);
-    formData.append("feebackcontent", this.state.form.content);
+    formData.append("content", this.state.form.content);
     formData.append("photo", this.state.form.photo);
     formData.append("username", this.state.form.username);
     formData.append("mail", this.state.form.mail);
