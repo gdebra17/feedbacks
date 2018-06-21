@@ -121,15 +121,15 @@ export default class Form extends React.Component {
             <form onClick={this.handleTopic}>
             <div className="card-body">
               <ul className="list-group">
-                <LineTopic label="Handlebar" activeTopic={this.state.topic}/>
-                <LineTopic label="Saddle" activeTopic={this.state.topic}/>
-                <LineTopic label="Brakes" activeTopic={this.state.topic}/>
-                <LineTopic label="Frame" activeTopic={this.state.topic}/>
-                <LineTopic label="Bicycle drive" activeTopic={this.state.topic}/>
-                <LineTopic label="Wheels" activeTopic={this.state.topic}/>
-                <LineTopic label="Pedals" activeTopic={this.state.topic}/>
-                <LineTopic label="Derailleurs" activeTopic={this.state.topic}/>
-                <LineTopic label="Accessories" activeTopic={this.state.topic}/>
+                <LineTopic label="Handlebar" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Saddle" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Brakes" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Frame" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Bicycle drive" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Wheels" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Pedals" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Derailleurs" activeTopic={this.state.form.topic}/>
+                <LineTopic label="Accessories" activeTopic={this.state.form.topic}/>
 
               </ul>
             </div>
