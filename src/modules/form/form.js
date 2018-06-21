@@ -24,7 +24,7 @@ export default class Form extends React.Component {
       form: {
         decathlonid: "8377732",
         topic: "",
-        feedback: "",
+        content: "",
         photo: null,
         username: "",
         mail: "",
@@ -38,18 +38,18 @@ export default class Form extends React.Component {
   }
 
   handleTopic = (event) => {
-    this.setState({topic: event.target.innerText})
+    this.setState({form: {...this.state.form, topic: event.target.innerText}})
     console.log(event.target);
     console.log(this.state);
   }
 
   handleFeedback = (event) => {
-    this.setState({feedback: document.getElementById("feedback").value})
+    this.setState({form: {...this.state.form, content: document.getElementById("feedback").value}})
     console.log(this.state);
   }
 
   handlePhoto = (event) => {
-    this.setState({photo: event.target.files[0]})
+    this.setState({form: {...this.state.form, photo: event.target.files[0]}})
     console.log(this.state);
   }
 
@@ -70,18 +70,18 @@ export default class Form extends React.Component {
   }
 
   handleName = (event) => {
-    console.log("event.target.value ", event.target.value);
-    this.setState({username: event.target.value});
+    //console.log("event.target.value ", event.target.value);
+    this.setState({form: {...this.state.form, username: event.target.value}})
   }
 
   handleMail = (event) => {
     console.log("event.target.value ", event.target.value);
-    this.setState({mail: event.target.value});
+    this.setState({form: {...this.state.form, mail: event.target.value}})
+    console.log(this.state);
   }
 
 
   handleSubmit = (event) => {
-
     event.preventDefault();
 
     fetch("/feedbacks", {
