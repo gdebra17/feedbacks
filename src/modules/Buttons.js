@@ -13,7 +13,11 @@ class Buttons extends Component {
         </span>
         <span> || </span>
         <span className="input-group-btn">
-          <Link to="/chats"> Click HERE to go to Chats</Link>
+          <Link to="/chats"> to Chats</Link>
+        </span>
+        <span> || </span>
+        <span className="input-group-btn">
+          <Link to="/testform">to TestForm</Link>
         </span>
       </div>
     );
