@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Header from "../header/Header";
 
 export default class Dashboard extends React.Component {

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './form.css';
 import Header from "../header/Header";
 const arrowDown = require ("./images/down2.png");
@@ -62,12 +61,6 @@ export default class Form extends React.Component {
     });
   }
 
-  // handleSubmitPhoto = (event) => {
-  //   event.preventDefault();
-  //   this.fileUpload(this.state.photo)
-  //     .then(response => console.log(response.json()))
-  // }
-
   handleName = (event) => {
     //console.log("event.target.value ", event.target.value);
     this.setState({form: {...this.state.form, username: event.target.value}})
@@ -79,15 +72,6 @@ export default class Form extends React.Component {
     console.log(this.state);
   }
 
-
-  fileUpload(file){
-    const formData = new FormData();
-    formData.append("file", file);
-    return fetch("/upload-file", {
-      method: "POST",
-      body: formData
-    });
-  }
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -177,15 +161,10 @@ export default class Form extends React.Component {
           </a>
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
 
-            <form onSubmit={this.handleSubmitPhoto}>
-            <div className="card-body photo">
-              <input onChange={this.handlePhoto} type="file" accept="image/*" />
-            </div>
-            <div className="card-body nav justify-content-center">
-              <input type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3" value="Upload" />
+              <div className="card-body photo mt-3 mb-3">
+                <input onChange={this.handlePhoto} type="file" accept="image/*" />
+              </div>
 
-            </div>
-            </form>
           </div>
         </div>
         <div className="card">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 //import './App.css';
 import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/Form";
@@ -15,6 +15,10 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
+          <div className="container">
+            <a href="/feedback">Page feedback de l'utilisateur</a> ||
+            <a href="/dashboard">  Dashboard de l'ingénieur</a> ||
+          </div>
             <Route exact path="/" component={Buttons}/>
             <Route exact path="/feedback" component={Form}/>
 
@@ -23,6 +27,7 @@ class App extends Component {
             <Route exact path="/testform" component={TestForm} />
             <Route exact path="/about" component={About} />
             <Route exact path="/dashboard" component={Dashboard} />
+
 
           </div>
       </Router>
