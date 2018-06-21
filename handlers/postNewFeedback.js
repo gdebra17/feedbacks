@@ -12,7 +12,11 @@ function postNewFeedback(request, result) {
 
   return feedbacksService.createNewFeedback(username, mail, path_image_user, topic, content, decathlonid, photo)
   .then(infos => {
-    result.json(infos);
+    if (infos.errorMessage) {
+      result.json({status: "error", errorMessage: infos.errorMessage});
+    } else {
+      result.json({status: "succeeded", data: infos});
+    }
   })
 }
 
