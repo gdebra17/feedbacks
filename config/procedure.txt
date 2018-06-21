@@ -5,19 +5,22 @@ node_modules/.bin/sequelize init    => creation dans le projet des 4 repertoires
 
 >> copier le config.sample.json en config.json et mettre à jouer user et pwd
 
+0a/ creation du user avec lequel la BDD sera créée
 createuser --interactive feedback
 
+0b/ creation de la base de donnée
 node_modules/.bin/sequelize db:create
-=> creation de la base de donnée
+
+
 
 <<< POUR NOTRE PROJET >>>
 
 1/ generation des model et des scripts de migration
 node_modules/.bin/sequelize model:generate --name creators --attributes name:string,email:string
 node_modules/.bin/sequelize model:generate --name feedbacks --attributes user_id:integer,product_id:integer,topic:string,token:string
-node_modules/.bin/sequelize model:generate --name messages --attributes feedback_id:integer,user_id:integer,content:string
+node_modules/.bin/sequelize model:generate --name messages --attributes feedback_id:integer,user_id:integer,content:string,read:boolean
 node_modules/.bin/sequelize model:generate --name uploads --attributes message_id:integer,content:string
-node_modules/.bin/sequelize model:generate --name users --attributes name:string,mail:string,type:string
+node_modules/.bin/sequelize model:generate --name users --attributes name:string,mail:string,type:string,token:string,path_image:string
 node_modules/.bin/sequelize model:generate --name products --attributes name:string,decathlonid:string,url:string,expiringdate:date,user_id:integer
 
 2/ creation des tables en BDD

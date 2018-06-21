@@ -30,6 +30,14 @@
   justify-content: space-between;
 }
 
+
+.photo {
+  display: block;
+  flex-direction: row;
+  justify-content:center;
+  align-content: center;
+  text-align:center;
+
 .active {
     background: #f00;
 }
