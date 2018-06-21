@@ -1,5 +1,7 @@
 import React from 'react';
 import './form.css';
+const arrowDown = require ("./images/down2.png");
+const arrowUp = require ("./images/up2.png");
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -59,8 +61,8 @@ export default class Form extends React.Component {
         <div className="card mt-3">
           <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <h5 className="mb-0">Concerned bike part</h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
 
           <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" data-toggle="collapse" data-target="#collapseTwo">
@@ -84,8 +86,8 @@ export default class Form extends React.Component {
         <div className="card">
           <a className="card-header" id="headingTwo" data-toggle="collapse" href="#collapseTwo" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <h5 className="mb-0">Your improvement idea</h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
           <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 
@@ -103,8 +105,8 @@ export default class Form extends React.Component {
             <h5 className="mb-0">
                 Upload a picture
             </h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
 
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
@@ -123,8 +125,8 @@ export default class Form extends React.Component {
             <h5 className="mb-0">
                 Send your feedback !
             </h5>
-            <div className="arrowOpen"><img className="arrow" src="./images/down2.png" alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src="./images/up2.png" alt=""/></div>
+            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
           <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div className="card-body">
