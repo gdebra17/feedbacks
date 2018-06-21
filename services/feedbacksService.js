@@ -19,14 +19,24 @@ function dbProductToFacade(dbProduct) {
   return {name: dbProduct.name, decathlonid: dbProduct.decathlonid, url: dbProduct.url, expiringdate: dbProduct.expiringdate};
 }
 
-function dbMessageUserToFacade(dbMessageUser) {
-  return {body: dbMessageUser.content, createdDate: dbMessageUser.createdAt, read: dbMessageUser.read, sender: dbUserToFacade(dbMessageUser)};
+function dbMessageUserToFacade(dbMessageUser, dbUploads) {
+  return {body: dbMessageUser.content, createdDate: dbMessageUser.createdAt, read: dbMessageUser.read, sender: dbUserToFacade(dbMessageUser), uploads: dbUploadsToFacade(dbUploads)};
 }
 
 function dbUserToFacade(dbUser) {
   return {token: dbUser.token, name: dbUser.name, mail: dbUser.mail, type: dbUser.type, pathImage: dbUser.path_image};
 }
 
+function dbUploadsToFacade(dbUploads) {
+  if (dbUploads) {
+    console.log("dbUploadsToFacade dbUploads=", dbUploads);
+    return dbUploads.map(dbUpload => {
+      return {pathUpload : dbUpload.path_upload, createdDate: dbUpload.createdAt}
+    });
+  } else {
+    return [];
+  }
+}
 
 function getFeedbackHeaderByToken(feedbackToken) {
   return db.feedbacks.findAll({
@@ -44,39 +54,38 @@ function getFeedbackHeaderByToken(feedbackToken) {
 function getFeedbackDetailById(feedbackId) {
   console.log("services/getFeedbackDetailById:", feedbackId);
   const feedbackResult = newFeedback();
-  const userIdList = [];
 
   return db.sequelize.query('SELECT * FROM feedbacks f left outer join products p on p.id=f.product_id WHERE f.id = :feedbackId ',
     { replacements: { feedbackId: feedbackId }, type: db.sequelize.QueryTypes.SELECT })
   .then(dbFeedbacks => {
     feedbackResult.header = dbFeedbackProductToFacade(dbFeedbacks[0]);
 
-    userIdList.push(dbFeedbacks[0].userId);
-
-    return db.sequelize.query('SELECT * FROM messages m inner join users u on u.id=m.user_id WHERE m.feedback_id = :feedbackId ',
+    return db.sequelize.query('SELECT m.id as message_id, * FROM messages m inner join users u on u.id=m.user_id WHERE m.feedback_id = :feedbackId ',
       { replacements: { feedbackId: feedbackId }, type: db.sequelize.QueryTypes.SELECT })
   })
   .then(dbMessagesUser => {
-    dbMessagesUser.forEach(dbMessageUser => {
-      feedbackResult.messages.push(dbMessageUserToFacade(dbMessageUser));
-
-      if (!userIdList.includes(dbMessageUser.user_id)) {
-        userIdList.push(dbMessageUser.user_id);
-      }
+    console.log("dbMessagesUser=", dbMessagesUser);
+    return Promise.all(
+      dbMessagesUser.map(dbMessageUser => {
+        return db.uploads.findAll({
+          where: {
+            message_id: dbMessageUser.message_id,
+          },
+          raw: true
+        })
+        .then(dbUploads => {
+          console.log("dbUploads=", dbUploads);
+          return dbMessageUserToFacade(dbMessageUser, dbUploads);
+        })
+      })
+    )
+    .then(values => {
+      console.log("values=", values);
+      feedbackResult.messages = values;
+      return feedbackResult
     });
-    return db.users.findAll({
-      where: {
-        id: { [operator.or]: userIdList }
-      },
-      raw: true
-    });
+    console.log("return=")
   })
-  .then(dbUsers => {
-    // dbUsers.forEach(dbUser => {
-    //   feedbackResult.senders.push(dbUserToFacadeUser(dbUser));
-    // });
-    return feedbackResult;
-  });
 }
 
 
@@ -135,7 +144,7 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
     currentMessageId = message.id;
     //console.log("createNewFeedback: currentMessageId=", currentMessageId);
     if (pathPhoto) {
-      return db.uploads.create({message_id: currentMessageId, content: pathPhoto})
+      return db.uploads.create({message_id: currentMessageId, path_upload: pathPhoto})
       .then(upload => {
         currentUploadId = upload.id;
         //console.log("createNewFeedback: currentUploadId=", currentUploadId);

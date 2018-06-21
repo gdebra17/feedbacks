@@ -11,7 +11,7 @@ module.exports = {
       message_id: {
         type: Sequelize.INTEGER
       },
-      content: {
+      path_upload: {
         type: Sequelize.STRING
       },
       createdAt: {

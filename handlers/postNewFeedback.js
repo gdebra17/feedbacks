@@ -18,18 +18,19 @@ function postNewFeedback(request, result) {
     if (err) {
       result.json({status: "error", errorMessage: "Error uploading file."});
     }
+    console.log("handlers/postNewFeedback in upload:", request.body);
     const username = request.body.username;
     const mail = request.body.mail;
     const pathImageUser = request.body.path_image_user;
     const topic = request.body.topic;
-    const content = request.body.content;
+    const feebackcontent = request.body.feebackcontent;
     const decathlonid = request.body.decathlonid;
     let pathPhoto;
     if (request.file) {
       pathPhoto = request.file.filename;
     }
-    
-    return feedbacksService.createNewFeedback(username, mail, pathImageUser, topic, content, decathlonid, pathPhoto)
+
+    return feedbacksService.createNewFeedback(username, mail, pathImageUser, topic, feebackcontent, decathlonid, pathPhoto)
     .then(infos => {
       if (infos.errorMessage) {
         result.json({status: "error", errorMessage: infos.errorMessage});
