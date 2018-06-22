@@ -1,0 +1,14 @@
+
+.header{
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
+/* img {
+  max-height: 20%;
+} */
