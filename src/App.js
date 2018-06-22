@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-//import './App.css';
+import './App.css';
 import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/Form";
 import Dashboard from "./modules/dashboard/Dashboard";
@@ -42,14 +42,14 @@ class App extends Component {
             <Route exact path="/testform" component={TestForm} />
             <Route exact path="/about" component={About} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/IP/:id" component={Tchat} />
-            <Route exact path="/s/:id" component={Tchat} />
           </div>
       </Router>
 
     );
   }
 }
+// <Route exact path="/ip/:tokenUser/:tokenFeedback" component={Tchat} />
+// <Route exact path="/s/:tokenFeedback" component={Tchat} />
 // <Route path="/chats/:id" component={ChatComponent} />
 
 export default App;
