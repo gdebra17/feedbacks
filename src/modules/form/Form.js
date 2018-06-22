@@ -36,6 +36,26 @@ export default class Form extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.getElementById("feedbackSuccess").style.display = "none";
+    document.getElementById("feedbackSubmit").setAttribute("disabled","disabled");
+  }
+
+  componentDidUpdate() {
+    if (this.state.form.content !== "") {
+      document.getElementById("feedbackSubmit").removeAttribute("disabled");
+    } else {
+      document.getElementById("feedbackSubmit").setAttribute("disabled","disabled");
+    }
+    if (this.state.fetchResult.status === "succeeded") {
+      document.getElementById("feedbackSuccess").style.display = "block";
+    } else {
+      document.getElementById("feedbackSuccess").style.display = "none";
+    }
+
+  }
+
+
   handleTopic = (event) => {
     this.setState({form: {...this.state.form, topic: event.target.innerText}})
     console.log(event.target);
@@ -71,8 +91,6 @@ export default class Form extends React.Component {
     this.setState({form: {...this.state.form, mail: event.target.value}})
     console.log(this.state);
   }
-
-
   handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -99,16 +117,27 @@ export default class Form extends React.Component {
           }
         });
       })
+      this.clearForm();
   }
 
+clearForm = () => {
+  this.setState({form: {
+    topic: "",
+    content: "",
+  }})
+document.getElementById("userform").reset();
 
+  console.log(this.state.form);
+}
 
   render() {
-
 
     return (
       <div className="container">
         <Header />
+        <form onSubmit={this.handleSubmit} id="userform">
+
+
       <div id="accordion">
         <div className="card mt-3">
           <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -117,8 +146,8 @@ export default class Form extends React.Component {
             <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
           <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" data-toggle="collapse" data-target="#collapseTwo">
-            <form onClick={this.handleTopic}>
-            <div className="card-body">
+
+            <div className="card-body" onClick={this.handleTopic}>
               <ul className="list-group">
                 <LineTopic label="Handlebar" activeTopic={this.state.form.topic}/>
                 <LineTopic label="Saddle" activeTopic={this.state.form.topic}/>
@@ -132,7 +161,7 @@ export default class Form extends React.Component {
 
               </ul>
             </div>
-            </form>
+
           </div>
         </div>
         <div className="card">
@@ -144,27 +173,29 @@ export default class Form extends React.Component {
           <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 
             <div className="card-body">
-              <form>
-                <textarea className="form-control" id="feedback" rows="5"></textarea>
-                <button type="button" onClick={this.handleFeedback} className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Confirm</button>
-              </form>
+                <textarea onChange={this.handleFeedback} className="form-control" id="feedback" name="feedback" rows="5" required></textarea>
+                <button type="button" id="feedbackSubmit" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Confirm</button>
             </div>
           </div>
         </div>
         <div className="card">
           <a className="card-header" id="headingThree" data-toggle="collapse" href="#collapseThree" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <h5 className="mb-0">
-                Upload a picture
-            </h5>
-            <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
-            <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
-          </a>
+              <h5 className="mb-0">
+                  Upload a picture
+              </h5>
+              <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
+              <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
+            </a>
+
+
           <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
 
-              <div className="card-body photo mt-3 mb-3">
-                <input onChange={this.handlePhoto} type="file" accept="image/*" />
+              <div className="card-body photo mt-3">
+                <input onChange={this.handlePhoto} type="file" id="photo" accept="image/*" />
               </div>
-
+                <div className="card-body photo">
+              <button type="button" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseFour">Upload</button>
+            </div>
           </div>
         </div>
         <div className="card">
@@ -177,21 +208,25 @@ export default class Form extends React.Component {
           </a>
           <div id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div className="card-body">
-              <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                  <input onChange={this.handleName} type="text" className="form-control" id="name" placeholder="Enter your Name"/>
-                </div>
-                <div className="form-group">
-                  <input onChange={this.handleMail} type="email" className="form-control" id="mail" placeholder="Enter your email address"/>
+
+                  <input onChange={this.handleName} type="text" className="form-control" id="name" placeholder="Enter your Name" required/>
+                  <input onChange={this.handleMail} type="email" className="form-control mt-3" id="mail" placeholder="Enter your email address" required/>
                   <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                  <div className="card-body alert alert-success" role="alert" id="feedbackSuccess">
+                    Your feedback was successfully sent straight to the engineer who developed your bike. You can access the <a href={`/feedbacks/${this.state.fetchResult.data}`} className="alert-link">dialog page by clicking here</a>!
+                  </div>
+                  <button type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
+
+
                 </div>
-                <button type="submit" onKeyPress={this.handleSubmit} className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
-              </form>
+
             </div>
           </div>
         </div>
       </div>
-            </div>
+      </form>
+    </div>
     )
   }
 };
