@@ -1,0 +1,16 @@
+.font {
+  font-size: 8px;
+}
+
+.card-columns {
+  @include media-breakpoint-up(md) {
+    column-count: 2;
+  }
+  @include media-breakpoint-up(lg) {
+    column-count: 3;
+    padding: -5px;
+  }
+  @include media-breakpoint-up(xl) {
+    column-count: 3;
+  }
+}

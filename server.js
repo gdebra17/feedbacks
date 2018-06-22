@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const Websocket = require("ws");
 const http = require("http");
-
+const cors = require("cors");
 const handlers = require("./handlers/index");
 
 if (process.env.NODE_ENV !== "production") {
@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 const app = express();
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
-
+app.use(cors());
 app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: false }));
 
@@ -24,6 +24,7 @@ app.post("/feedbacks", handlers.postNewFeedback);
 app.get("/feedbackList", handlers.getFeedbackList);
 app.post("/messages", handlers.postNewMessage);
 app.get("/products", handlers.getAllProducts);
+app.post("/newproduct", handlers.postNewProduct);
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));

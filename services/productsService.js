@@ -16,6 +16,11 @@ function getAllProducts() {
   })
 }
 
+function addProduct(product) {
+  return db.products.create({name: product.name, decathlonid: product.id})
+}
+
 module.exports = {
   getAllProducts: getAllProducts,
+  addProduct: addProduct,
 }
