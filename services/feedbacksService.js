@@ -170,10 +170,16 @@ function addNewMessageToFeedback(feebackId, messageContent, userId) {
   })
 }
 
+function getFeedbackList() {
+  return db.sequelize.query('SELECT f.token, p.decathlonid, f.topic FROM feedbacks f inner join products p on p.id=f.product_id',
+    { type: db.sequelize.QueryTypes.SELECT })
+}
+
 
 module.exports = {
   getFeedbackHeaderByToken: getFeedbackHeaderByToken,
   getFeedbackDetailById: getFeedbackDetailById,
   createNewFeedback: createNewFeedback,
   addNewMessageToFeedback: addNewMessageToFeedback,
+  getFeedbackList: getFeedbackList,
 }
