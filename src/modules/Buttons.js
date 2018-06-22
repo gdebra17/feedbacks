@@ -18,6 +18,10 @@ class Buttons extends Component {
         <span className="input-group-btn">
           <Link to="/testform">to TestForm</Link>
         </span>
+        <span className="input-group-btn">
+          <span> || </span>
+          <Link to="/connect">to Connect</Link>
+        </span>
       </div>
     );
   }
