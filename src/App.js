@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //import './App.css';
 import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/form";
+import Connect from "./modules/connect/connect";
 
 import About from "./modules/about/About";
 //import Tchat from "./modules/Tchat/Tchat";
@@ -17,6 +18,7 @@ class App extends Component {
         <div className="container">
             <Route exact path="/" component={Buttons}/>
             <Route exact path="/feedback" component={Form}/>
+            <Route exact path="/connect" component={Connect}/>
 
             {/* <Route exact path="/chats" component={Tchat} /> */}
             {/* <Route exact path="/user" component={Tchat0} /> */}
