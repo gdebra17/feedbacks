@@ -38,6 +38,7 @@ export default class Form extends React.Component {
 
   componentDidMount() {
     document.getElementById("feedbackSuccess").style.display = "none";
+    document.getElementById("feedbackFail").style.display = "none";
     document.getElementById("feedbackSubmit").setAttribute("disabled","disabled");
   }
 
@@ -49,8 +50,8 @@ export default class Form extends React.Component {
     }
     if (this.state.fetchResult.status === "succeeded") {
       document.getElementById("feedbackSuccess").style.display = "block";
-    } else {
-      document.getElementById("feedbackSuccess").style.display = "none";
+    } else if (this.state.fetchResult.status === "error") {
+      document.getElementById("feedbackFail").style.display = "block";
     }
 
   }
@@ -215,6 +216,9 @@ document.getElementById("userform").reset();
                   <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                   <div className="card-body alert alert-success" role="alert" id="feedbackSuccess">
                     Your feedback was successfully sent straight to the engineer who developed your bike. You can access the <a href={`/feedbacks/${this.state.fetchResult.data}`} className="alert-link">dialog page by clicking here</a>!
+                  </div>
+                  <div className="card-body alert alert-danger" role="alert" id="feedbackFail">
+                    Sorry, an error occured. We are working on it, please try again later.
                   </div>
                   <button type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
 
