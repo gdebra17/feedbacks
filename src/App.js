@@ -7,7 +7,7 @@ import Form from "./modules/form/Form";
 import Dashboard from "./modules/dashboard/Dashboard";
 import About from "./modules/about/About";
 import Discussion from "./modules/Tchat/Discussion";
-//import Tchat from "./modules/Tchat/Tchat";
+import Tchat from "./modules/Tchat/Tchat";
 // import Tchat0 from "./modules/Tchat/Tchat0";
 import Buttons from "./modules/Buttons";
 
@@ -36,7 +36,7 @@ class App extends Component {
             <Route exact path="/about" component={About} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/IP/:id" component={Tchat} />
-            <Route exact path="/:id" component={Tchat} />
+            <Route exact path="/s/:id" component={Tchat} />
           </div>
       </Router>
 
