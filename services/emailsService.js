@@ -6,6 +6,8 @@ function replaceAllInformations(body, informations) {
       var re = new RegExp(replaceWhat, 'g');
       return str.replace(re,replaceTo);
   }
+  informations.urlEmailCustomer = process.env.URL_EMAIL_CUSTOMER;
+
   let bodyResult = body;
   Object.keys(informations).forEach(key => {
     bodyResult = replaceAll(bodyResult, "{"+key+"}", informations[key]);
@@ -14,13 +16,13 @@ function replaceAllInformations(body, informations) {
 }
 
 function sendMail(user, emailTemplateId, informationJson) {
-
   const information = JSON.parse(informationJson);
-  console.log("sendMail user=", user, ", emailTemplateId=", emailTemplateId, ", information=", information);
+  //console.log("sendMail user=", user, ", emailTemplateId=", emailTemplateId, ", information=", information);
+
+console.log("process.env.MJ_APIKEY_PUBLIC", process.env.MJ_APIKEY_PUBLIC);
 
   const mailjet = require ('node-mailjet')
-    .connect("4bf3b6bad2aaece63ff888a478a84e78", "d2b5440e2dcf192f6b673517ea358d61")
-    // .connect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE)
+    .connect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE)
 
   return db.email_templates.findAll({
     where: {
@@ -29,9 +31,6 @@ function sendMail(user, emailTemplateId, informationJson) {
     raw: true
   })
   .then(emailTemplates => {
-
-
-
     const request = mailjet
       .post("send", {'version': 'v3.1'})
       .request({
@@ -39,7 +38,7 @@ function sendMail(user, emailTemplateId, informationJson) {
                 {
               "From": {
               "Email": "julian.boes@decathlon.com",
-              "Name": "Mailjet Pilot"
+              "Name": "Decathlon"
             },
             "To": [
               {
