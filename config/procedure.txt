@@ -23,6 +23,10 @@ node_modules/.bin/sequelize model:generate --name uploads --attributes message_i
 node_modules/.bin/sequelize model:generate --name users --attributes name:string,mail:string,type:string,token:string,path_image:string
 node_modules/.bin/sequelize model:generate --name products --attributes name:string,decathlonid:string,url:string,expiringdate:date,user_id:integer
 
+node_modules/.bin/sequelize model:generate --name email_histories --attributes email_template_id:integer,user_id:integer,information:string,status:string,sendingdate:date
+node_modules/.bin/sequelize model:generate --name email_templates --attributes code:string,subject:string,body:string
+
+
 2/ creation des tables en BDD
 node_modules/.bin/sequelize db:migrate
 
@@ -33,6 +37,7 @@ node_modules/.bin/sequelize seed:generate --name data-products
 node_modules/.bin/sequelize seed:generate --name data-feedbacks
 node_modules/.bin/sequelize seed:generate --name data-messages
 node_modules/.bin/sequelize seed:generate --name data-uploads
+node_modules/.bin/sequelize seed:generate --name data-email_templates
 + alimentation des scripts
 
 4/ execution des scripts seeds
