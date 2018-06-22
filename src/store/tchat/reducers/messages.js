@@ -16,12 +16,12 @@ const initialState = {
 export function messagesReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_MESSAGE':
-      sendMessage("IP", state.message.currentChannel ,action.message);
-      return state = {
+      sendMessage(action.pathname, state.message.currentChannel ,action.message);
+      return {
         ...state,
         message:{
           newMessage: action.message,
-          currentChannel: '',
+          currentChannel: action.pathname,
         },
         messages: {
           ...state.messages,
@@ -40,9 +40,11 @@ export function messagesReducer(state = initialState, action) {
         //     messages: [...state.messages.messages, {id: action.id, message: action.message, author: "sender"}],
         //   }
         // }
-        return {...state, messages: {
+        console.log("action/message is : ", action);
+        return {...state,
+          messages: {
             ...state.messages,
-            messages: [...state.messages.messages, {id: action.id, message: action.message, author: "sender"}],
+            messages: [...state.messages.messages, {id: action.id, message: action.messages, author: "sender"}],
           }}
     case 'SENDMESSAGEANDRESET':
       sendMessage(state.currentChannel ,state.newMessage)

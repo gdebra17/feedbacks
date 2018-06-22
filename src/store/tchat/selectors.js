@@ -1,6 +1,5 @@
-export function getProfileInfo(reduxState) {
+export function getMessageFun(reduxState) {
   return {
-    profileInfo: reduxState.profileReducer.profileInfo,
-    disconnect: reduxState.profileReducer.disconnect,
+    tchatReducer: reduxState.tchatReducer,
   }
 }

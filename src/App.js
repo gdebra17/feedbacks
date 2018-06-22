@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/form";
+
+
 //import './App.css';
 //import About from "./modules/about/About";
 import Tchat from "./modules/Tchat/Tchat";
@@ -14,6 +16,7 @@ import {
 } from 'react-router-dom'
 
 
+
 class App extends Component {
   render() {
 
@@ -22,8 +25,8 @@ class App extends Component {
         <div>
             <Route path="/" component={Buttons}/>
             <Route exact path="/" component={Form}/>
-            <Route exact path="/chats" component={Tchat} />
-            <Route exact path="/user" component={Tchat0} />
+            <Route exact path="/IP/:id" component={Tchat} />
+            <Route exact path="/:id" component={Tchat} />
           </div>
       </Router>
     );
