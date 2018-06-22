@@ -32,9 +32,9 @@
   padding: 0;
   margin: 0;
 }
-body {
+/* body {
     font-family: "Press Start 2P";
-}
+} */
 #container {
     display: grid;
     grid-template-columns: 1fr 3fr;
