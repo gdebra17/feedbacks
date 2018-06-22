@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/Form";
 import Dashboard from "./modules/dashboard/Dashboard";
+import Connect from "./modules/connect/connect";
+
 import About from "./modules/about/About";
 import Discussion from "./modules/Tchat/Discussion";
 //import Tchat from "./modules/Tchat/Tchat";
@@ -24,6 +26,11 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
+
+            <Route exact path="/" component={Buttons}/>
+            <Route exact path="/feedback" component={Form}/>
+            <Route exact path="/connect" component={Connect}/>
+
 
           <Route path="/discussion/:tokenFeedback" render={this.getDiscussion}/>
 
