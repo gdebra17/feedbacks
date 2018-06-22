@@ -1,8 +1,7 @@
-// import { setProfile, setDisconnect } from "./actions";
-//
-// export function profileHandler(dispatch) {
-//   return {
-//     setProfileInfo: (profile, disconnect)  => dispatch(setProfile(profile, disconnect)),
-//     setDisconnectFunction: ()  => dispatch(setDisconnect()),
-//   }
-// }
+import { addMessage } from "./actions/index";
+
+export function messageHandler(dispatch) {
+  return {
+    addMessage: (message, author)  => dispatch(addMessage(message, author)),
+  }
+}

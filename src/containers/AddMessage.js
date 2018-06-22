@@ -3,8 +3,8 @@ import AddMessageComponent from '../components/AddMessage'
 import { addMessage } from '../store/tchat/actions'
 
 const mapDispatchToProps = dispatch => ({
-  dispatch: (message, author) => {
-    dispatch(addMessage(message, author))
+  dispatch: (message, author, path) => {
+    dispatch(addMessage(message, author, path))
   }
 })
 
