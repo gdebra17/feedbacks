@@ -8,8 +8,8 @@ const AddMessage = (props) => {
     <section id="new-message">
       <input
         onKeyPress={(e) => {
-        if (e.key === 'Enter') {
-          props.dispatch(input.value, 'Me')
+        if (e.key === 'Enter' && (input.value !== null)) {
+          props.dispatch(input.value, 'Me', window.location.pathname)
           input.value = ''
         }
       }}

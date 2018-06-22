@@ -1,18 +1,27 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('uploads', {
+    return queryInterface.createTable('email_histories', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      message_id: {
+      email_template_id: {
         type: Sequelize.INTEGER
       },
-      path_upload: {
+      user_id: {
+        type: Sequelize.INTEGER
+      },
+      information: {
         type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.STRING
+      },
+      sendingdate: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -25,6 +34,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('uploads');
+    return queryInterface.dropTable('email_histories');
   }
 };

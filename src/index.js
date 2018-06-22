@@ -6,6 +6,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import createSagaMiddleware from 'redux-saga'
+// import handleNewMessage from './src/store/sagas'
 import { addUser } from './store/tchat/actions/index'
 
 
@@ -33,6 +35,12 @@ window.googleConnectCallback = function(googleUser){
 };
 store.dispatch(addUser('Me'));
 
+//
+// const sagaMiddleware = createSagaMiddleware();
+//
+// const socket = setupSocket(store.dispatch);
+//
+// sagaMiddleware.run(handleNewMessage, { socket });
 
 
 ReactDOM.render(
