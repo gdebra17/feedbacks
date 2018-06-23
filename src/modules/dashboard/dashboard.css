@@ -2,6 +2,13 @@
   font-size: 8px;
 }
 
+.newProd {
+    text-align: center;
+    justify-content: flex-start;
+}
+
+
+
 .card-columns {
   @include media-breakpoint-up(md) {
     column-count: 2;

@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from "../header/Header";
+import "./dashboard.css";
 
 export default class Dashboard extends React.Component {
   constructor(props) {
@@ -9,12 +10,27 @@ export default class Dashboard extends React.Component {
         feedbacks: [],
         productName: "",
         productDecathlonId: "",
+        expiringDate: "",
+        user_id: 0,
       };
     }
+
+setExpiringDate = () => {
+  let today = new Date();
+  today.setMonth(today.getMonth() + 3);
+  today = today.toJSON().slice(0,10);
+  // console.log(today);
+  this.setState({expiringDate: today});
+}
+
+onClose = () => {
+  document.getElementById("newProduct").reset();
+}
 
 componentDidMount = () => {
   this.getProductsList();
   this.getFeedbacks();
+  this.setExpiringDate();
 }
 
 handleProductName = (event) => {
@@ -25,6 +41,17 @@ handleProductDecathlonId = (event) => {
   this.setState({productDecathlonId: event.target.value})
 }
 
+handleExpiringDate = (event) => {
+
+  console.log("event.target.value ", event.target.value);
+
+  this.setState({expiringDate: event.target.value})
+  let now = new Date().toJSON();
+  console.log(now - this.state.expiringDate);
+  //let withinTime = new Date() - this.state.expiringDate
+
+}
+
 getProductsList = () => {
   fetch("http://localhost:8080/products")
         .catch((error) => {
@@ -33,7 +60,7 @@ getProductsList = () => {
         .then((response) => response.json())
         .then((resp) => {
           this.setState({"productsList": resp})
-          //console.log(this.state.productsList);
+          //console.log("Liste des produits ", this.state.productsList);
         })
 }
 
@@ -45,14 +72,15 @@ getFeedbacks = () => {
         .then((response) => response.json())
         .then((resp) => {
           this.setState({"feedbacks": resp})
-          console.log(this.state.feedbacks);
+          //console.log(this.state.feedbacks);
         })
 }
 
 postNewProduct = () => {
+  console.log("decathlon id reconnu ? ", this.state.productDecathlonId);
   fetch("http://localhost:8080/newproduct", {
     method: "POST",
-    body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId}),
+    body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId, expiringDate: this.state.expiringDate, user_id: this.state.username}),
     headers: {
     'content-type': 'application/json'
   }
@@ -81,17 +109,31 @@ postNewProduct = () => {
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <form onSubmit={this.postNewProduct}>
-                    <div className="modal-body">
-                      <input onChange={this.handleProductName} name="name" type="text"/>
-                      <input onChange={this.handleProductDecathlonId} name="decathlonid" type="text"/>
-
+                  <form onSubmit={this.postNewProduct} id="newProduct">
+                  <div className="form-group row mt-2">
+                    <label className="col-sm-5 col-form-label">Product name</label>
+                    <div className="col-sm-7">
+                      <input className="newProd text-uppercase" onChange={this.handleProductName} name="name" type="text" required/>
                     </div>
-                    <div className="modal-footer">
-                      <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" className="btn btn-primary">Add product</button>
+                  </div>
+                  <div className="form-group row mt-2">
+                    <label className="col-sm-5 col-form-label">Generic article code</label>
+                    <div className="col-sm-7">
+                      <input className="newProd" onChange={this.handleProductDecathlonId} name="decathlonid" type="text" maxLength="7" required/>
                     </div>
-                  </form>
+                  </div>
+                  <div className="form-group row mt-2">
+                    <label className="col-sm-5 col-form-label">Expiring date</label>
+                    <div className="col-sm-7">
+                      <input className="newProdexpiringDate" onChange={this.handleExpiringDate} value={this.state.expiringDate} id="expiringDate" type="date"/>
+                    </div>
+                    <label className="col-sm-12 col-form-label">The QR Code will expire within {}</label>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" onClick={this.onClose} className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" className="btn btn-primary">Add product</button>
+                  </div>
+                </form>
                 </div>
               </div>
             </div>
@@ -101,9 +143,9 @@ postNewProduct = () => {
             <div className="col-8">
               <ul className="list-group">
                 <li className="list-group-item d-flex font-weight-bold flex-center align-items-center">Products under review...</li>
-                {this.state.productsList.map(product => <li key={product.decathlonId} className="list-group-item d-flex justify-content-between align-items-center">
+                {this.state.productsList.map(product => <li key={product.decathlonid} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
                   <small>{product.name}</small>
-                  <footer className="blockquote-footer">{product.decathlonId}</footer>
+                  <footer className="blockquote-footer">{product.decathlonid}</footer>
                 </li>)}
               </ul>
             </div>
