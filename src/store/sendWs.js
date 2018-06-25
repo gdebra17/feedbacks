@@ -2,7 +2,7 @@ import store from './store'
 
 
 // let websocket;
-const websocket = new WebSocket(`ws://${window.location.hostname}:${process.env.NODE_ENV === "production" ? 80 : 8080}`);
+const websocket = new WebSocket(`ws${process.env.NODE_ENV === "production" ? "s" : ""}://${window.location.hostname}:${process.env.NODE_ENV === "production" ? 80 : 8080}`);
 
 
 websocket.addEventListener("message", event => {
