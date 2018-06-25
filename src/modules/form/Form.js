@@ -21,7 +21,7 @@ export default class Form extends React.Component {
     super(props);
     this.state = {
       form: {
-        decathlonid: "8377732",
+        decathlonid: "",
         topic: "",
         content: "",
         photo: null,
@@ -32,7 +32,8 @@ export default class Form extends React.Component {
         status: null,
         data: null,
         errorMessage: null,
-      }
+      },
+      productName: "",
     };
   }
 
@@ -40,7 +41,13 @@ export default class Form extends React.Component {
     document.getElementById("feedbackSuccess").style.display = "none";
     document.getElementById("feedbackFail").style.display = "none";
     document.getElementById("feedbackSubmit").setAttribute("disabled","disabled");
-    this.setState({form: {...this.state.form, decathlonid: this.props.match.params.tokenFeedback}});
+
+    fetch("/products")
+    .then(response => response.json())
+    .then(products => {
+      const product = products.find(product => product.decathlonid === this.props.match.params.decathlonid);
+      this.setState({form: {...this.state.form, decathlonid: this.props.match.params.decathlonid}, productName: product.name});
+    })
   }
 
   componentDidUpdate() {
@@ -143,7 +150,7 @@ document.getElementById("userform").reset();
       <div id="accordion">
         <div className="card mt-3">
           <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <h5 className="mb-0">Concerned bike part</h5>
+            <h5 className="mb-0">Concerned bike part - {this.state.productName}</h5>
             <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
             <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
           </a>
