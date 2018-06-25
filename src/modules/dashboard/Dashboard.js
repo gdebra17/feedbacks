@@ -83,7 +83,7 @@ getFeedbacks = () => {
 
 postNewProduct = () => {
   console.log("decathlon id reconnu ? ", this.state.productDecathlonId);
-  fetch("http://localhost:8080/newproduct", {
+  fetch("/newproduct", {
     method: "POST",
     body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId, expiringdate: this.state.expiringDate, user_id: this.state.username}),
     headers: {
