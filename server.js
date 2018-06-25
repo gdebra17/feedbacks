@@ -25,6 +25,7 @@ app.get("/feedbackList", handlers.getFeedbackList);
 app.post("/messages", handlers.postNewMessage);
 //app.post("/messages/:idtoken", handlers.getAllMessages);
 app.get("/products", handlers.getAllProducts);
+app.get("/sendMails", handlers.sendMails);
 app.post("/newproduct", handlers.postNewProduct);
 
 app.get("*", (request, result)=>{
