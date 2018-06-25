@@ -19,7 +19,7 @@ websocket.addEventListener("message", event => {
       console.log("wow such LKZAJELKJA code", message.data);
       store.dispatch({type: "MESSAGE_RECEIVED", messages: message.data})
       return;
-    }
+    } /* falls through */
     case "CHANNELS":
       store.dispatch({type: "CHANNELS", channels: message.data})
   }

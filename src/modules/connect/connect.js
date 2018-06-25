@@ -2,7 +2,7 @@ import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import './connect.css';
 
-let backpic = require ("./images/test.jpg")
+//let backpic = require ("./images/test.jpg")
 
 
 export default class Connect extends React.Component {
