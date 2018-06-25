@@ -17,7 +17,11 @@
   },
   "production": {
     "use_env_variable": "DATABASE_URL",
+    "username": "<my username>",
+    "password": "<my password>",
+    "database": "<my database name>",
     "dialect": "postgres",
+    "host": "passionfeedback.herokuapp.com",
     "operatorsAliases": false
   }
 }
