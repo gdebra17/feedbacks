@@ -92,6 +92,7 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
 
   let currentUserId = null;
   let currentProductId = null;
+  let currentProductName = null;
   let currentProductUserId = null;
   let currentFeedbackId = null;
   let currentFeedbackToken = null;
@@ -130,6 +131,7 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
     } else {
       currentProductId = products[0].id;
       currentProductUserId = products[0].user_id;
+      currentProductName = products[0].name;
       //console.log("createNewFeedback: currentProductId=", currentProductId, ", currentProductUserId=", currentProductUserId);
       return db.feedbacks.create({user_id: currentUserId, product_id: currentProductId, topic: topic, token: uuid()})
     }
@@ -156,7 +158,7 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
     }
   })
   .then(currentFeedbackToken => {
-    emailsService.createEmailTosend("WELCOME_CUSTOMER", currentUserId, {tokenFeedback: currentFeedbackToken});
+    emailsService.createEmailTosend("WELCOME_CUSTOMER", currentUserId, {tokenFeedback: currentFeedbackToken, customerName: username, productDescription: currentProductName, ipName: ""});
     return currentFeedbackToken;
   })
   .then(currentFeedbackToken => {
