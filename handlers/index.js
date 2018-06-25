@@ -6,6 +6,7 @@ const getAllProducts = require("./getAllProducts");
 const getFeedbackList = require("./getFeedbackList");
 const sendMails = require("./sendMails");
 const postNewProduct = require("./postNewProduct");
+const getInternalConnexion = require("./getInternalConnexion");
 
 module.exports = {
   getFeedbackByToken: getFeedbackByToken,
@@ -16,4 +17,5 @@ module.exports = {
   getFeedbackList: getFeedbackList,
   sendMails: sendMails,
   postNewProduct: postNewProduct,
+  getInternalConnexion: getInternalConnexion,
 }
