@@ -1,6 +1,6 @@
 import store from './store'
 
-const HOST = location.origin.replace(/^http/, 'ws');
+const HOST = location.origin.replace(/^http/, 'wss');
 const websocket = new WebSocket(HOST);
 
 
