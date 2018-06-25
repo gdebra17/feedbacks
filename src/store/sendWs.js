@@ -1,8 +1,7 @@
 import store from './store'
 
-
-// let websocket;
-const websocket = new WebSocket(`ws://${window.location.hostname}:${process.env.PORT}`);
+const HOST = location.origin.replace(/^http/, 'ws');
+const websocket = new WebSocket(HOST);
 
 
 websocket.addEventListener("message", event => {
