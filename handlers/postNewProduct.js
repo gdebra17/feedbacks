@@ -1,5 +1,5 @@
-const feedbacksService = require("./../services/feedbacksService");
-const usersService = require("./../services/usersService");
+// const feedbacksService = require("./../services/feedbacksService");
+// const usersService = require("./../services/usersService");
 const productsService = require("./../services/productsService");
 
 function postNewProduct(request, result) {

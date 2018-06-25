@@ -88,7 +88,7 @@ postNewProduct = () => {
     body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId, expiringdate: this.state.expiringDate, user_id: this.state.username}),
     headers: {
     'content-type': 'application/json'
-  }
+    }
   })
         .catch((error) => {
           console.warn(error);
