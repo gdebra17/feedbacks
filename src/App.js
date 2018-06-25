@@ -15,6 +15,8 @@ import Tchat0 from "./modules/Tchat/Tchat0";
 
 import Buttons from "./modules/Buttons";
 
+import Navbar from "./modules/navbar/Navbar";
+
 
 class App extends Component {
 
@@ -32,6 +34,8 @@ class App extends Component {
           <Route exact path="/" component={Buttons}/>
           <Route exact path="/feedback" component={Form}/>
           <Route exact path="/connect" component={Connect}/>
+          <Route exact path="/navbar" component={Navbar}/>
+
 
 
 
