@@ -19,7 +19,16 @@ function getUserHeaderByToken(userToken) {
   })
 }
 
+function getUserByEmail(email) {
+  return db.users.findAll({
+    where: {
+      mail: email,
+    }
+  });
+}
+
 module.exports = {
   createNewCustomerUser: createNewCustomerUser,
   getUserHeaderByToken: getUserHeaderByToken,
+  getUserByEmail: getUserByEmail,
 }

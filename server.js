@@ -27,6 +27,7 @@ app.post("/messages", handlers.postNewMessage);
 app.get("/products", handlers.getAllProducts);
 app.get("/sendMails", handlers.sendMails);
 app.post("/newproduct", handlers.postNewProduct);
+app.post("/internalconnexion", handlers.getInternalConnexion);
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));

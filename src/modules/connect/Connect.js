@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import './connect.css';
 import { connect } from "react-redux";
@@ -15,18 +16,39 @@ class Connect extends React.Component {
     this.state = {
       name: "",
       pic: "",
-
+      checkEmail: "",
+      authOk: false,
     }
   }
-
 
   logout = (response) => {
   console.log("logout");
   this.props.signed(false);
+ }
+
+componentWillReceiveProps(nextProps, nextContext) {
+  console.log("componentWillReceiveProps email=", nextProps.profileInfo.U3);
+   fetch("/internalconnexion", {
+     method: "POST",
+     body: JSON.stringify({email: nextProps.profileInfo.U3}),
+     headers: { "Content-Type": "application/json" }
+   })
+     .then(response => response.json())
+     .then(result => {
+       console.log("componentWillUpdate result=", result);
+         if (result.errorMessage) {
+           this.setState({
+             checkEmail: result.errorMessage,
+           });
+         } else {
+           this.setState({
+             authOk: true,
+           });
+         }
+     })
 }
 
-
-  render() {
+render() {
 
     let imagePath;
     if(this.props.profileInfo.Paa){
@@ -39,36 +61,20 @@ class Connect extends React.Component {
       window.location.reload();
     }
 
-    console.log("--------------", imagePath);
 
-    return (
-
-    <div className="flex">
-      <div className="jumbotron mt-2">
-        {/* <img src={backpic} className="img-fluid rounded" alt="..."/> */}
-        <div className="mainBody">
-        <h1 className="display-5">DECATHLON</h1>
-        <p className="lead">Welcome to Product Feedback App</p>
-      <hr className="hr"/>
-        <p>Please use the button below to log in and get ready to get your first feedbacks</p>
-        <div className="lead">
-          {/* <GoogleLogin
-            className="loginBtn loginBtn--google"
-            clientId="1067884850483-vhed3duodar5tf92frpf72tanq5juepi.apps.googleusercontent.com"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}
-          /> */}
+  return (
+      <div className="flex">
+      {this.state.authOk
+        ?  <Redirect to='/dashboard' />
+        :
+        <div className="jumbotron mt-2">
+          {/* <img src={backpic} className="img-fluid rounded" alt="..."/> */}
+          <div className="mainBody">
+          <h1 className="display-5">DECATHLON</h1>
 
           <div>
           {imagePath
-            ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
-            : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
-          }
-          </div>
-
-        <div>
-          {imagePath
-            ?<img src={imagePath} alt="" style={{
+            ?<img className='mt-2' src={imagePath} alt="" style={{
                borderWidth:1,
                borderStyle:'solid',
                borderColor:'white',
@@ -81,20 +87,35 @@ class Connect extends React.Component {
                backgroundColor:'#fff',
                borderRadius:100,
              }}/>
-             :<div/>
-           }
+            :<div/>
+          }
+            <span className="ml-3">{this.props.profileInfo.U3}</span>
+          </div>
 
-           {this.props.profileInfo.U3}
-         </div>
+          <p className="lead mt-3">Welcome to Product Feedback App</p>
+          <hr className="hr"/>
+          <p>Please use the button below to log in and get ready to manage your feedbacks</p>
+          <div className="lead">
 
+            <div>
+            {imagePath
+              ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
+              : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
+            }
+            </div>
+
+
+            {this.state.checkEmail
+              ? <div className="alert alert-danger">{this.state.checkEmail}</div>
+              : <span></span>
+            }
+          </div>
         </div>
+        </div>
+      }
       </div>
-      </div>
-
-    </div>
-
-    );
-  }
+    ); //return render
+  } //render
 }
 
 const Connected = connect(getProfileInfo, profileHandler)(Connect);
