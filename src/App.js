@@ -28,20 +28,13 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-
-          <Route exact path="/" component={Buttons}/>
-          <Route exact path="/feedback" component={Form}/>
-          <Route exact path="/connect" component={Connect}/>
-
-
-
-
           <div className="container">
             <a href="/feedback">Page feedback de l'utilisateur</a> ||
             <a href="/dashboard">  Dashboard de l'ingénieur</a> ||
           </div>
             <Route exact path="/feedback" component={Form}/>
-            <Route exact path="/testform" component={TestForm} />
+            <Route exact path="/connect" component={Connect}/>
+            <Route path="/postfeedback/:tokenFeedback" render={this.getDiscussion}/>
             <Route exact path="/about" component={About} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/SP/:tokenFeedback" component={Tchat0}/>
