@@ -25,14 +25,13 @@ class Tchat extends Component {
     console.log("beeen on close did unmount");
     closeSocket();
   }
-
   // <Sidebar />
   render() {
     return (
       <div id="container">
         <section id="main">
         <h1>SPORTIF</h1>
-        
+
           <MessagesList />
           <AddMessage />
         </section>
