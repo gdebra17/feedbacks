@@ -1,5 +1,5 @@
 
-import { sendMessage } from '../../sendWs.js'
+import { sendMessage, loadDiscussion } from '../../sendWs.js'
 
 const initialState = {
   message: {
@@ -16,17 +16,18 @@ export function messagesReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_MESSAGE':
       sendMessage(action.pathname, state.message.currentChannel ,action.message);
-      return {
-        ...state,
-        message:{
-          newMessage: action.message,
-          currentChannel: action.pathname,
-        },
-        messages: {
-          ...state.messages,
-          messages: [...state.messages.messages, {id: action.id, message: action.message, author: action.author}],
-        }
-      }
+      return state;
+      // return {
+      //   ...state,
+      //   message:{
+      //     newMessage: action.message,
+      //     currentChannel: action.pathname,
+      //   },
+      //   messages: {
+      //     ...state.messages,
+      //     messages: [...state.messages.messages, {id: action.id, message: action.message, author: action.author}],
+      //   }
+      // }
       case 'MESSAGE_RECEIVED':
         // return state = {
         //   ...state,
@@ -40,16 +41,17 @@ export function messagesReducer(state = initialState, action) {
         //   }
         // }
         console.log("action/message is : ", action);
+        if(action.messages === undefined){return state}
         return {...state,
           messages: {
             ...state.messages,
-            messages: [...state.messages.messages, {id: action.id, message: action.messages, author: "sender"}],
+            messages: [...state.messages.messages, {id: action.id, message: action.messages, author: action.author}],
           }}
     case 'SENDMESSAGEANDRESET':
       sendMessage(state.currentChannel ,state.newMessage)
       return {...state, newMessage: ''}
-    case 'CHAN_CHANGE':
-      return {...state, currentChannel: action.currentChannel}
+    case 'LOAD_DISCUSSION':
+      loadDiscussion(action.pathname);
     default:
       return state
   }

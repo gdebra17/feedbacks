@@ -1,9 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { Text } from 'react-router-dom';
+
 
 const Message = ({ message, author }) => (
   <p>
-    <i>{author}</i>: {message}
+    <i style={{fontWeight: "bold"}}>{author}</i>: {message}
   </p>
 )
 

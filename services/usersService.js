@@ -8,6 +8,7 @@ function createNewCustomerUser(username, mail, pathImageUser) {
 }
 
 function getUserHeaderByToken(userToken) {
+  console.log("userToken is :", userToken);
   return db.users.findAll({
     where: {
       token: userToken,
@@ -15,11 +16,81 @@ function getUserHeaderByToken(userToken) {
     raw: true
   })
   .then(dbUsers => {
+    console.log("the dbUser found is :", dbUsers);
     return dbUsers[0];
+  })
+}
+
+function getNameByUserId(id){
+  return db.users.findAll({
+    where: {
+      id: id,
+    },
+    raw: true
+  })
+  .then(dbUsers => {
+    return dbUsers[0].name;
+  })
+}
+
+function getUserByFeedbackToken(feedbackToken) {
+  let user_id;
+  return db.feedbacks.findAll({
+    where: {
+      token: feedbackToken,
+    },
+    raw: true
+  })
+  .then(dbUsers => {
+    // console.log("the dbUser found is :", dbUsers[0]);
+    return dbUsers[0].user_id;
+  })
+  .then(dbUserId => {
+    return db.users.findAll({
+      where: {
+        id: dbUserId,
+      },
+      raw:true
+    })
+  })
+}
+
+function getIPByFeedbackToken(feedbackToken) {
+  return db.feedbacks.findAll({
+    where: {
+      token: feedbackToken,
+    },
+    raw: true
+  })
+  .then(dbUsers => {
+    // console.log("from users table")
+    return dbUsers[0].product_id;
+  })
+  .then(dbProductId => {
+    return db.products.findAll({
+      where: {
+        id: dbProductId,
+      },
+      raw:true
+    })
+  })
+  .then(dbUsers => {
+    return dbUsers[0].user_id;
+  })
+  .then(dbUserId => {
+    return db.users.findAll({
+      where: {
+        id: dbUserId,
+      },
+      raw:true
+    })
   })
 }
 
 module.exports = {
   createNewCustomerUser: createNewCustomerUser,
   getUserHeaderByToken: getUserHeaderByToken,
+  getUserByFeedbackToken: getUserByFeedbackToken,
+  getIPByFeedbackToken: getIPByFeedbackToken,
+  getNameByUserId: getNameByUserId,
 }
