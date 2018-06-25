@@ -1,9 +1,9 @@
 const express = require("express");
 const path = require("path");
 const Websocket = require("ws");
-const http = process.env.NODE_ENV === "production"? require("https") : require("http");
-const feedbacksService = require("./services/feedbacksService");
-const usersService = require("./services/usersService");
+
+const http = process.env.NODE_ENV === "production" ? require("http") : require("http");
+
 const cors = require("cors");
 const handlers = require("./handlers/index");
 

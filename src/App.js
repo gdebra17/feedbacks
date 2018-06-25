@@ -15,7 +15,6 @@ import Tchat0 from "./modules/Tchat/Tchat0";
 
 import Buttons from "./modules/Buttons";
 
-
 class App extends Component {
 
   postFeedback = (routerProps) => {
@@ -32,14 +31,19 @@ class App extends Component {
             <a href="/feedback">Page feedback de l'utilisateur</a> ||
             <a href="/dashboard">  Dashboard de l'ingénieur</a> ||
           </div>
-            <Route exact path="/feedback" component={Form}/>
-            <Route exact path="/connect" component={Connect}/>
-            <Route path="/postfeedback/:tokenFeedback" render={this.postFeedback}/>
-            <Route exact path="/about" component={About} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route path="/SP/:tokenFeedback" component={Tchat0}/>
-            <Route path="/IP/:tokenFeedback" component={Tchat}/>
+
+          <Route exact path="/" component={Buttons}/>
+          <Route exact path="/feedback" component={Form}/>
+          <Route exact path="/connect" component={Connect}/>
+          <Route path="/IP/:tokenFeedback" component={Tchat}/>
+          <Route path="/SP/:tokenFeedback" component={Tchat0}/>
+          <Route path="/postfeedback/:tokenFeedback" render={this.postFeedback}/>
+          <Route exact path="/testform" component={TestForm} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/dashboard" component={Dashboard} />
+
           </div>
+
       </Router>
 
     );
