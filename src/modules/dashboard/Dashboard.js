@@ -1,15 +1,25 @@
 import React from 'react';
 import Header from "../header/Header";
 import "./dashboard.css";
+const QRCode = require('qrcode-react');
+
 
 export default class Dashboard extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
+        qrcode: {
+          value: `${window.location.hostname}/postfeedback/`,
+          size: 128,
+          fgColor: '#000000',
+          bgColor: '#ffffff',
+          level: 'L',
+          renderAs: 'svg',
+        },
         productsList: [],
         feedbacks: [],
         productName: "",
-        productDecathlonId: "",
+        productDecathlonId: "8514879",
         expiringDate: "",
         user_id: 0,
       };
@@ -28,6 +38,7 @@ onClose = () => {
 }
 
 componentDidMount = () => {
+
   this.getProductsList();
   this.getFeedbacks();
   this.setExpiringDate();
@@ -58,7 +69,7 @@ handleExpiringDate = (event) => {
 }
 
 getProductsList = () => {
-  fetch("http://localhost:8080/products")
+  fetch("/products")
         .catch((error) => {
           console.warn(error);
         })
@@ -70,7 +81,7 @@ getProductsList = () => {
 }
 
 getFeedbacks = () => {
-  fetch("http://localhost:8080/feedbackList")
+  fetch("/feedbackList")
         .catch((error) => {
           console.warn(error);
         })
@@ -95,6 +106,12 @@ postNewProduct = () => {
         })
         .then((response) => console.log(response))
 }
+
+// displayQrcode = () => {
+//   if (document.getElementById("idQRcode").style.display = "none") {
+//     document.getElementById("idQRcode").style.display = "block";
+//   }
+// }
 
   render() {
     return (
@@ -132,7 +149,7 @@ postNewProduct = () => {
                     <div className="col-sm-7">
                       <input className="newProdexpiringDate" onChange={this.handleExpiringDate} value={this.state.expiringDate} id="expiringDate" type="date"/>
                     </div>
-                    <label className="col-sm-12 col-form-label">The QR Code will expire within {this.withinM}{this.withinD}.</label>
+                    {/* <label className="col-sm-12 col-form-label">The QR Code will expire within {this.withinM}{this.withinD}.</label> */}
                   </div>
                   <div className="modal-footer">
                     <button type="button" onClick={this.onClose} className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -148,9 +165,33 @@ postNewProduct = () => {
             <div className="col-8">
               <ul className="list-group">
                 <li className="list-group-item d-flex font-weight-bold flex-center align-items-center">Products under review...</li>
-                {this.state.productsList.map(product => <li key={product.decathlonid} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
-                  <small>{product.name}</small>
-                  <footer className="blockquote-footer">{product.decathlonid}</footer>
+                {this.state.productsList.map(product =>
+
+                  <li key={product.decathlonid} onClick={this.displayQrcode} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
+
+                    <div id="idQRcode">
+                      <QRCode
+                        value={`${this.state.qrcode.value}${product.decathlonid}`}
+                        size={this.state.qrcode.size}
+                        fgColor={this.state.qrcode.fgColor}
+                        bgColor={this.state.qrcode.bgColor}
+                        level={this.state.qrcode.level}
+                        renderAs={this.state.qrcode.renderAs}
+                      />
+                      Export to PDF
+                    </div>
+
+                    <div>
+                      <div className="col-8">
+                        <small>{product.name}</small>
+                      </div>
+                      <div className="col-2">
+                      <i className="fas fa-barcode fa-2x"></i>
+                      </div>
+                      <div className="col-2">
+                        <small>{product.decathlonid}</small>
+                      </div>
+                    </div>
                 </li>)}
               </ul>
             </div>
