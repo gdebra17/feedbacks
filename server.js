@@ -105,7 +105,6 @@ wss.on('connection', (ws) => {
           author: `IP/${message.token}`
         }, ws);
       })
-
     })
   );
 

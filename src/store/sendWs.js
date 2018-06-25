@@ -3,7 +3,7 @@ import store from './store'
 
 // let websocket;
 const websocket = new WebSocket(`ws://${window.location.hostname}:8080`);
-console.log("here is the origin : ", window.location.origin.replace(/^http/,"ws"));
+// console.log("here is the origin : ", window.location.origin.replace(/^http/,"ws"));
 
 
 websocket.addEventListener("message", event => {

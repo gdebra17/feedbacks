@@ -86,6 +86,7 @@ function getIPByFeedbackToken(feedbackToken) {
       raw:true
     })
   })
+}
 
 function getUserByEmail(email) {
   return db.users.findAll({
