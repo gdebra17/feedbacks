@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const Websocket = require("ws");
-const http = require("http");
+const http = process.env.NODE_ENV === "production" ? require("https") : require("http");
 const cors = require("cors");
 const handlers = require("./handlers/index");
 
@@ -34,8 +34,7 @@ app.get("*", (request, result)=>{
 
 const port = process.env.PORT || 8080;
 
-
-
+const server = http.createServer();
 const wss = new Websocket.Server({server, "clientTracking":true});
 let webSockets = {} // userID: webSocket
 let i = 1000;
@@ -113,5 +112,6 @@ wss.on('connection', (ws) => {
 
 server.on("request", app);
 
-const server = express()
-  .listen(port, () => console.log(`Listening on ${port}`));
+server.listen(port, function() {
+  console.log(`Server listening on port ${port}`);
+});
