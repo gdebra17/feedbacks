@@ -33,7 +33,7 @@ class App extends Component {
           <Route exact path="/" component={Buttons}/>
           <Route exact path="/feedback" component={Form}/>
           <Route exact path="/connect" component={Connect}/>
-          <Route path="/IP/:tokenFeedback" render={Tchat}/>
+          <Route path="/IP/:tokenFeedback" component={Tchat}/>
           <Route exact path="/testform" component={TestForm} />
           <Route exact path="/about" component={About} />
           <Route exact path="/dashboard" component={Dashboard} />
