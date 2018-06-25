@@ -5,21 +5,22 @@ import './App.css';
 import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/Form";
 import Dashboard from "./modules/dashboard/Dashboard";
-import Connect from "./modules/connect/connect";
+import Connect from "./modules/connect/Connect";
 
 import About from "./modules/about/About";
 import Discussion from "./modules/Tchat/Discussion";
-import Tchat from "./modules/Tchat/Tchat";
-// import Tchat0 from "./modules/Tchat/Tchat0";
-import Buttons from "./modules/Buttons";
 
+import Tchat from "./modules/Tchat/Tchat";
+import Tchat0 from "./modules/Tchat/Tchat0";
+
+import Buttons from "./modules/Buttons";
 
 class App extends Component {
 
-  // getDiscussion = (routerProps) => {
-  //   console.log("routerProps=", routerProps);
-  //   return <Discussion {...routerProps} />
-  // }
+  postFeedback = (routerProps) => {
+    console.log("routerProps=", routerProps);
+    return <Form {...routerProps} />
+  }
 
   render() {
 
@@ -30,14 +31,19 @@ class App extends Component {
             <a href="/feedback">Page feedback de l'utilisateur</a> ||
             <a href="/dashboard">  Dashboard de l'ingénieur</a> ||
           </div>
+
           <Route exact path="/" component={Buttons}/>
           <Route exact path="/feedback" component={Form}/>
           <Route exact path="/connect" component={Connect}/>
           <Route path="/IP/:tokenFeedback" component={Tchat}/>
+          <Route path="/SP/:tokenFeedback" component={Tchat0}/>
+          <Route path="/postfeedback/:tokenFeedback" render={this.postFeedback}/>
           <Route exact path="/testform" component={TestForm} />
           <Route exact path="/about" component={About} />
           <Route exact path="/dashboard" component={Dashboard} />
-        </div>
+
+          </div>
+
       </Router>
 
     );

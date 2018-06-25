@@ -6,14 +6,20 @@ import Message from "./Message"
 const MessagesList = ({messages}) => (
   // console.log("messages is: ", messages);
   // return(
+  // {loadDiscussion(window.location.pathname)}
+  // {props.dispatch(window.location.pathname)}
     <section id="messages-list">
       <ul>
-      {messages.map(message => (
-        <Message
-        key={message.id}
-        {...message}
-        />
-      ))}
+      {}
+      {messages.map(message => {
+        console.log("message printed has the following information :", message)
+        return (
+          <Message
+          key={message.id}
+          {...message}
+          />
+        )
+      })}
       </ul>
     </section>
   // );

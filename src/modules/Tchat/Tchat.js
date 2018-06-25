@@ -3,13 +3,18 @@ import { Sidebar } from "../../containers/Sidebar";
 import { MessagesList } from "../../containers/MessagesList";
 import { AddMessage } from "../../containers/AddMessage";
 import "../../App.css";
-import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs";
-import store from "../../store/store";
+
+import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs"
+import store from "../../store/store"
+import {loadDiscussion} from "../../store/sendWs"
 
 class Tchat extends Component {
 
   componentDidMount(){
-    // openSocket();
+
+    // console.log("I did update")
+    // loadDiscussion(window.location.pathname);
+
 
   }
 
@@ -21,6 +26,7 @@ class Tchat extends Component {
   render() {
     return (
       <div id="container">
+        <h1>IP</h1>
         <Sidebar />
         <section id="main">
           <MessagesList />
