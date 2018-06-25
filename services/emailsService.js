@@ -15,45 +15,6 @@ function replaceAllInformations(body, informations) {
   return bodyResult;
 }
 
-function sendMail(user, emailTemplateId, informationJson) {
-  const information = JSON.parse(informationJson);
-  //console.log("sendMail user=", user, ", emailTemplateId=", emailTemplateId, ", information=", information);
-
-console.log("process.env.MJ_APIKEY_PUBLIC", process.env.MJ_APIKEY_PUBLIC);
-
-  const mailjet = require ('node-mailjet')
-    .connect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE)
-
-  return db.email_templates.findAll({
-    where: {
-      id: emailTemplateId,
-    },
-    raw: true
-  })
-  .then(emailTemplates => {
-    const request = mailjet
-      .post("send", {'version': 'v3.1'})
-      .request({
-        "Messages":[
-                {
-              "From": {
-              "Email": "julian.boes@decathlon.com",
-              "Name": "Decathlon"
-            },
-            "To": [
-              {
-                "Email": user.mail,
-                "Name": user.name,
-              }
-            ],
-            "Subject": emailTemplates[0].subject,
-            "TextPart": replaceAllInformations(emailTemplates[0].body, information),
-            "HTMLPart": replaceAllInformations(emailTemplates[0].body, information),
-          }
-        ]
-      })
-  });
-}
 
 function createEmailTosend(codeMail, userId, information) {
   return db.email_templates.findAll({
@@ -65,36 +26,78 @@ function createEmailTosend(codeMail, userId, information) {
   .then(emailTemplates => {
     return db.email_histories.create({email_template_id: emailTemplates[0].id, user_id: userId, information: JSON.stringify(information), status: "TO_SEND"})
     .then(email_history => {
-      console.log("createEmailRequest",email_history);
+      //console.log("createEmailRequest",email_history);
+      return email_history;
     });
   });
 }
 
-function sendAllEmailToSend() {
-  return db.email_histories.findAll({
-    where: {
-      status: "TO_SEND",
-    },
-    raw: true
-  })
-  .then(emailHistoriesToSend => {
-    console.log("emailHistoriesToSend=", emailHistoriesToSend);
-    emailHistoriesToSend.forEach(emailHistoryToSend => {
-      return db.users.findAll({
-        where: {
-          id: emailHistoryToSend.user_id,
-        },
-        raw: true
-      })
-      .then(users => {
-        sendMail(users[0], emailHistoryToSend.email_template_id, emailHistoryToSend.information);
-      })
+
+function sendMail(emailToSend) {
+  //console.log("sendMail emailToSend=", JSON.stringify(emailToSend, null, 2));
+  //console.log("process.env.MJ_APIKEY_PUBLIC", process.env.MJ_APIKEY_PUBLIC);
+  const mailjet = require ('node-mailjet')
+    .connect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE);
+
+  return mailjet
+    .post("send", {'version': 'v3.1'})
+    .request({
+      "Messages":[
+              {
+            "From": {
+            "Email": "julian.boes@decathlon.com",
+            "Name": "Decathlon"
+          },
+          "To": [
+            {
+              "Email": emailToSend.user.mail,
+              "Name": emailToSend.user.name,
+            }
+          ],
+          "Subject": emailToSend.email_template.subject,
+          "TextPart": replaceAllInformations(emailToSend.email_template.body, JSON.parse(emailToSend.information)),
+          "HTMLPart": replaceAllInformations(emailToSend.email_template.body, JSON.parse(emailToSend.information)),
+        }
+      ]
+    }).then(res => {
+      //console.log("mailjet res = ", JSON.stringify(res, null, 2));
+      //console.log("response.status=", res.response.status);
+      if (res.response.status === 200) {
+        return true;
+      }
+      return false;
     })
-  })
+
+}
+
+function sendAllEmailToSend() {
+  return db.email_histories.findAll(
+    {
+      where: {
+        status: "TO_SEND",
+      },
+      include: [db.email_templates, db.users]
+    }
+  ).then(emailHistoriesToSend => {
+    console.log("emailHistoriesToSend.length=", emailHistoriesToSend.length);
+    emailHistoriesToSend.forEach(emailHistoryToSend => {
+      sendMail(emailHistoryToSend).then(result => {
+        if (result) {
+          emailHistoryToSend.status = "SENT";
+          emailHistoryToSend.sendingdate = new Date();
+          emailHistoryToSend.save();
+        } else {
+          emailHistoryToSend.status = "ERROR";
+          emailHistoryToSend.sendingdate = new Date();
+          emailHistoryToSend.save();
+        }
+      });
+    });
+    return emailHistoriesToSend.length;
+  });
 }
 
 module.exports = {
-  sendMail: sendMail,
   createEmailTosend: createEmailTosend,
   sendAllEmailToSend: sendAllEmailToSend,
 }

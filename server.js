@@ -24,6 +24,7 @@ app.post("/feedbacks", handlers.postNewFeedback);
 app.get("/feedbackList", handlers.getFeedbackList);
 app.post("/messages", handlers.postNewMessage);
 app.get("/products", handlers.getAllProducts);
+app.get("/sendMails", handlers.sendMails);
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));
@@ -101,7 +102,7 @@ wss.on('connection', (ws) => {
   }
 
   ws.on('close', () => {
-    
+
   })
 
   ws.on("error", console.warn);
