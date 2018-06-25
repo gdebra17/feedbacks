@@ -53,16 +53,36 @@ class Connect extends React.Component {
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                 {imagePath
-                  ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
-                  : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
+                  ?<img className='mt-2' src={imagePath} alt="" style={{
+                     borderWidth:1,
+                     borderStyle:'solid',
+                     borderColor:'white',
+                     alignItems:'center',
+                     paddingLeft:1,
+                     marginLeft: 40,
+                     justifyContent:'center',
+                     width:50,
+                     height:50,
+                     backgroundColor:'#fff',
+                     borderRadius:100,
+                   }}/>
+                  : <a> Your Account </a>
                 }
+
+
+
+
+
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">{imagePath
+                  ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
+                  : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
+                }</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="/about">About us</a>
               </div>
             </li>
           </ul>
