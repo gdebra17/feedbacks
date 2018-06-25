@@ -6,14 +6,12 @@ import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/Form";
 import Dashboard from "./modules/dashboard/Dashboard";
 import Connect from "./modules/connect/Connect";
-
 import About from "./modules/about/About";
 import Discussion from "./modules/Tchat/Discussion";
-
 import Tchat from "./modules/Tchat/Tchat";
 import Tchat0 from "./modules/Tchat/Tchat0";
-
 import Buttons from "./modules/Buttons";
+import Navbar from "./modules/navbar/Navbar";
 
 class App extends Component {
 
@@ -41,6 +39,8 @@ class App extends Component {
           <Route exact path="/testform" component={TestForm} />
           <Route exact path="/about" component={About} />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/navbar" component={Navbar}/>
+
 
           </div>
 

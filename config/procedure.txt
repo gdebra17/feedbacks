@@ -24,7 +24,7 @@ node_modules/.bin/sequelize model:generate --name users --attributes name:string
 node_modules/.bin/sequelize model:generate --name products --attributes name:string,decathlonid:string,url:string,expiringdate:date,user_id:integer
 
 node_modules/.bin/sequelize model:generate --underscored --name email_histories --attributes email_template_id:integer,user_id:integer,information:string,status:string,sendingdate:date
-node_modules/.bin/sequelize model:generate --underscored --name email_templates --attributes code:string,subject:string,body:string
+node_modules/.bin/sequelize model:generate --underscored --name email_templates --attributes code:string,subject:string,body:text
 
 
 2/ creation des tables en BDD
@@ -48,4 +48,5 @@ node_modules/.bin/sequelize db:seed:all
 node_modules/.bin/sequelize db:drop
 node_modules/.bin/sequelize db:create
 node_modules/.bin/sequelize db:migrate
+node_modules/.bin/sequelize db:seed:undo:all
 node_modules/.bin/sequelize db:seed:all
