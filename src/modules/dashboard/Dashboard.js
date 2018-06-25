@@ -46,10 +46,15 @@ handleExpiringDate = (event) => {
   console.log("event.target.value ", event.target.value);
 
   this.setState({expiringDate: event.target.value})
-  let now = new Date().toJSON();
-  console.log(now - this.state.expiringDate);
-  //let withinTime = new Date() - this.state.expiringDate
-
+//   const now = new Date().toJSON().slice(0,10);
+//   const monthsNow = now.slice(5,7);
+//   const months = this.state.expiringDate.slice(5,7);
+//   const withinM = `${months - monthsNow} months and `;
+//   const daysNow = now.slice(8,10);
+//   const days = this.state.expiringDate.slice(8,10);
+//   const withinD = `${days - daysNow} days`;
+// console.log(withinD);
+// console.log(withinM);
 }
 
 getProductsList = () => {
@@ -80,7 +85,7 @@ postNewProduct = () => {
   console.log("decathlon id reconnu ? ", this.state.productDecathlonId);
   fetch("http://localhost:8080/newproduct", {
     method: "POST",
-    body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId, expiringDate: this.state.expiringDate, user_id: this.state.username}),
+    body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId, expiringdate: this.state.expiringDate, user_id: this.state.username}),
     headers: {
     'content-type': 'application/json'
   }
@@ -127,7 +132,7 @@ postNewProduct = () => {
                     <div className="col-sm-7">
                       <input className="newProdexpiringDate" onChange={this.handleExpiringDate} value={this.state.expiringDate} id="expiringDate" type="date"/>
                     </div>
-                    <label className="col-sm-12 col-form-label">The QR Code will expire within {}</label>
+                    <label className="col-sm-12 col-form-label">The QR Code will expire within {this.withinM}{this.withinD}.</label>
                   </div>
                   <div className="modal-footer">
                     <button type="button" onClick={this.onClose} className="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -23,6 +23,7 @@ app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
 app.post("/feedbacks", handlers.postNewFeedback);
 app.get("/feedbackList", handlers.getFeedbackList);
 app.post("/messages", handlers.postNewMessage);
+app.post("/messages/:idtoken", handlers.getAllMessages);
 app.get("/products", handlers.getAllProducts);
 app.post("/newproduct", handlers.postNewProduct);
 
