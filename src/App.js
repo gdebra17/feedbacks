@@ -5,12 +5,14 @@ import './App.css';
 import TestForm from "./modules/form/TestForm";
 import Form from "./modules/form/Form";
 import Dashboard from "./modules/dashboard/Dashboard";
-import Connect from "./modules/connect/connect";
+import Connect from "./modules/connect/Connect";
 
 import About from "./modules/about/About";
 import Discussion from "./modules/Tchat/Discussion";
+
 import Tchat from "./modules/Tchat/Tchat";
 import Tchat0 from "./modules/Tchat/Tchat0";
+
 import Buttons from "./modules/Buttons";
 
 

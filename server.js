@@ -4,8 +4,7 @@ const Websocket = require("ws");
 const http = require("http");
 const feedbacksService = require("./services/feedbacksService");
 const usersService = require("./services/usersService");
-
-
+const cors = require("cors");
 const handlers = require("./handlers/index");
 
 if (process.env.NODE_ENV !== "production") {
@@ -15,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
 const app = express();
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
-
+app.use(cors());
 app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: false }));
 
@@ -26,7 +25,11 @@ app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
 app.post("/feedbacks", handlers.postNewFeedback);
 app.get("/feedbackList", handlers.getFeedbackList);
 app.post("/messages", handlers.postNewMessage);
+//app.post("/messages/:idtoken", handlers.getAllMessages);
 app.get("/products", handlers.getAllProducts);
+app.get("/sendMails", handlers.sendMails);
+app.post("/newproduct", handlers.postNewProduct);
+app.post("/internalconnexion", handlers.getInternalConnexion);
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));

@@ -21,6 +21,7 @@ function getUserHeaderByToken(userToken) {
   })
 }
 
+
 function getNameByUserId(id){
   return db.users.findAll({
     where: {
@@ -85,6 +86,13 @@ function getIPByFeedbackToken(feedbackToken) {
       raw:true
     })
   })
+
+function getUserByEmail(email) {
+  return db.users.findAll({
+    where: {
+      mail: email,
+    }
+  });
 }
 
 module.exports = {
@@ -93,4 +101,5 @@ module.exports = {
   getUserByFeedbackToken: getUserByFeedbackToken,
   getIPByFeedbackToken: getIPByFeedbackToken,
   getNameByUserId: getNameByUserId,
+  getUserByEmail: getUserByEmail,
 }

@@ -3,6 +3,7 @@ const operator = db.sequelize.Op;
 const uuid = require('uuid-v4');
 
 const usersService = require("./usersService");
+const emailsService = require("./emailsService");
 
 function newFeedback() {
   const newFeedback = {
@@ -91,6 +92,7 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
 
   let currentUserId = null;
   let currentProductId = null;
+  let currentProductUserId = null;
   let currentFeedbackId = null;
   let currentFeedbackToken = null;
   let currentMessageId = null;
@@ -127,7 +129,8 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
       throw new Error(`problem with product decathlonid ${decathlonid}`);
     } else {
       currentProductId = products[0].id;
-      //console.log("createNewFeedback: currentProductId=", currentProductId);
+      currentProductUserId = products[0].user_id;
+      //console.log("createNewFeedback: currentProductId=", currentProductId, ", currentProductUserId=", currentProductUserId);
       return db.feedbacks.create({user_id: currentUserId, product_id: currentProductId, topic: topic, token: uuid()})
     }
   })
@@ -152,6 +155,14 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
       return currentFeedbackToken;
     }
   })
+  .then(currentFeedbackToken => {
+    emailsService.createEmailTosend("WELCOME_CUSTOMER", currentUserId, {tokenFeedback: currentFeedbackToken});
+    return currentFeedbackToken;
+  })
+  .then(currentFeedbackToken => {
+    emailsService.createEmailTosend("IP_NEW_FEEDBACK", currentProductUserId, {tokenFeedback: currentFeedbackToken, decathlonid: decathlonid});
+    return currentFeedbackToken;
+  })
   .catch(error => {
     //console.log("createNewFeedback ERROR:", error.message);
     return {errorMessage: error.message};
@@ -171,9 +182,7 @@ function addNewMessageToFeedback(feebackId, messageContent, userId) {
 }
 
 function getFeedbackList() {
-  console.log("getFeedbackList", db.sequelize.query('SELECT f.token, p.decathlonid, f.topic FROM feedbacks f inner join products p on p.id=f.product_id',
-    { type: db.sequelize.QueryTypes.SELECT }));
-  return db.sequelize.query('SELECT f.token, p.decathlonid, f.topic FROM feedbacks f inner join products p on p.id=f.product_id',
+  return db.sequelize.query('SELECT f.token, p.decathlonid, f.topic, u.name FROM feedbacks f inner join products p on p.id=f.product_id inner join users u on u.id=f.user_id',
     { type: db.sequelize.QueryTypes.SELECT })
 }
 

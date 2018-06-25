@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import createSagaMiddleware from 'redux-saga'
+//import createSagaMiddleware from 'redux-saga'
 // import handleNewMessage from './src/store/sagas'
 import { addUser } from './store/tchat/actions/index'
 
@@ -31,7 +31,6 @@ window.googleConnectCallback = function(googleUser){
   //console.log("authResponse : ", googleUser.getAuthResponse());
   // console.log("complete user ", disconnect);
   store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect});
-  store.dispatch({type: "SET_CONNECTION_FLAG"});
 };
 store.dispatch(addUser('Me'));
 

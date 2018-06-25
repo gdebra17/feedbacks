@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     code: DataTypes.STRING,
     subject: DataTypes.STRING,
     body: DataTypes.STRING
-  }, {});
+  }, {
+    underscored: true,
+  });
   email_templates.associate = function(models) {
     // associations can be defined here
   };

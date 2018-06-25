@@ -23,8 +23,8 @@ node_modules/.bin/sequelize model:generate --name uploads --attributes message_i
 node_modules/.bin/sequelize model:generate --name users --attributes name:string,mail:string,type:string,token:string,path_image:string
 node_modules/.bin/sequelize model:generate --name products --attributes name:string,decathlonid:string,url:string,expiringdate:date,user_id:integer
 
-node_modules/.bin/sequelize model:generate --name email_histories --attributes email_template_id:integer,user_id:integer,information:string,status:string,sendingdate:date
-node_modules/.bin/sequelize model:generate --name email_templates --attributes code:string,subject:string,body:string
+node_modules/.bin/sequelize model:generate --underscored --name email_histories --attributes email_template_id:integer,user_id:integer,information:string,status:string,sendingdate:date
+node_modules/.bin/sequelize model:generate --underscored --name email_templates --attributes code:string,subject:string,body:string
 
 
 2/ creation des tables en BDD
