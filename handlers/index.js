@@ -4,6 +4,7 @@ const postNewFeedback = require("./postNewFeedback");
 const postNewMessage = require("./postNewMessage");
 const getAllProducts = require("./getAllProducts");
 const getFeedbackList = require("./getFeedbackList");
+const postNewProduct = require("./postNewProduct");
 
 module.exports = {
   getFeedbackByToken: getFeedbackByToken,
@@ -12,4 +13,5 @@ module.exports = {
   postNewMessage: postNewMessage,
   getAllProducts: getAllProducts,
   getFeedbackList: getFeedbackList,
+  postNewProduct: postNewProduct,
 }
