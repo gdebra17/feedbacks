@@ -34,8 +34,7 @@ app.get("*", (request, result)=>{
 
 const port = process.env.PORT || 8080;
 
-const server = express()
-  .listen(port, () => console.log(`Listening on ${port}`));
+
 
 const wss = new Websocket.Server({server, "clientTracking":true});
 let webSockets = {} // userID: webSocket
@@ -113,3 +112,6 @@ wss.on('connection', (ws) => {
 })
 
 server.on("request", app);
+
+const server = express()
+  .listen(port, () => console.log(`Listening on ${port}`));
