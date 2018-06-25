@@ -186,6 +186,17 @@ function getFeedbackList() {
     { type: db.sequelize.QueryTypes.SELECT })
 }
 
+function getMessageList(urlToken) {
+  console.log("getMessageList", db.sequelize.query(`SELECT m.user_id, m.content, m.read FROM messages m on m.feedback_id=${urlToken}`,
+    { type: db.sequelize.QueryTypes.SELECT }));
+  return db.sequelize.query(`SELECT m.user_id, m.content, m.read FROM message m on m.feedback_id=${urlToken}`,
+    { type: db.sequelize.QueryTypes.SELECT })
+}
+
+function getAllMessage() {
+  return db.sequelize.query(`SELECT f.token, m.feedback_id, m.user_id, m.content, m.read FROM messages m inner join feedbacks f on f.id=m.feedback_id`,
+    { type: db.sequelize.QueryTypes.SELECT })
+}
 
 module.exports = {
   getFeedbackHeaderByToken: getFeedbackHeaderByToken,
@@ -193,4 +204,6 @@ module.exports = {
   createNewFeedback: createNewFeedback,
   addNewMessageToFeedback: addNewMessageToFeedback,
   getFeedbackList: getFeedbackList,
+  getMessageList: getMessageList,
+  getAllMessage: getAllMessage
 }

@@ -11,6 +11,11 @@ export const addMessage = (message, author, pathname) => ({
   pathname
 })
 
+export const loadDiscussion = (pathname) => ({
+  type: "LOAD_DISCUSSION",
+  pathname
+})
+
 export const addUser = name => ({
   type: types.ADD_USER,
   id: nextUserId++,

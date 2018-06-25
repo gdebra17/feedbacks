@@ -26,12 +26,13 @@ class Tchat extends Component {
     closeSocket();
   }
 
+  // <Sidebar />
   render() {
     return (
       <div id="container">
-        <h1>IP</h1>
-        <Sidebar />
         <section id="main">
+        <h1>SPORTIF</h1>
+        
           <MessagesList />
           <AddMessage />
         </section>

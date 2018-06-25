@@ -3,6 +3,7 @@ import store from './store'
 
 // let websocket;
 const websocket = new WebSocket(`ws://${window.location.hostname}:8080`);
+console.log("here is the origin : ", window.location.origin.replace(/^http/,"ws"));
 
 
 websocket.addEventListener("message", event => {
@@ -14,14 +15,24 @@ websocket.addEventListener("message", event => {
     default:
       return;
     case "MESSAGES":
-    // console.log(`${window.location.pathname} === /c${message.author}`);
-    if(window.location.pathname === `/IP${message.author}` || `/IP${window.location.pathname}` === message.author){
-      console.log("wow such LKZAJELKJA code", message.data);
-      store.dispatch({type: "MESSAGE_RECEIVED", messages: message.data})
-      return;
-    } /* falls through */
+    console.log(`check this equality : ${window.location.pathname.substring(2)} === ${message.author.substring(3)}`);
+    console.log(`check this equality : ${window.location.pathname.substring(3)} === ${message.author.substring(2)}`);
+    console.log(`check this equality : ${window.location.pathname.substring(3)} === ${message.author.substring(3)}`);
+    // if(event.data.id !== undefined){
+      if(window.location.pathname.substring(3) === `${message.author.substring(2)}` || `${window.location.pathname.substring(2)}` === message.author.substring(3) || `${window.location.pathname.substring(3)}` === message.author.substring(3)){
+        console.log("wow such LKZAJELKJA code", message);
+        store.dispatch({type: "MESSAGE_RECEIVED", messages: message.data, author: message.userId})
+        return;
+      }
+      else {return}
+    // }
     case "CHANNELS":
       store.dispatch({type: "CHANNELS", channels: message.data})
+    case "USERS_LIST":
+      console.log("been here with user_list", message);
+      store.dispatch({type: "USERS_LIST", users: message.users})
+
+
   }
 });
 
@@ -32,8 +43,12 @@ websocket.addEventListener("onopen", event => {
 });
 
 function openSocket(){
-  console.log("open");
-  let websocket = new WebSocket(`ws://localhost:8080`);
+  // websocket.send(
+  //   JSON.stringify({
+  //     type: "OPENING",
+  //     userName: username
+  //   })
+  // );
 }
 
 function closeSocket(){
@@ -47,6 +62,16 @@ function sendLogin(username) {
       userName: username
     })
   );
+}
+
+function loadDiscussion(urlToken){
+  console.log(`I will load this discussion : ${urlToken}`);
+  websocket.send(
+    JSON.stringify({
+      type: "LOAD_DISCUSSION",
+      path: urlToken
+    })
+  )
 }
 
 function sendMessage(username, channel, message) {
@@ -64,4 +89,4 @@ function sendMessage(username, channel, message) {
 
 export default sendLogin;
 
-export {websocket, sendMessage, openSocket, closeSocket};
+export {websocket, sendMessage, openSocket, closeSocket, loadDiscussion};

@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const Websocket = require("ws");
 const http = require("http");
+const feedbacksService = require("./services/feedbacksService");
+const usersService = require("./services/usersService");
 const cors = require("cors");
 const handlers = require("./handlers/index");
 
@@ -49,16 +51,66 @@ const broadcast = (data, ws) => {
   wss.clients.forEach((client) => {
     // console.log("client is :", ws);
     console.log(client.readyState === ws.OPEN, client !== ws);
-    if (client.readyState === ws.OPEN && client !== ws) {
+    console.log("data from broadcast :", data);
+    // if (client.readyState === ws.OPEN && client !== ws) {
       // console.log("data is : ", );
-      client.send(JSON.stringify({ type: data.type, data: data.message, author: data.author}));
+      client.send(JSON.stringify({ type: data.type, data: data.message, author: data.author, users: data.users, userId: data.name}));
       // console.log("Client is : ", client.send);
-    }
+    // }
   })
 }
 
+// let list = handlers.getFeedbackList();
 
 wss.on('connection', (ws) => {
+  console.log("wss information", wss);
+  console.log("ws information", ws);
+  let tokenList = [];
+
+  feedbacksService.getFeedbackList()
+  .then(feedbackList => {
+    feedbackList.forEach(feedback => {
+      tokenList.push({id:feedback.token, name:feedback.topic, decatId: feedback.decathlonid})
+    })
+    return tokenList})
+  .then((tokenList) => {
+    ws.send(JSON.stringify({
+    type: "USERS_LIST",
+    users: tokenList
+    }));
+    broadcast({
+      type: 'USERS_LIST',
+      users: tokenList
+    }, ws)
+  });
+
+  // let messageList = [];
+
+  feedbacksService.getAllMessage()
+  .then(messageList =>
+    messageList.forEach( message => {
+      console.log("message added : ", message);
+      usersService.getNameByUserId(message.user_id)
+      .then(userName => {
+        ws.send(JSON.stringify({
+          type: 'MESSAGES',
+          data: message.content,
+          userId: userName,
+          author: `IP/${message.token}`
+        }));
+        broadcast({
+          type: 'MESSAGES',
+          userId: userName,
+          data: message.content,
+          author: `IP/${message.token}`
+        }, ws);
+      })
+
+    })
+  );
+
+
+
   // console.log("address is :",`${window.location.pathname}`);
   let userID = `lambda${i}`
   ws.id = userID;
@@ -68,7 +120,7 @@ wss.on('connection', (ws) => {
   console.log("ws id is : ", ws.id)
   // let socketTry = new Websocket("http:/")
   let index
-  ws.onopen = () => {
+  ws.onopen = (event) => {
     console.log("logged in with the event : ", event)
   }
 
@@ -91,13 +143,112 @@ wss.on('connection', (ws) => {
         }, ws)
         break
       }
+
+
       case 'NEW_MESSAGE':
-        console.log("message added : ", data)
-        broadcast({
-          type: 'MESSAGES',
-          message: data.message,
-          author: data.userName
-        }, ws)
+        console.log("message added : ", data.channel.substring(4))
+        let feedbackToken;
+        let userToken;
+        let messageContent = data.message;
+        if(data.channel.charAt(1) === "I"){
+          feedbackToken = data.channel.substring(4);
+          userToken = feedbackToken;
+
+          console.log("ip userToken is : ", userToken);
+
+          usersService.getIPByFeedbackToken(feedbackToken)
+          // .then(result => console.log("result from IPByToken is : ", result))
+          .then(result => {
+            let actualUserId = result[0].token;
+            console.log("actualUserId is : ", actualUserId);
+            feedbacksService.getFeedbackHeaderByToken(feedbackToken)
+            .then(feedbackHeader => {
+              console.log("handlers/postNewMessage:", feedbackHeader);
+              if (actualUserId) {
+                console.log("handlers/postNewMessage: message is added by actualUserId", actualUserId);
+                return usersService.getUserHeaderByToken(actualUserId).
+                then(dbUser => {
+                  console.log("dbUser is :" , dbUser);
+                  return {feedbackId: feedbackHeader.id, userId: dbUser.id};
+                })
+              } else {
+                //console.log("handlers/postNewMessage: message is added by feedback creator", feedbackHeader.user_id);
+                return {feedbackId: feedbackHeader.id, userId: feedbackHeader.user_id};
+              }
+            })
+            .then(data => {
+              usersService.getNameByUserId(data.userId)
+              .then(name => {
+                console.log("result is : ", name);
+                broadcast({
+                  type: 'MESSAGES',
+                  message: messageContent,
+                  author: `SP/${userToken}`,
+                  name,
+                }, ws)})
+              return data;
+            })
+            .then(data => {
+              //console.log("handlers/postNewMessage: insert data=", data);
+              return feedbacksService.addNewMessageToFeedback(data.feedbackId, messageContent, data.userId)
+            })
+            .then(infos => {
+              if (infos.errorMessage) {
+                result.json({status: "error", errorMessage: infos.errorMessage});
+              } else {
+                // result.json({status: "succeeded", data: infos});
+              }
+            })
+          })
+
+        } else {
+          feedbackToken = data.channel.substring(4);
+          let userToken = feedbackToken;
+
+          usersService.getUserByFeedbackToken(feedbackToken)
+          .then(result => {
+            let actualUserId = result[0].token;
+            console.log("actualUserId is : ", actualUserId);
+            feedbacksService.getFeedbackHeaderByToken(feedbackToken)
+            .then(feedbackHeader => {
+              console.log("handlers/postNewMessage:", feedbackHeader);
+              if (actualUserId) {
+                console.log("handlers/postNewMessage: message is added by actualUserId", actualUserId);
+                return usersService.getUserHeaderByToken(actualUserId).
+                then(dbUser => {
+                  console.log("dbUser is :" , dbUser);
+                  return {feedbackId: feedbackHeader.id, userId: dbUser.id};
+                })
+              } else {
+                //console.log("handlers/postNewMessage: message is added by feedback creator", feedbackHeader.user_id);
+                return {feedbackId: feedbackHeader.id, userId: feedbackHeader.user_id};
+              }
+            })
+            .then(data => {
+              usersService.getNameByUserId(data.userId)
+              .then(name => {
+                console.log("result is : ", name);
+                broadcast({
+                  type: 'MESSAGES',
+                  message: messageContent,
+                  author: `SP/${userToken}`,
+                  name,
+                }, ws)})
+              return data;
+            })
+            .then(data => {
+              console.log("handlers/postNewMessage: insert data=", data);
+              return feedbacksService.addNewMessageToFeedback(data.feedbackId, messageContent, data.userId)
+            })
+            .then(infos => {
+              if (infos.errorMessage) {
+                result.json({status: "error", errorMessage: infos.errorMessage});
+              } else {
+                result.json({status: "succeeded", data: infos});
+              }
+            })
+          })
+        }
         break
       default:
         break
