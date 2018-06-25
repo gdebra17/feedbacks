@@ -58,7 +58,7 @@ handleExpiringDate = (event) => {
 }
 
 getProductsList = () => {
-  fetch("http://localhost:8080/products")
+  fetch("/products")
         .catch((error) => {
           console.warn(error);
         })
@@ -70,7 +70,7 @@ getProductsList = () => {
 }
 
 getFeedbacks = () => {
-  fetch("http://localhost:8080/feedbackList")
+  fetch("/feedbackList")
         .catch((error) => {
           console.warn(error);
         })
