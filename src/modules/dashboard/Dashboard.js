@@ -12,6 +12,14 @@ export default class Dashboard extends React.Component {
         productDecathlonId: "",
         expiringDate: "",
         user_id: 0,
+        qrcode: {
+          value: `${window.location.hostname}/postfeedback/${this.state.productDecathlonId}`,
+          size: 128,
+          fgColor: '#000000',
+          bgColor: '#ffffff',
+          level: 'L',
+          renderAs: 'svg',
+        }
       };
     }
 
@@ -149,8 +157,15 @@ postNewProduct = () => {
               <ul className="list-group">
                 <li className="list-group-item d-flex font-weight-bold flex-center align-items-center">Products under review...</li>
                 {this.state.productsList.map(product => <li key={product.decathlonid} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
-                  <small>{product.name}</small>
-                  <footer className="blockquote-footer">{product.decathlonid}</footer>
+                  <div className="col-8">
+                    <small>{product.name}</small>
+                  </div>
+                  <div className="col-2">
+                  <i className="fas fa-barcode fa-2x"></i>
+                  </div>
+                  <div className="col-2">
+                    <small>{product.decathlonid}</small>
+                  </div>
                 </li>)}
               </ul>
             </div>

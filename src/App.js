@@ -18,9 +18,9 @@ import Buttons from "./modules/Buttons";
 
 class App extends Component {
 
-  getDiscussion = (routerProps) => {
+  postFeedback = (routerProps) => {
     console.log("routerProps=", routerProps);
-    return <Discussion {...routerProps} />
+    return <Form {...routerProps} />
   }
 
   render() {
@@ -34,7 +34,7 @@ class App extends Component {
           </div>
             <Route exact path="/feedback" component={Form}/>
             <Route exact path="/connect" component={Connect}/>
-            <Route path="/postfeedback/:tokenFeedback" render={this.getDiscussion}/>
+            <Route path="/postfeedback/:tokenFeedback" render={this.postFeedback}/>
             <Route exact path="/about" component={About} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/SP/:tokenFeedback" component={Tchat0}/>
