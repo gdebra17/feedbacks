@@ -1,7 +1,9 @@
 import React from 'react';
+import Navbar from "../navbar/Navbar";
 import Header from "../header/Header";
 import "./dashboard.css";
 const QRCode = require('qrcode-react');
+
 
 
 export default class Dashboard extends React.Component {
@@ -22,7 +24,9 @@ export default class Dashboard extends React.Component {
         productDecathlonId: "8514879",
         expiringDate: "",
         user_id: 0,
+        displayQrCode: [],
       };
+      //this.displayQrcode = this.displayQrcode.bind(this);
     }
 
 setExpiringDate = () => {
@@ -107,21 +111,28 @@ postNewProduct = () => {
         .then((response) => console.log(response))
 }
 
-// displayQrcode = () => {
-//   if (document.getElementById("idQRcode").style.display = "none") {
-//     document.getElementById("idQRcode").style.display = "block";
-//   }
-// }
+
+
+displayQrcode = (itemToManage) => {
+  console.log("eventtutu:", itemToManage);
+  if (this.state.displayQrCode.includes(itemToManage)) {
+    const displayQrCodeWithoutItem = this.state.displayQrCode.filter(item => item !== itemToManage);
+    this.setState({displayQrCode: [...displayQrCodeWithoutItem]});
+  } else {
+    this.setState({displayQrCode: [...this.state.displayQrCode, itemToManage]});
+  }
+}
 
   render() {
     return (
       <div>
         <div className="container">
+          <Navbar />
           <Header />
           <div className="text-center p-3">
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#Modal">
+            {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#Modal">
               Add a new product
-            </button>
+            </button> */}
             <div className="modal fade" id="Modal" tabIndex="-1" role="dialog" aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
@@ -167,34 +178,44 @@ postNewProduct = () => {
                 <li className="list-group-item d-flex font-weight-bold flex-center align-items-center">Products under review...</li>
                 {this.state.productsList.map(product =>
 
-                  <li key={product.decathlonid} onClick={this.displayQrcode} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
+                  <li  key={product.decathlonid} onClick={() => this.displayQrcode(product.decathlonid)} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
 
-                    <div id="idQRcode">
-                      <QRCode
-                        value={`${this.state.qrcode.value}${product.decathlonid}`}
-                        size={this.state.qrcode.size}
-                        fgColor={this.state.qrcode.fgColor}
-                        bgColor={this.state.qrcode.bgColor}
-                        level={this.state.qrcode.level}
-                        renderAs={this.state.qrcode.renderAs}
-                      />
-                      Export to PDF
-                    </div>
 
-                    <div>
-                      <div className="col-8">
-                        <small>{product.name}</small>
+                    <div className="container ">
+                      <div className="row Qrcode list-group-item-action" >
+                        <div className="col-8">
+                          <small>{product.name}</small>
+                        </div>
+                        <div className="col-2">
+                        <i className="fas fa-barcode fa-2x"></i>
+                        </div>
+                        <div className="col-2">
+                          <small>{product.decathlonid}</small>
+                        </div>
                       </div>
-                      <div className="col-2">
-                      <i className="fas fa-barcode fa-2x"></i>
+                      <div className="row justify-content-center " >
+                      { this.state.displayQrCode.includes(product.decathlonid)
+                        ? <div id="idQRcode" className=" mt-3 mb-3">
+                          <a href="/dashboard/qrcode" target="_blank">
+                          <QRCode
+                            value={`${this.state.qrcode.value}${product.decathlonid}`}
+                            size={this.state.qrcode.size}
+                            fgColor={this.state.qrcode.fgColor}
+                            bgColor={this.state.qrcode.bgColor}
+                            level={this.state.qrcode.level}
+                            renderAs={this.state.qrcode.renderAs}
+                          />
+                          </a>
+                        </div>
+                        : <span></span>
+                      }
                       </div>
-                      <div className="col-2">
-                        <small>{product.decathlonid}</small>
-                      </div>
-                    </div>
+                  </div>
                 </li>)}
+
               </ul>
             </div>
+
             <div className="col-2"></div>
           </div>
           <div className="container pt-5">
@@ -203,7 +224,7 @@ postNewProduct = () => {
                 <div className="card" key={feed.token}>
                   <div className="card-body">
                     <h5 className="card-title">{feed.topic}</h5>
-                    <p className="card-text">Card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p className="card-text">{feed.content}</p>
                   </div>
                   <div className="card-footer">
                     <small className="text-muted">{feed.name}</small>

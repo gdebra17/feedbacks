@@ -4,6 +4,7 @@ import './connect.css';
 import { connect } from "react-redux";
 import { getProfileInfo} from "../../store/profile/selectors";
 import { profileHandler } from "../../store/profile/handlers";
+import GoogleLogin from 'react-google-login';
 
 class Connect extends React.Component {
 
@@ -48,6 +49,52 @@ componentWillReceiveProps(nextProps, nextContext) {
      })
 }
 
+
+
+// const responseGoogle = (response) => {
+//   const body = { token: response.Zi.id_token};
+//   fetch('/googleConnectBack', {
+//       method: 'POST',
+//       body: JSON.stringify(body),
+//       headers: { 'Content-Type': 'application/json' },
+//   })
+//
+// .then((res) => {
+//   if(res.status===201){
+//     return res.json()
+//   } else {
+//       return "bad access";
+//   }
+//
+// }).then(finalresult=>{
+//   console.log(finalresult);
+//   if(finalresult !== "bad access"){
+//     store.dispatch({type:LOGIN, loggedIn:true, name:finalresult.userInfo.given_name, urlPic:finalresult.userInfo.picture,});
+//   }
+// })
+//
+// }
+
+
+responseGoogle = (googleUser) => {
+    const familyName = googleUser.profileObj.familyName;
+    // family = googleUser.profileObj.familyName;
+    const name =googleUser.profileObj.name;
+    const pic =googleUser.profileObj.imageUrl;
+    this.setState({pic: pic})
+    this.setState({name: name})
+    console.log(familyName);
+    console.log(name);
+    console.log(pic);
+
+    this.props.signed(true);
+  }
+
+
+
+
+
+
 render() {
 
     let imagePath;
@@ -62,53 +109,67 @@ render() {
     }
 
 
+
+
   return (
       <div className="flex">
       {this.state.authOk
         ?  <Redirect to='/dashboard' />
         :
-        <div className="jumbotron mt-2">
+        <div className="jumbotron">
           {/* <img src={backpic} className="img-fluid rounded" alt="..."/> */}
           <div className="mainBody">
           <h1 className="display-5">DECATHLON</h1>
 
           <div>
           {imagePath
-            ?<img className='mt-2' src={imagePath} alt="" style={{
-               borderWidth:1,
-               borderStyle:'solid',
-               borderColor:'white',
-               alignItems:'center',
-               paddingLeft:1,
-               marginLeft: 40,
-               justifyContent:'center',
-               width:50,
-               height:50,
-               backgroundColor:'#fff',
-               borderRadius:100,
-             }}/>
+            ?<img className='mt-2 ml-2 connect-photo' src={imagePath} alt=""/>
             :<div/>
           }
             <span className="ml-3">{this.props.profileInfo.U3}</span>
           </div>
 
-          <p className="lead mt-3">Welcome to Product Feedback App</p>
+          {this.state.checkEmail
+            ? <div className="alert alert-danger">{this.state.checkEmail}</div>
+            : <span></span>
+          }
+
+          <p className="lead mt-3 font-weight-bold">Welcome to Product Feedback App</p>
           <hr className="hr"/>
-          <p>Please use the button below to log in and get ready to manage your feedbacks</p>
+          {!this.state.checkEmail
+            ? <p>Please use the button below to log in and get ready to manage your feedbacks</p>
+            : <span></span>
+          }
           <div className="lead">
 
-            <div>
+            {/* <div>
             {imagePath
               ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
               : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
             }
-            </div>
+            </div> */}
+
+            {/* <GoogleLogin
+              clientId="6722468307-p0tvf0sis0fnp6uammq7p51v745sre4n.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={failure}
+              className="btn btn-danger mt-3"
+            >
+          <i className="fab fa-google"></i>
+          <span>Login with Google</span>
+        </GoogleLogin> */}
+
+        <GoogleLogin
+                            className="login"
+                            clientId="6722468307-p0tvf0sis0fnp6uammq7p51v745sre4n.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                            />
 
 
-            {this.state.checkEmail
-              ? <div className="alert alert-danger">{this.state.checkEmail}</div>
-              : <span></span>
-            }
+
           </div>
         </div>
         </div>
