@@ -4,7 +4,7 @@ import './connect.css';
 import { connect } from "react-redux";
 import { getProfileInfo} from "../../store/profile/selectors";
 import { profileHandler } from "../../store/profile/handlers";
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 class Connect extends React.Component {
 
@@ -47,48 +47,19 @@ componentWillReceiveProps(nextProps, nextContext) {
 
 
 
-// const responseGoogle = (response) => {
-//   const body = { token: response.Zi.id_token};
-//   fetch('/googleConnectBack', {
-//       method: 'POST',
-//       body: JSON.stringify(body),
-//       headers: { 'Content-Type': 'application/json' },
-//   })
+// responseGoogle = (googleUser) => {
+//     const familyName = googleUser.profileObj.familyName;
+//     // family = googleUser.profileObj.familyName;
+//     const name =googleUser.profileObj.name;
+//     const pic =googleUser.profileObj.imageUrl;
+//     this.setState({pic: pic})
+//     this.setState({name: name})
+//     console.log(familyName);
+//     console.log(name);
+//     console.log(pic);
 //
-// .then((res) => {
-//   if(res.status===201){
-//     return res.json()
-//   } else {
-//       return "bad access";
+//     this.props.signed(true);
 //   }
-//
-// }).then(finalresult=>{
-//   console.log(finalresult);
-//   if(finalresult !== "bad access"){
-//     store.dispatch({type:LOGIN, loggedIn:true, name:finalresult.userInfo.given_name, urlPic:finalresult.userInfo.picture,});
-//   }
-// })
-//
-// }
-
-
-responseGoogle = (googleUser) => {
-    const familyName = googleUser.profileObj.familyName;
-    // family = googleUser.profileObj.familyName;
-    const name =googleUser.profileObj.name;
-    const pic =googleUser.profileObj.imageUrl;
-    this.setState({pic: pic})
-    this.setState({name: name})
-    console.log(familyName);
-    console.log(name);
-    console.log(pic);
-
-    this.props.signed(true);
-  }
-
-
-
-
 
 
 render() {
@@ -150,32 +121,28 @@ render() {
           }
           <div className="lead">
 
-            {/* <div>
+            <div>
             {imagePath
               ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
               : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
             }
-            </div> */}
+            </div>
 
-            {/* <GoogleLogin
-              clientId="6722468307-p0tvf0sis0fnp6uammq7p51v745sre4n.apps.googleusercontent.com"
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={failure}
-              className="btn btn-danger mt-3"
-            >
-          <i className="fab fa-google"></i>
-          <span>Login with Google</span>
-        </GoogleLogin> */}
 
-        <GoogleLogin
+        {/* <GoogleLogin
                             className="login"
-                            clientId="6722468307-p0tvf0sis0fnp6uammq7p51v745sre4n.apps.googleusercontent.com"
+                            clientId="1067884850483-vhed3duodar5tf92frpf72tanq5juepi.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={this.responseGoogle}
                             onFailure={this.responseGoogle}
                             />
 
+
+                            <GoogleLogout
+                            className="login"
+                            buttonText="Logout"
+                            onLogoutSuccess={this.logout}
+                            /> */}
 
 
 
