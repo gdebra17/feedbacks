@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import MessagesListComponent from '../components/MessagesList'
-import { loadDiscussion } from '../store/tchat/actions'
 
 // const mapDispatchToProps = dispatch => ({
 //   dispatch: (path) => {

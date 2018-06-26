@@ -1,13 +1,8 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import './Navbar.css';
 import { connect } from "react-redux";
 import { getProfileInfo} from "../../store/profile/selectors";
 import { profileHandler } from "../../store/profile/handlers";
-
-
-
 
 class Connect extends React.Component {
 
@@ -44,7 +39,7 @@ class Connect extends React.Component {
 
     return (
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Product Feedback</a>
+        <a class="navbar-brand">Product Feedback</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,7 +47,7 @@ class Connect extends React.Component {
           <ul class="navbar-nav">
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 {imagePath
                   ?<img className='mt-2' src={imagePath} alt="" style={{
@@ -71,13 +66,9 @@ class Connect extends React.Component {
                   : <a> Your Account </a>
                 }
 
-
-
-
-
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">{imagePath
+                <a class="dropdown-item">{imagePath
                   ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
                   : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
                 }</a>

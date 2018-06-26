@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
 import './App.css';
-import TestForm from "./modules/form/TestForm";
+
+// import TestForm from "./modules/form/TestForm";
+// import About from "./modules/about/About";
+// import Discussion from "./modules/Tchat/Discussion";
+// import Buttons from "./modules/Buttons";
+
 import Form from "./modules/form/Form";
 import Dashboard from "./modules/dashboard/Dashboard";
 import Connect from "./modules/connect/Connect";
-import About from "./modules/about/About";
-import Discussion from "./modules/Tchat/Discussion";
 import Tchat from "./modules/Tchat/Tchat";
 import Tchat0 from "./modules/Tchat/Tchat0";
-import Buttons from "./modules/Buttons";
 import Navbar from "./modules/navbar/Navbar";
 
 class App extends Component {
@@ -25,19 +26,19 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-          <div className="container">
+          {/* <div className="container">
             <a href="/feedback">Page feedback de l'utilisateur</a> ||
             <a href="/dashboard">  Dashboard de l'ingénieur</a> ||
-          </div>
+          </div> */}
 
-          <Route exact path="/" component={Buttons}/>
-          <Route exact path="/feedback" component={Form}/>
-          <Route exact path="/connect" component={Connect}/>
+          <Route exact path="/" component={Connect}/>
+          <Route path="/connect" component={Connect}/>
+          <Route path="/postfeedback/:decathlonid" render={this.postFeedback}/>
           <Route path="/IP/:tokenFeedback" component={Tchat}/>
           <Route path="/SP/:tokenFeedback" component={Tchat0}/>
-          <Route path="/postfeedback/:decathlonid" render={this.postFeedback}/>
-          <Route exact path="/testform" component={TestForm} />
-          <Route exact path="/about" component={About} />
+
+          {/* <Route exact path="/testform" component={TestForm} />
+          <Route exact path="/about" component={About} /> */}
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/navbar" component={Navbar}/>
 
