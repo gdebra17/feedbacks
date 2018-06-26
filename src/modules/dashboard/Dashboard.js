@@ -193,6 +193,7 @@ displayQrcode = (itemToManage) => {
                       <div className="row justify-content-center " >
                       { this.state.displayQrCode.includes(product.decathlonid)
                         ? <div id="idQRcode" className=" mt-3 mb-3">
+                          <a href="/dashboard/qrcode" target="_blank">
                           <QRCode
                             value={`${this.state.qrcode.value}${product.decathlonid}`}
                             size={this.state.qrcode.size}
@@ -201,6 +202,7 @@ displayQrcode = (itemToManage) => {
                             level={this.state.qrcode.level}
                             renderAs={this.state.qrcode.renderAs}
                           />
+                          </a>
                         </div>
                         : <span></span>
                       }

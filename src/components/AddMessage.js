@@ -5,7 +5,7 @@ const AddMessage = (props) => {
   let input
 
   return (
-    <div>
+    <div className="container">
 
     <section id="new-message">
     <div className="collapse" id="navbarToggleExternalContent" >

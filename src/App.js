@@ -34,8 +34,8 @@ class App extends Component {
           <Route exact path="/" component={Connect}/>
           <Route path="/connect" component={Connect}/>
           <Route path="/postfeedback/:decathlonid" render={this.postFeedback}/>
-          <Route path="/IP/:tokenFeedback" component={Tchat}/>
-          <Route path="/SP/:tokenFeedback" component={Tchat0}/>
+          <Route path="/pe/:tokenFeedback" component={Tchat}/>
+          <Route path="/su/:tokenFeedback" component={Tchat0}/>
 
           {/* <Route exact path="/testform" component={TestForm} />
           <Route exact path="/about" component={About} /> */}

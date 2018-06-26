@@ -1,9 +1,10 @@
-import store from './store'
+import store from './store';
 
-const host = window.location.origin.replace(/^http/, 'ws');
+//const host = window.location.origin.replace(/^http/, 'ws');
 // let websocket;
 
-const websocket = new WebSocket(`${host}${process.env.NODE_ENV === "production" ? "" : ""}`);
+const websocket = new WebSocket(`ws://localhost:${process.env.NODE_ENV === "production" ? "" : "8080"}`);
+// const websocket = new WebSocket(`${host}${process.env.NODE_ENV === "production" ? "" : ""}`);
 // console.log("here is the origin : ", window.location.origin.replace(/^http/,"ws"));
 
 websocket.addEventListener("message", event => {
