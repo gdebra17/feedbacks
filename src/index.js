@@ -40,6 +40,8 @@ store.dispatch(addUser('Me'));
 //
 // sagaMiddleware.run(handleNewMessage, { socket });
 
+//document.getElementById('google-signin-client_id').content = '918173514776-d2sammsgvl98lujus1qoprt53jdag6v3.apps.googleusercontent.com';
+//document.getElementById('google-signin-client_id').content = '1067884850483-vhed3duodar5tf92frpf72tanq5juepi.apps.googleusercontent.com';
 
 ReactDOM.render(
   <BrowserRouter>
