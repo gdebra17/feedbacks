@@ -17,8 +17,13 @@ import Navbar from "./modules/navbar/Navbar";
 class App extends Component {
 
   postFeedback = (routerProps) => {
-    console.log("routerProps=", routerProps);
+    //console.log("routerProps=", routerProps);
     return <Form {...routerProps} />
+  }
+
+  getDashboard = (routerProps) => {
+    //console.log("routerProps=", routerProps);
+    return <Dashboard {...routerProps} />
   }
 
   render() {
@@ -40,6 +45,7 @@ class App extends Component {
           <Route exact path="/testform" component={TestForm} />
           <Route exact path="/about" component={About} />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard/:decathlonid" component={Dashboard} />
           <Route exact path="/navbar" component={Navbar}/>
 
 

@@ -183,14 +183,19 @@ function addNewMessageToFeedback(feebackId, messageContent, userId) {
   })
 }
 
-function getFeedbackList() {
-  return db.sequelize.query("SELECT f.token, p.decathlonid, f.topic, u.name, m.content"
+function getFeedbackList(decathlonid="ALL") {
+  let sql = "SELECT f.token, p.decathlonid, f.topic, u.name, m.content"
   + " FROM feedbacks f"
   + " inner join products p on p.id=f.product_id"
   + " inner join users u on u.id=f.user_id"
   + " inner join (select  feedback_id, min(id) id from messages group by feedback_id) m1 on m1.feedback_id=f.id"
-  + " inner join messages m on m.id=m1.id",
-    { type: db.sequelize.QueryTypes.SELECT })
+  + " inner join messages m on m.id=m1.id";
+  if (decathlonid !== "ALL") {
+    sql += " where p.decathlonid = :decathlonid";
+  }
+
+  return db.sequelize.query(sql,
+    { replacements: { decathlonid: decathlonid }, type: db.sequelize.QueryTypes.SELECT })
 }
 
 function getMessageList(urlToken) {

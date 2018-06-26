@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import './about.css';
+import Navbar from "../navbar/Navbar";
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -62,6 +63,7 @@ class About extends Component {
     return (
 
       <div className="{classes.root} mb-5">
+        <Navbar />
         <h2 className="mt-5 mb-4 text-center" >Project Informations</h2>
 
         <ExpansionPanel>

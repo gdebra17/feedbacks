@@ -23,7 +23,7 @@ app.get("/welcome", handlers.getWelcome);
 //http://localhost:8080/feedbacks/TOKEN_2
 app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
 app.post("/feedbacks", handlers.postNewFeedback);
-app.get("/feedbackList", handlers.getFeedbackList);
+app.get("/feedbackList/:decathlonid", handlers.getFeedbackList);
 app.post("/messages", handlers.postNewMessage);
 //app.post("/messages/:idtoken", handlers.getAllMessages);
 app.get("/products", handlers.getAllProducts);
@@ -51,7 +51,7 @@ const broadcast = (data, ws) => {
   wss.clients.forEach((client) => {
     // console.log("client is :", ws);
     // console.log(client.readyState === ws.OPEN, client !== ws);
-    console.log("data from broadcast :", data);
+    //console.log("data from broadcast :", data);
     // if (client.readyState === ws.OPEN && client !== ws) {
       // console.log("data is : ", );
       client.send(JSON.stringify({ type: data.type, data: data.message, author: data.author, users: data.users, userId: data.name}));
@@ -89,7 +89,7 @@ wss.on('connection', (ws) => {
   feedbacksService.getAllMessage()
   .then(messageList =>
     messageList.forEach( message => {
-      console.log("message added : ", message);
+      //console.log("message added : ", message);
       usersService.getNameByUserId(message.user_id)
       .then(userName => {
         ws.send(JSON.stringify({
@@ -145,7 +145,7 @@ wss.on('connection', (ws) => {
 
 
       case 'NEW_MESSAGE':
-        console.log("message added : ", data.channel.substring(4))
+        //console.log("message added : ", data.channel.substring(4))
         let feedbackToken;
         let userToken;
         let messageContent = data.message;
