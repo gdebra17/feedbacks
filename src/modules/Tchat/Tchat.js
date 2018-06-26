@@ -3,7 +3,9 @@ import { Sidebar } from "../../containers/Sidebar";
 import { MessagesList } from "../../containers/MessagesList";
 import { AddMessage } from "../../containers/AddMessage";
 import "../../App.css";
-import { closeSocket } from "../../store/sendWs";
+import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs"
+import store from "../../store/store"
+import {loadDiscussion} from "../../store/sendWs"
 
 class Tchat extends Component {
 
