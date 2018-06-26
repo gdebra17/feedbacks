@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from "../navbar/Navbar";
-import Header from "../header/Header";
+//import Header from "../header/Header";
 import "./dashboard.css";
 const QRCode = require('qrcode-react');
 

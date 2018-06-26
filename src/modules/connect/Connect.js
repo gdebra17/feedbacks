@@ -4,7 +4,6 @@ import './connect.css';
 import { connect } from "react-redux";
 import { getProfileInfo} from "../../store/profile/selectors";
 import { profileHandler } from "../../store/profile/handlers";
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 class Connect extends React.Component {
 
@@ -36,7 +35,7 @@ componentWillReceiveProps(nextProps, nextContext) {
    })
      .then(response => response.json())
      .then(result => {
-       console.log("componentWillUpdate result=", result);
+       //console.log("componentWillReceiveProps result=", result);
          if (result.errorMessage) {
            this.setState({
              checkEmail: result.errorMessage,
@@ -48,23 +47,6 @@ componentWillReceiveProps(nextProps, nextContext) {
          }
      })
 }
-
-
-
-// responseGoogle = (googleUser) => {
-//     const familyName = googleUser.profileObj.familyName;
-//     // family = googleUser.profileObj.familyName;
-//     const name =googleUser.profileObj.name;
-//     const pic =googleUser.profileObj.imageUrl;
-//     this.setState({pic: pic})
-//     this.setState({name: name})
-//     console.log(familyName);
-//     console.log(name);
-//     console.log(pic);
-//
-//     this.props.signed(true);
-//   }
-
 
 render() {
 
@@ -78,9 +60,6 @@ render() {
       this.props.disconnect();
       window.location.reload();
     }
-
-
-
 
   return (
       <div className="flex">
@@ -119,24 +98,6 @@ render() {
               : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
             }
             </div>
-
-
-        {/* <GoogleLogin
-                            className="login"
-                            clientId="1067884850483-vhed3duodar5tf92frpf72tanq5juepi.apps.googleusercontent.com"
-                            buttonText="Login"
-                            onSuccess={this.responseGoogle}
-                            onFailure={this.responseGoogle}
-                            />
-
-
-                            <GoogleLogout
-                            className="login"
-                            buttonText="Logout"
-                            onLogoutSuccess={this.logout}
-                            /> */}
-
-
           </div>
         </div>
         </div>

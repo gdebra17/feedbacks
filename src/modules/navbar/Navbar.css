@@ -7,6 +7,6 @@
   text-decoration: none !important
 }
 
-img {
-  max-height: 30px;
+.navbar-img-header {
+  max-height: 50px;
 }

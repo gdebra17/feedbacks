@@ -28,7 +28,7 @@ window.googleConnectCallback = function(googleUser){
   //const id_token = googleUser.getAuthResponse().id_token;
   //console.log("ID Token: " + id_token);
   //console.log("authResponse : ", googleUser.getAuthResponse());
-  console.log("complete profile : ", profile);
+  //console.log("complete profile : ", profile);
   store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect});
 };
 store.dispatch(addUser('Me'));
