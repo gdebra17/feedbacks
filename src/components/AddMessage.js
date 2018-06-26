@@ -26,15 +26,18 @@ const AddMessage = (props) => {
         input = node
       }}
       />
-      <button style={{marginLeft: 20, padding:5,background: "papayawhip", borderRadius:5}} onClick={() => {
-        props.dispatch(input.value, 'Me', window.location.pathname)
-        input.value = ''
-      }
+      <button className="btn btn-outline primary" type="button"  style={{marginLeft: 15,
+            borderStyle:'thin',
+            borderColor:'black', height:35, width:80}}
+        onClick={() => {
+          props.dispatch(input.value, 'Me', window.location.pathname)
+          input.value = ''
+        }
     }> Send </button>
-    <button className="navbar-toggler shadow" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" style={{marginLeft: 15,
-          borderStyle:'solid',
-          borderColor:'white', height:40, width:80,}}>
-            <i>Recap</i>
+    <button className="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" style={{marginLeft: 15,
+          borderStyle:'thin',
+          borderColor:'black', height:35, width:80,}}>
+            <a>Recap</a>
           </button>
     </section>
     </div>

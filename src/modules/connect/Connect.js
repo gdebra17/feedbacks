@@ -23,6 +23,10 @@ class Connect extends React.Component {
   this.props.signed(false);
  }
 
+componentWillMount(){
+  // window.location.reload();
+}
+
 componentWillReceiveProps(nextProps, nextContext) {
   console.log("componentWillReceiveProps email=", nextProps.profileInfo.U3);
    fetch("/internalconnexion", {

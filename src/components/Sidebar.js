@@ -10,12 +10,15 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = ({users}) => (
   <aside id="sidebar" className="sidebar">
-    <ul>
-      {users.map(user => (
-
-          <Link to={`/IP/${user.id}`} onClick={window.location.reload} ><li key={user.id}>{user.name} <br/> {user.id}</li></Link>
-
-      ))}
+    <ul class="list-group">
+      {users.map(user => {
+        console.log(`/IP/${user.id}` === window.location.pathname);
+        if(`/IP/${user.id}` === window.location.pathname){
+          return(<Link style={{fontWeight: "bold", color:"white"}} to={`/IP/${user.id}`} onClick={window.location.reload} ><li class="list-group-item list-group-item-action active" key={user.id} style={{marginBottom:3}}>{user.name}</li></Link>)
+        } else {
+          return(<Link to={`/IP/${user.id}`} onClick={window.location.reload} ><li class="list-group-item list-group-item-action" key={user.id} style={{marginBottom:3}}>{user.name}</li></Link>)
+        }
+      })}
     </ul>
   </aside>
 )

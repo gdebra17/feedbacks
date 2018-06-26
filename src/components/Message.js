@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Message = ({ message, author, path }) => (
   <p>
-    <a> <i style={{fontWeight: "bold"}}>{author}</i>: {message} </a>
+    <a><i style={{fontWeight: "bold"}}>{author}</i>: {message} </a>
   </p>
 )
 // {
