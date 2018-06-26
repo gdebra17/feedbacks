@@ -6,3 +6,7 @@
 .nounderline {
   text-decoration: none !important
 }
+
+img {
+  max-height: 30px;
+}

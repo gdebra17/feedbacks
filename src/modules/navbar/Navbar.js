@@ -53,11 +53,11 @@ class Connect extends React.Component {
 
     return (
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <img src={logo} className="img-fluid rounded" alt=""/>
+        <img src={logo} className="img-fluid rounded pr-2" alt=""/>
 
         <div class="btn-group nounderline">
-          <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Products List
+          <button type="button" className="btn btn-link dropdown-toggle pr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Products
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#">Product 1</a>
@@ -69,21 +69,9 @@ class Connect extends React.Component {
               <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#Modal">
                 Add a new product
               </button>
-
-
-
             </a>
           </div>
         </div>
-
-
-
-
-
-
-
-        <a class ="options" href="">Feedbacks</a>
-
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
