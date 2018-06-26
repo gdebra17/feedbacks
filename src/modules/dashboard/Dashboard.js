@@ -178,8 +178,8 @@ displayQrcode = (itemToManage) => {
                   <li  key={product.decathlonid} onClick={() => this.displayQrcode(product.decathlonid)} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
 
 
-                    <div className="container">
-                      <div className="row" >
+                    <div className="container ">
+                      <div className="row Qrcode list-group-item-action" >
                         <div className="col-8">
                           <small>{product.name}</small>
                         </div>
