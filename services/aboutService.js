@@ -15,6 +15,8 @@ function getTeamDescription() {
         id: creator.id,
         name: creator.name,
         email: creator.email,
+        description: creator.description,
+        urlPhoto: creator.url_photo,
       });
     });
     return creatorList;

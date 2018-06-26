@@ -70,19 +70,7 @@ render() {
 
           <div>
           {imagePath
-            ?<img className='mt-2' src={imagePath} alt="" style={{
-               borderWidth:1,
-               borderStyle:'solid',
-               borderColor:'white',
-               alignItems:'center',
-               paddingLeft:1,
-               marginLeft: 40,
-               justifyContent:'center',
-               width:50,
-               height:50,
-               backgroundColor:'#fff',
-               borderRadius:100,
-             }}/>
+            ?<img className='mt-2 ml-2 connect-photo' src={imagePath} alt=""/>
             :<div/>
           }
             <span className="ml-3">{this.props.profileInfo.U3}</span>
@@ -107,8 +95,6 @@ render() {
               : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
             }
             </div>
-
-
 
           </div>
         </div>

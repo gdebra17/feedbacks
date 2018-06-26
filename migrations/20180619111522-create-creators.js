@@ -14,6 +14,12 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
+      url_photo: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
