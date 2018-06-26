@@ -10,7 +10,7 @@ const websocket = new WebSocket(`ws://localhost:${process.env.NODE_ENV === "prod
 websocket.addEventListener("message", event => {
 
   const message = JSON.parse(event.data);
-  console.log("Message from server ", message);
+  //console.log("Message from server ", message);
   switch (message.type) {
     case "CONNECTION_START":
     default:
@@ -21,7 +21,7 @@ websocket.addEventListener("message", event => {
     // console.log(`check this equality : ${window.location.pathname.substring(3)} === ${message.author.substring(3)}`);
     // if(event.data.id !== undefined){
       if(window.location.pathname.substring(3) === `${message.author.substring(2)}` || `${window.location.pathname.substring(2)}` === message.author.substring(3) || `${window.location.pathname.substring(3)}` === message.author.substring(3)){
-        console.log("wow such LKZAJELKJA code", message);
+        //console.log("wow such LKZAJELKJA code", message);
         store.dispatch({type: "MESSAGE_RECEIVED", messages: message.data, author: message.userId, path: message.author})
         return;
       }
@@ -31,7 +31,7 @@ websocket.addEventListener("message", event => {
       store.dispatch({type: "CHANNELS", channels: message.data})
       /* falls through */
     case "USERS_LIST":
-      console.log("been here with user_list", message);
+      //console.log("been here with user_list", message);
       store.dispatch({type: "USERS_LIST", users: message.users})
   }
 });

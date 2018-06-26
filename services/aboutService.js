@@ -22,7 +22,7 @@ function getTeamDescription() {
     return creatorList;
   })
   .then(creatorList => {
-    console.log("creatorList=", creatorList);
+    //console.log("creatorList=", creatorList);
     return {teamName, creatorList};
   });
 }
