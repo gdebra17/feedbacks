@@ -4,9 +4,7 @@ import { MessagesList } from "../../containers/MessagesList";
 import { AddMessage } from "../../containers/AddMessage";
 import "../../App.css";
 
-import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs"
-import store from "../../store/store"
-import {loadDiscussion} from "../../store/sendWs"
+import { closeSocket } from "../../store/sendWs"
 import {Link} from "react-router-dom"
 let imageExists = require('image-exists');
 
