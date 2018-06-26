@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from "../navbar/Navbar";
-import Header from "../header/Header";
+//import Header from "../header/Header";
 import "./dashboard.css";
 const QRCode = require('qrcode-react');
 
@@ -21,10 +21,11 @@ export default class Dashboard extends React.Component {
         productsList: [],
         feedbacks: [],
         productName: "",
-        productDecathlonId: "8514879",
+        productDecathlonId: "",
         expiringDate: "",
         user_id: 0,
         displayQrCode: [],
+        decathlonidSelected: this.props.match.params.decathlonid,
       };
       //this.displayQrcode = this.displayQrcode.bind(this);
     }
@@ -85,7 +86,13 @@ getProductsList = () => {
 }
 
 getFeedbacks = () => {
-  fetch("/feedbackList")
+  let url = "/feedbackList/";
+  if (this.state.decathlonidSelected) {
+    url += this.state.decathlonidSelected;
+  } else {
+    url += "ALL";
+  }
+  fetch(url)
         .catch((error) => {
           console.warn(error);
         })
@@ -128,7 +135,7 @@ displayQrcode = (itemToManage) => {
       <div>
         <div className="container">
           <Navbar />
-          <Header />
+          {/*<Header /> */}
           <div className="text-center p-3">
             {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#Modal">
               Add a new product
@@ -171,16 +178,16 @@ displayQrcode = (itemToManage) => {
               </div>
             </div>
           </div>
+
+
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8">
               <ul className="list-group">
                 <li className="list-group-item d-flex font-weight-bold flex-center align-items-center">Products under review...</li>
-                {this.state.productsList.map(product =>
-
+                {this.state.productsList.filter(product => !this.state.decathlonidSelected || product.decathlonid === this.state.decathlonidSelected)
+                  .map(product =>
                   <li  key={product.decathlonid} onClick={() => this.displayQrcode(product.decathlonid)} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
-
-
                     <div className="container ">
                       <div className="row Qrcode list-group-item-action" >
                         <div className="col-8">
@@ -227,7 +234,7 @@ displayQrcode = (itemToManage) => {
                     <p className="card-text">{feed.content}</p>
                   </div>
                   <div className="card-footer">
-                    <small className="text-muted">{feed.name}</small>
+                    <small className="text-muted">{feed.decathlonid} - {feed.name}</small>
                   </div>
                 </div>
               )}
