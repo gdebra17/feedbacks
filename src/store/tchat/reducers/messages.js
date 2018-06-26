@@ -45,7 +45,7 @@ export function messagesReducer(state = initialState, action) {
         return {...state,
           messages: {
             ...state.messages,
-            messages: [...state.messages.messages, {id: action.id, message: action.messages, author: action.author}],
+            messages: [...state.messages.messages, {id: action.id, message: action.messages, author: action.author, path: action.path}],
           }}
     case 'SENDMESSAGEANDRESET':
       sendMessage(state.currentChannel ,state.newMessage)

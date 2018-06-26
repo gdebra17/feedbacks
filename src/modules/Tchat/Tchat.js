@@ -7,12 +7,6 @@ import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs"
 import store from "../../store/store"
 import {loadDiscussion} from "../../store/sendWs"
 
-
-const http = require("http");
-const Websocket = require("ws");
-
-
-
 class Tchat extends Component {
 
   componentDidMount(){

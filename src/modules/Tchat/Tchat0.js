@@ -7,12 +7,6 @@ import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs"
 import store from "../../store/store"
 import {loadDiscussion} from "../../store/sendWs"
 
-
-const http = require("http");
-const Websocket = require("ws");
-
-
-
 class Tchat extends Component {
 
   componentDidMount(){
@@ -28,13 +22,10 @@ class Tchat extends Component {
   // <Sidebar />
   render() {
     return (
-      <div id="container">
-        <section id="main">
-        <h1>SPORTIF</h1>
-
-          <MessagesList />
-          <AddMessage />
-        </section>
+      <div>
+      <h1>SPORTIF</h1>
+        <MessagesList />
+        <AddMessage />
       </div>
     );
   }

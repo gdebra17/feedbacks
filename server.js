@@ -50,7 +50,7 @@ const broadcast = (data, ws) => {
   // console.log("list of clients from wss: ", wss.clients);
   wss.clients.forEach((client) => {
     // console.log("client is :", ws);
-    console.log(client.readyState === ws.OPEN, client !== ws);
+    // console.log(client.readyState === ws.OPEN, client !== ws);
     console.log("data from broadcast :", data);
     // if (client.readyState === ws.OPEN && client !== ws) {
       // console.log("data is : ", );

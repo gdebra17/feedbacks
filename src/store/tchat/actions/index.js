@@ -22,11 +22,12 @@ export const addUser = name => ({
   name
 })
 
-export const messageReceived = (message, author) => ({
+export const messageReceived = (message, author, path) => ({
   type: types.MESSAGE_RECEIVED,
   id: nextMessageId++,
   message,
-  author
+  author,
+  path
 })
 
 export const populateUsersList = users => ({
