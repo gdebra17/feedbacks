@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { MessagesList } from "../../containers/MessagesList";
 import { AddMessage } from "../../containers/AddMessage";
 import "../../App.css";
+import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs"
+import store from "../../store/store"
+import {loadDiscussion} from "../../store/sendWs"
 import { closeSocket } from "../../store/sendWs"
 
 class Tchat extends Component {
@@ -16,17 +19,13 @@ class Tchat extends Component {
     console.log("beeen on close did unmount");
     closeSocket();
   }
-
   // <Sidebar />
   render() {
     return (
-      <div id="container">
-        <section id="main">
-        <h1>SPORTIF</h1>
-
-          <MessagesList />
-          <AddMessage />
-        </section>
+      <div>
+      <h1>SPORTIF</h1>
+        <MessagesList />
+        <AddMessage />
       </div>
     );
   }
