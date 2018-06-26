@@ -1,10 +1,10 @@
 import store from './store'
 
-
+const host = window.location.origin.replace(/^http/, 'ws');
 // let websocket;
-const websocket = new WebSocket(`ws://${window.location.hostname}:${process.env.NODE_ENV === "production" ? 80 : 8080}`);
-// console.log("here is the origin : ", window.location.origin.replace(/^http/,"ws"));
 
+const websocket = new WebSocket(`${host}${process.env.NODE_ENV === "production" ? "" : ""}`);
+// console.log("here is the origin : ", window.location.origin.replace(/^http/,"ws"));
 
 websocket.addEventListener("message", event => {
 
@@ -28,11 +28,10 @@ websocket.addEventListener("message", event => {
     // }
     case "CHANNELS":
       store.dispatch({type: "CHANNELS", channels: message.data})
+      /* falls through */
     case "USERS_LIST":
       console.log("been here with user_list", message);
       store.dispatch({type: "USERS_LIST", users: message.users})
-
-
   }
 });
 

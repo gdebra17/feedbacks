@@ -1,13 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import './connect.css';
 import { connect } from "react-redux";
 import { getProfileInfo} from "../../store/profile/selectors";
 import { profileHandler } from "../../store/profile/handlers";
-
-let backpic = require ("./images/test.jpg")
-
 
 class Connect extends React.Component {
 

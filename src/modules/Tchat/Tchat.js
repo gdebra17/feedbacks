@@ -6,13 +6,13 @@ import "../../App.css";
 import { closeSocket, openSocket, listenerMessage } from "../../store/sendWs"
 import store from "../../store/store"
 import {loadDiscussion} from "../../store/sendWs"
+import { closeSocket } from "../../store/sendWs";
 
 class Tchat extends Component {
 
   componentDidMount(){
     // console.log("I did update")
     // loadDiscussion(window.location.pathname);
-
   }
 
   componentWillUnmount(){

@@ -1,4 +1,3 @@
-
 import { sendMessage, loadDiscussion } from '../../sendWs.js'
 
 const initialState = {
@@ -50,8 +49,10 @@ export function messagesReducer(state = initialState, action) {
     case 'SENDMESSAGEANDRESET':
       sendMessage(state.currentChannel ,state.newMessage)
       return {...state, newMessage: ''}
+      /* falls through */
     case 'LOAD_DISCUSSION':
       loadDiscussion(action.pathname);
+      /* falls through */
     default:
       return state
   }

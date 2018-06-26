@@ -1,0 +1,89 @@
+import React from 'react';
+import './Navbar.css';
+import { connect } from "react-redux";
+import { getProfileInfo} from "../../store/profile/selectors";
+import { profileHandler } from "../../store/profile/handlers";
+
+class Connect extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      pic: "",
+      checkEmail: "",
+      authOk: false,
+    }
+  }
+
+  logout = (response) => {
+    console.log("logout");
+    this.props.signed(false);
+  }
+
+
+
+  render() {
+
+    let imagePath;
+    if(this.props.profileInfo.Paa){
+      imagePath = this.props.profileInfo.Paa;
+    } else {
+      imagePath = "";
+    }
+    let disconnect = () => {
+      this.props.disconnect();
+      window.location.reload();
+    }
+
+
+    return (
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Product Feedback</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                {imagePath
+                  ?<img className='mt-2' src={imagePath} alt="" style={{
+                     borderWidth:1,
+                     borderStyle:'solid',
+                     borderColor:'white',
+                     alignItems:'center',
+                     paddingLeft:1,
+                     marginLeft: 40,
+                     justifyContent:'center',
+                     width:50,
+                     height:50,
+                     backgroundColor:'#fff',
+                     borderRadius:100,
+                   }}/>
+                  : <a> Your Account </a>
+                }
+
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item">{imagePath
+                  ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
+                  : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
+                }</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/about">About us</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+    );
+  }
+}
+
+const Connected = connect(getProfileInfo, profileHandler)(Connect);
+export default Connected;

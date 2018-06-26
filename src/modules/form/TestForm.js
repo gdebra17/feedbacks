@@ -7,7 +7,7 @@ class TestForm extends Component {
     this.state = {
       formFeedback: {
         username: "totof 1",
-        mail: "totof1@gmail.com",
+        mail: "christophe.delattre@decathlon.com",
         path_image_user: "https://monserver/mypictures.jpg",
         topic: "Brakes",
         content: "I have a little problem with my brakes. Please see my photo.",
@@ -33,6 +33,7 @@ class TestForm extends Component {
     this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
     this.handleChangeAddmessage = this.handleChangeAddmessage.bind(this);
     this.handleSubmitAddmessage = this.handleSubmitAddmessage.bind(this);
+    this.handleSubmitSendMails = this.handleSubmitSendMails.bind(this);
   }
 
   handleChangeFeedback(event) {
@@ -86,6 +87,25 @@ class TestForm extends Component {
       })
   }
 
+handleSubmitSendMails(event) {
+  event.preventDefault();
+  fetch("/sendMails", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(response => response.json())
+    .then(result => {
+      this.setState({
+        fetchResultAddmessage: {
+          status: result.status,
+          data: result.data,
+          errorMessage: result.errorMessage,
+        },
+      });
+    })
+}
+
+
   render() {
     return (
       <div className="container">
@@ -98,11 +118,14 @@ class TestForm extends Component {
           <div className="mt-3">decathlonid : <input type="text" id="decathlonid" className="form-control" value={this.state.formFeedback.decathlonid} onChange={this.handleChangeFeedback}/></div>
           <button type="submit" className="btn btn-primary mt-3">Submit</button>
         </form>
+
         <div>
           <div className="mt-3">fetchResultFeedback data (feedbackToken) : {this.state.fetchResultFeedback.data}</div>
           <div className="mt-3">fetchResultFeedback status : {this.state.fetchResultFeedback.status}</div>
           <div className="mt-3">fetchResultFeedback errorMessage : {this.state.fetchResultFeedback.errorMessage}</div>
         </div>
+
+        <button className="btn btn-primary mt-3" onClick={this.handleSubmitSendMails}>SEND MAIL</button>
 
         <form className="mt-5" onSubmit={this.handleSubmitAddmessage}>
           <div className="mt-3">feedbackToken : <input type="text" id="feedbackToken" className="form-control" value={this.state.formAddmessage.feedbackToken} onChange={this.handleChangeAddmessage}/></div>
