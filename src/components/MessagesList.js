@@ -8,8 +8,8 @@ const MessagesList = ({messages}) => (
   // return(
   // {loadDiscussion(window.location.pathname)}
   // {props.dispatch(window.location.pathname)}
-    <section id="messages-list">
-      <ul>
+    <section id="messages-list" >
+    <div data-spy="scroll">
       {}
       {messages.map(message => {
         console.log("message printed has the following information :", message)
@@ -20,7 +20,7 @@ const MessagesList = ({messages}) => (
           />
         )
       })}
-      </ul>
+      </div>
     </section>
   // );
 )
