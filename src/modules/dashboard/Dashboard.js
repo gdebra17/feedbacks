@@ -203,7 +203,7 @@ postNewProduct = () => {
                 <div className="card" key={feed.token}>
                   <div className="card-body">
                     <h5 className="card-title">{feed.topic}</h5>
-                    <p className="card-text">Card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p className="card-text">{feed.content}</p>
                   </div>
                   <div className="card-footer">
                     <small className="text-muted">{feed.name}</small>
