@@ -28,7 +28,7 @@ window.googleConnectCallback = function(googleUser){
   //const id_token = googleUser.getAuthResponse().id_token;
   //console.log("ID Token: " + id_token);
   //console.log("authResponse : ", googleUser.getAuthResponse());
-  // console.log("complete user ", disconnect);
+  console.log("complete profile : ", profile);
   store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect});
 };
 store.dispatch(addUser('Me'));
@@ -40,7 +40,7 @@ store.dispatch(addUser('Me'));
 //
 // sagaMiddleware.run(handleNewMessage, { socket });
 
-//document.getElementById('google-signin-client_id').content = '918173514776-d2sammsgvl98lujus1qoprt53jdag6v3.apps.googleusercontent.com';
+//document.getElementById('google-signin-client_id').content = '918173514776-uta30cs8f0pllsp3k2j83e8qekqvs530.apps.googleusercontent.com';
 //document.getElementById('google-signin-client_id').content = '1067884850483-vhed3duodar5tf92frpf72tanq5juepi.apps.googleusercontent.com';
 
 ReactDOM.render(
