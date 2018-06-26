@@ -1,0 +1,52 @@
+npm install --save-dev sequelize-cli
+npm install sequelize pg
+
+node_modules/.bin/sequelize init    => creation dans le projet des 4 repertoires ORM
+
+>> copier le config.sample.json en config.json et mettre à jouer user et pwd
+
+0a/ creation du user avec lequel la BDD sera créée
+createuser --interactive feedback
+
+0b/ creation de la base de donnée
+node_modules/.bin/sequelize db:create
+
+
+
+<<< POUR NOTRE PROJET >>>
+
+1/ generation des model et des scripts de migration
+node_modules/.bin/sequelize model:generate --name creators --attributes name:string,email:string
+node_modules/.bin/sequelize model:generate --name feedbacks --attributes user_id:integer,product_id:integer,topic:string,token:string
+node_modules/.bin/sequelize model:generate --name messages --attributes feedback_id:integer,user_id:integer,content:string,read:boolean
+node_modules/.bin/sequelize model:generate --name uploads --attributes message_id:integer,path_upload:string
+node_modules/.bin/sequelize model:generate --name users --attributes name:string,mail:string,type:string,token:string,path_image:string
+node_modules/.bin/sequelize model:generate --name products --attributes name:string,decathlonid:string,url:string,expiringdate:date,user_id:integer
+
+node_modules/.bin/sequelize model:generate --underscored --name email_histories --attributes email_template_id:integer,user_id:integer,information:string,status:string,sendingdate:date
+node_modules/.bin/sequelize model:generate --underscored --name email_templates --attributes code:string,subject:string,body:text
+
+
+2/ creation des tables en BDD
+node_modules/.bin/sequelize db:migrate
+
+3/ generation des scripts seed vide
+node_modules/.bin/sequelize seed:generate --name data-creators
+node_modules/.bin/sequelize seed:generate --name data-users
+node_modules/.bin/sequelize seed:generate --name data-products
+node_modules/.bin/sequelize seed:generate --name data-feedbacks
+node_modules/.bin/sequelize seed:generate --name data-messages
+node_modules/.bin/sequelize seed:generate --name data-uploads
+node_modules/.bin/sequelize seed:generate --name data-email_templates
++ alimentation des scripts
+
+4/ execution des scripts seeds
+node_modules/.bin/sequelize db:seed:all
+
+
+#####
+node_modules/.bin/sequelize db:drop
+node_modules/.bin/sequelize db:create
+node_modules/.bin/sequelize db:migrate
+node_modules/.bin/sequelize db:seed:undo:all
+node_modules/.bin/sequelize db:seed:all

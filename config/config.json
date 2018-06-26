@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "feedback",
+    "password": null,
+    "database": "feedbacks_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "feedbacks_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "username": "<my username>",
+    "password": "<my password>",
+    "database": "<my database name>",
+    "dialect": "postgres",
+    "host": "passionfeedback.herokuapp.com",
+    "operatorsAliases": false
+  }
+}

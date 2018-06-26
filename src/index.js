@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
+//import createSagaMiddleware from 'redux-saga'
+// import handleNewMessage from './src/store/sagas'
+import { addUser } from './store/tchat/actions/index'
+
+
 
 
 window.googleConnectCallback = function(googleUser){
@@ -24,11 +28,20 @@ window.googleConnectCallback = function(googleUser){
   //const id_token = googleUser.getAuthResponse().id_token;
   //console.log("ID Token: " + id_token);
   //console.log("authResponse : ", googleUser.getAuthResponse());
-  // console.log("complete user ", disconnect);
+  console.log("complete profile : ", profile);
   store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect});
-  store.dispatch({type: "SET_CONNECTION_FLAG"});
 };
+store.dispatch(addUser('Me'));
 
+//
+// const sagaMiddleware = createSagaMiddleware();
+//
+// const socket = setupSocket(store.dispatch);
+//
+// sagaMiddleware.run(handleNewMessage, { socket });
+
+//document.getElementById('google-signin-client_id').content = '918173514776-uta30cs8f0pllsp3k2j83e8qekqvs530.apps.googleusercontent.com';
+//document.getElementById('google-signin-client_id').content = '1067884850483-vhed3duodar5tf92frpf72tanq5juepi.apps.googleusercontent.com';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -38,4 +51,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root'));
 
-registerServiceWorker();
+// registerServiceWorker();

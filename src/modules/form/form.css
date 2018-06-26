@@ -1,0 +1,48 @@
+.a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: black;
+}
+
+.arrow {
+  width: 20px;
+  height: 20px;
+}
+
+[aria-expanded="false"] .arrowOpen {
+    display: block;
+}
+
+[aria-expanded="false"] .arrowClose {
+    display: none;
+}
+
+[aria-expanded="true"] .arrowOpen {
+    display: none;
+}
+
+[aria-expanded="true"] .arrowClose {
+    display: block;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.photo {
+  display: block;
+  flex-direction: row;
+  justify-content:center;
+  align-content: center;
+  text-align:center;
+}
+
+.active {
+  background: #f00;
+}
+
+.selected {
+
+}
