@@ -63,7 +63,7 @@ render() {
       {this.state.authOk
         ?  <Redirect to='/dashboard' />
         :
-        <div className="jumbotron mt-2">
+        <div className="jumbotron">
           {/* <img src={backpic} className="img-fluid rounded" alt="..."/> */}
           <div className="mainBody">
           <h1 className="display-5">DECATHLON</h1>
@@ -88,9 +88,17 @@ render() {
             <span className="ml-3">{this.props.profileInfo.U3}</span>
           </div>
 
-          <p className="lead mt-3">Welcome to Product Feedback App</p>
+          {this.state.checkEmail
+            ? <div className="alert alert-danger">{this.state.checkEmail}</div>
+            : <span></span>
+          }
+
+          <p className="lead mt-3 font-weight-bold">Welcome to Product Feedback App</p>
           <hr className="hr"/>
-          <p>Please use the button below to log in and get ready to manage your feedbacks</p>
+          {!this.state.checkEmail
+            ? <p>Please use the button below to log in and get ready to manage your feedbacks</p>
+            : <span></span>
+          }
           <div className="lead">
 
             <div>
@@ -101,10 +109,7 @@ render() {
             </div>
 
 
-            {this.state.checkEmail
-              ? <div className="alert alert-danger">{this.state.checkEmail}</div>
-              : <span></span>
-            }
+
           </div>
         </div>
         </div>
