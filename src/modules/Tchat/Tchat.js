@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Sidebar } from "../../containers/Sidebar";
 import { MessagesList } from "../../containers/MessagesList";
 import { AddMessage } from "../../containers/AddMessage";
+import Navbar from "../navbar/Navbar";
 import "../../App.css";
 
 import { closeSocket } from "../../store/sendWs"
@@ -51,10 +52,10 @@ class Tchat extends Component {
     return (
       <div>
       { (this.state.loginFlag === "loading")
-        ?<h1></h1>
+        ?<span></span>
         :(this.state.loginFlag === true)
           ? <div>
-              <h1>IP DISCUSSION ROOM</h1>
+              <Navbar />
               {imageExists()}
               <div id="container">
                 <Sidebar />
