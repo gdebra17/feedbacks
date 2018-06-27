@@ -29,7 +29,14 @@ class Navbar extends React.Component {
         //console.log("componentDidMount productList=", data);
         this.setState({"productList": data});
       })
+  }
 
+  sendMails = () => {
+    fetch("/sendMails")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("sendMails: data=", data);
+      })
   }
 
   logout = (response) => {
@@ -58,14 +65,32 @@ class Navbar extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div>
       {this.state.logout
         ?  <Redirect to='/' />
         :
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
 
+
           <div className="logonav">
-            <img src={logo} className="img-fluid rounded pr-2 navbar-img-header" alt=""/>
+            <a href='/dashboard'><img src={logo} className="img-fluid rounded pr-2 navbar-img-header" alt=""/></a>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Products
+            </button>
+            <div className="dropdown-menu">
+              {this.state.productList.map((product, index) =>
+                <a key={index} className="dropdown-item" href={"/dashboard/"+product.decathlonid}>{product.name}</a>
+              )}
+              <div className="dropdown-divider"></div>
+              <a key="all" className="dropdown-item" href="/dashboard">Tous les produits</a>
+
+              <div className="dropdown-divider"></div>
+              <button type="button" className="btn btn-outline-primary btn-sm ml-4" data-toggle="modal" data-target="#Modal">
+                Add a new product
+              </button>
+            </div>
           </div>
 
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,6 +151,7 @@ class Navbar extends React.Component {
                   }</a>
                   <div className="dropdown-divider"></div>
                   <a className="dropdown-item" href="/about">About project</a>
+                  <a className="dropdown-item" onClick={this.sendMails}>Send Mails</a>
                 </div>
             </ul> */}
           </div>

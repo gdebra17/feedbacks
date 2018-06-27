@@ -1,0 +1,22 @@
+.messageLeft {
+  background-color: lightskyblue;
+  padding: 8px;
+  margin: 2px;
+  margin-left: 42px;
+}
+
+.messageOther {
+  background-color: lightgrey;
+  padding: 8px;
+  margin: 2px;
+  margin-right: 42px;
+}
+
+.messageStyle {
+  font-weight: bold;
+  color: blue;
+}
+
+.messageCadre {
+
+}

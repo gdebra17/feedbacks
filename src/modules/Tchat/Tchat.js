@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Sidebar } from "../../containers/Sidebar";
 import { MessagesList } from "../../containers/MessagesList";
 import { AddMessage } from "../../containers/AddMessage";
+import Navbar from "../navbar/Navbar";
 import "../../App.css";
 
 import { closeSocket } from "../../store/sendWs"
@@ -50,26 +51,30 @@ class Tchat extends Component {
   render() {
     return (
       <div>
-      { (this.state.loginFlag === "loading")
-        ?<h1></h1>
-        :(this.state.loginFlag === true)
-          ? <div>
-              <h1>IP DISCUSSION ROOM</h1>
-              {imageExists()}
-              <div id="container">
-                <Sidebar />
-                <section id="main">
-                  <MessagesList />
-                  <AddMessage />
-                </section>
+        <Navbar />
+        <div className="container">
+        { (this.state.loginFlag === "loading")
+          ?<span></span>
+          :(this.state.loginFlag === true)
+            ? <div>
+
+                {imageExists()}
+                <div id="container">
+                  <Sidebar />
+                  <section id="main">
+                    <MessagesList />
+                    <AddMessage />
+                  </section>
+                </div>
               </div>
+          : <div>
+              <h1> Are you sure you are logged in ? </h1>
+              <div> You can connect on <Link to="/connect"><bold>THIS</bold></Link> page </div>
             </div>
-        : <div>
-            <h1> Are you sure you are logged in ? </h1>
-            <div> You can connect on <Link to="/connect"><bold>THIS</bold></Link> page </div>
-          </div>
-      }
+        }
+        </div>
       </div>
+
     );
   }
 }
