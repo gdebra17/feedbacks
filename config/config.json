@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "feedback",
+    "username": "Buzz",
     "password": null,
     "database": "feedbacks_dev",
     "host": "127.0.0.1",
