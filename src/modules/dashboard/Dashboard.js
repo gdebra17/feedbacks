@@ -133,8 +133,9 @@ displayQrcode = (itemToManage) => {
   render() {
     return (
       <div>
+        <Navbar />
         <div className="container">
-          <Navbar />
+
           {/*<Header /> */}
           <div className="text-center p-3">
             <div className="modal fade" id="Modal" tabIndex="-1" role="dialog" aria-hidden="true">

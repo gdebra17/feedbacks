@@ -51,26 +51,30 @@ class Tchat extends Component {
   render() {
     return (
       <div>
-      { (this.state.loginFlag === "loading")
-        ?<span></span>
-        :(this.state.loginFlag === true)
-          ? <div>
-              <Navbar />
-              {imageExists()}
-              <div id="container">
-                <Sidebar />
-                <section id="main">
-                  <MessagesList />
-                  <AddMessage />
-                </section>
+        <Navbar />
+        <div className="container">
+        { (this.state.loginFlag === "loading")
+          ?<span></span>
+          :(this.state.loginFlag === true)
+            ? <div>
+
+                {imageExists()}
+                <div id="container">
+                  <Sidebar />
+                  <section id="main">
+                    <MessagesList />
+                    <AddMessage />
+                  </section>
+                </div>
               </div>
+          : <div>
+              <h1> Are you sure you are logged in ? </h1>
+              <div> You can connect on <Link to="/connect"><bold>THIS</bold></Link> page </div>
             </div>
-        : <div>
-            <h1> Are you sure you are logged in ? </h1>
-            <div> You can connect on <Link to="/connect"><bold>THIS</bold></Link> page </div>
-          </div>
-      }
+        }
+        </div>
       </div>
+
     );
   }
 }
