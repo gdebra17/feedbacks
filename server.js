@@ -53,7 +53,7 @@ const broadcast = (data, ws) => {
   wss.clients.forEach((client) => {
     // console.log("client is :", ws);
     // console.log(client.readyState === ws.OPEN, client !== ws);
-    //console.log("data from broadcast :", data);
+    console.log("data from broadcast :", data);
     // if (client.readyState === ws.OPEN && client !== ws) {
       // console.log("data is : ", );
       client.send(JSON.stringify({ type: data.type, data: data.message, author: data.author, users: data.users, userId: data.name}));
@@ -94,18 +94,37 @@ wss.on('connection', (ws) => {
       //console.log("message added : ", message);
       usersService.getNameByUserId(message.user_id)
       .then(userName => {
-        ws.send(JSON.stringify({
-          type: 'MESSAGES',
-          data: message.content,
-          userId: userName,
-          author: `pe/${message.token}`
-        }));
-        broadcast({
-          type: 'MESSAGES',
-          userId: userName,
-          data: message.content,
-          author: `pe/${message.token}`
-        }, ws);
+        console.log("userName :", userName);
+        return {type: userName.type, name:userName.name}})
+      .then(userName => {
+        if(userName.type === "CUSTOMER"){
+          console.log("been here niggas");
+          ws.send(JSON.stringify({
+            type: 'MESSAGES',
+            data: message.content,
+            userId: userName.name,
+            author: `/su/${message.token}`
+          }));
+          broadcast({
+            type: 'MESSAGES',
+            userId: userName.name,
+            data: message.content,
+            author: `/su/${message.token}`
+          }, ws);
+        } else {
+          ws.send(JSON.stringify({
+            type: 'MESSAGES',
+            data: message.content,
+            userId: userName.name,
+            author: `/pe/${message.token}`
+          }));
+          broadcast({
+            type: 'MESSAGES',
+            userId: userName.name,
+            data: message.content,
+            author: `/pe/${message.token}`
+          }, ws);
+        }
       })
     })
   );
@@ -179,12 +198,13 @@ wss.on('connection', (ws) => {
             })
             .then(data => {
               usersService.getNameByUserId(data.userId)
+              .then(name => { return name.name })
               .then(name => {
                 console.log("result is : ", name);
                 broadcast({
                   type: 'MESSAGES',
                   message: messageContent,
-                  author: `pe/${userToken}`,
+                  author: `/pe/${userToken}`,
                   name,
                 }, ws)})
               return data;
@@ -227,12 +247,13 @@ wss.on('connection', (ws) => {
             })
             .then(data => {
               usersService.getNameByUserId(data.userId)
+              .then(name => { return name.name })
               .then(name => {
                 console.log("result is : ", name);
                 broadcast({
                   type: 'MESSAGES',
                   message: messageContent,
-                  author: `su/${userToken}`,
+                  author: `/su/${userToken}`,
                   name,
                 }, ws)})
               return data;
