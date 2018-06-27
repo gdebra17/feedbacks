@@ -3,10 +3,11 @@
   justify-content: space-around;
 }
 
-.nounderline {
-  text-decoration: none !important
-}
-
 .navbar-img-header {
   max-height: 50px;
 }
+
+/* .container {
+    width: 100%;
+    white-space: nowrap;
+} */
