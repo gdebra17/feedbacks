@@ -62,7 +62,7 @@ class Connect extends React.Component {
       {this.state.logout
         ?  <Redirect to='/' />
         :
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light " style={{backgroundColor:"azure"}} >
           <img src={logo} className="img-fluid rounded pr-2 navbar-img-header" alt=""/>
 
           <div className="btn-group nounderline">
