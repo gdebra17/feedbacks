@@ -2,8 +2,6 @@ import React from 'react';
 import Navbar from "../navbar/Navbar";
 //import Header from "../header/Header";
 import "./dashboard.css";
-import { Link } from 'react-router-dom';
-
 const QRCode = require('qrcode-react');
 
 
@@ -139,9 +137,6 @@ displayQrcode = (itemToManage) => {
           <Navbar />
           {/*<Header /> */}
           <div className="text-center p-3">
-            {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#Modal">
-              Add a new product
-            </button> */}
             <div className="modal fade" id="Modal" tabIndex="-1" role="dialog" aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
@@ -224,10 +219,8 @@ displayQrcode = (itemToManage) => {
                       </div>
                   </div>
                 </li>)}
-
               </ul>
             </div>
-
             <div className="col-2"></div>
           </div>
           <div className="container pt-5">

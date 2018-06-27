@@ -3,7 +3,6 @@ import { MessagesList } from "../../containers/MessagesList";
 import { AddMessage } from "../../containers/AddMessage";
 import "../../App.css";
 import { closeSocket } from "../../store/sendWs";
-import Navbar from "../navbar/Navbar";
 
 class Tchat extends Component {
 

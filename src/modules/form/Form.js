@@ -44,7 +44,6 @@ export default class Form extends React.Component {
     document.getElementById("feedbackFail").style.display = "none";
     document.getElementById("feedbackSubmit").setAttribute("disabled","disabled");
     this.setState({redirect: false});
-
       fetch("/products")
       .then(response => response.json())
       .then(products => {
@@ -230,7 +229,7 @@ export default class Form extends React.Component {
                     <input onChange={this.handleMail} type="email" className="form-control mt-3" id="mail" placeholder="Enter your email address" required/>
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                     <div className="card-body alert alert-success" role="alert" id="feedbackSuccess">
-                      Your feedback was successfully sent straight to the engineer who developed your bike. You can access the <a href={`/feedbacks/${this.state.fetchResult.data}`} className="alert-link">dialog page by clicking here</a>!
+                      Your feedback was successfully sent straight to the engineer who developed your bike. You can access the <a href={`/su/${this.state.fetchResult.data}`} className="alert-link">dialog page by clicking here</a>!
                     </div>
                     <div className="card-body alert alert-danger" role="alert" id="feedbackFail">
                       Sorry, an error occured. We are working on it, please try again later.
