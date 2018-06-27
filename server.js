@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== "production") {
 const app = express();
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
+app.use(express.static("public"));
 app.use(cors());
 app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: false }));
