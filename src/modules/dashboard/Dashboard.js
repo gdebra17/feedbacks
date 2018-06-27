@@ -2,7 +2,10 @@ import React from 'react';
 import Navbar from "../navbar/Navbar";
 //import Header from "../header/Header";
 import "./dashboard.css";
+import { Link } from 'react-router-dom';
+
 const QRCode = require('qrcode-react');
+
 
 
 
