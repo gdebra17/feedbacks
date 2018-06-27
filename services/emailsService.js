@@ -79,7 +79,7 @@ function sendAllEmailToSend() {
       include: [db.email_templates, db.users]
     }
   ).then(emailHistoriesToSend => {
-    console.log("emailHistoriesToSend.length=", emailHistoriesToSend.length);
+    // console.log("emailHistoriesToSend.length=", emailHistoriesToSend.length);
     emailHistoriesToSend.forEach(emailHistoryToSend => {
       sendMail(emailHistoryToSend).then(result => {
         if (result) {

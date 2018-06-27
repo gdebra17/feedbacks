@@ -8,7 +8,7 @@ function createNewCustomerUser(username, mail, pathImageUser) {
 }
 
 function getUserHeaderByToken(userToken) {
-  console.log("userToken is :", userToken);
+  // console.log("userToken is :", userToken);
   return db.users.findAll({
     where: {
       token: userToken,
@@ -16,7 +16,7 @@ function getUserHeaderByToken(userToken) {
     raw: true
   })
   .then(dbUsers => {
-    console.log("the dbUser found is :", dbUsers);
+    // console.log("the dbUser found is :", dbUsers);
     return dbUsers[0];
   })
 }

@@ -3,7 +3,7 @@
 const productsService = require("./../services/productsService");
 
 function postNewProduct(request, result) {
-  console.log("handlers/postNewProduct:", request.body);
+  // console.log("handlers/postNewProduct:", request.body);
   productsService.addProduct(request.body)
   .then(infos => {
     if (infos.errorMessage) {

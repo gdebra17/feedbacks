@@ -32,7 +32,7 @@ function dbUserToFacade(dbUser) {
 
 function dbUploadsToFacade(dbUploads) {
   if (dbUploads) {
-    console.log("dbUploadsToFacade dbUploads=", dbUploads);
+    // console.log("dbUploadsToFacade dbUploads=", dbUploads);
     return dbUploads.map(dbUpload => {
       return {pathUpload : dbUpload.path_upload, createdDate: dbUpload.createdAt}
     });
@@ -209,8 +209,8 @@ function getFeedbackList(decathlonid="ALL") {
 }
 
 function getMessageList(urlToken) {
-  console.log("getMessageList", db.sequelize.query(`SELECT m.user_id, m.content, m.read FROM messages m on m.feedback_id=${urlToken}`,
-    { type: db.sequelize.QueryTypes.SELECT }));
+  // console.log("getMessageList", db.sequelize.query(`SELECT m.user_id, m.content, m.read FROM messages m on m.feedback_id=${urlToken}`,
+    // { type: db.sequelize.QueryTypes.SELECT }));
   return db.sequelize.query(`SELECT m.user_id, m.content, m.read FROM message m on m.feedback_id=${urlToken}`,
     { type: db.sequelize.QueryTypes.SELECT })
 }
