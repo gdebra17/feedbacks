@@ -50,6 +50,7 @@ componentDidMount = () => {
   this.getProductsList();
   this.getFeedbacks();
   this.setExpiringDate();
+
 }
 
 handleProductName = (event) => {
@@ -84,7 +85,7 @@ getProductsList = () => {
         .then((response) => response.json())
         .then((resp) => {
           this.setState({"productsList": resp})
-          //console.log("Liste des produits ", this.state.productsList);
+          console.log("Liste des produits ", this.state.productsList);
         })
 }
 
@@ -120,8 +121,6 @@ postNewProduct = () => {
         })
         .then((response) => console.log(response))
 }
-
-
 
 displayQrcode = (itemToManage) => {
   //console.log("displayQrcode: itemToManage=", itemToManage);
@@ -187,11 +186,14 @@ displayQrcode = (itemToManage) => {
             <div className="col-2"></div>
             <div className="col-8">
               <ul className="list-group">
-                <li className="list-group-item d-flex font-weight-bold flex-center align-items-center">Products under review...</li>
+                { this.state.decathlonidSelected === undefined
+                ? <li className="list-group-item d-flex font-weight-bold flex-center align-items-center">Products under review...</li>
+                : <span></span>
+                }
                 {this.state.productsList.filter(product => !this.state.decathlonidSelected || product.decathlonid === this.state.decathlonidSelected)
                   .map(product =>
                   <li  key={product.decathlonid} onClick={() => this.displayQrcode(product.decathlonid)} className="list-group-item d-flex justify-content-between align-items-center text-uppercase">
-                    <div className="container ">
+                    <div className="container">
                       <div className="row Qrcode list-group-item-action" >
                         <div className="col-8">
                           <small>{product.name}</small>
@@ -233,12 +235,21 @@ displayQrcode = (itemToManage) => {
               {this.state.feedbacks.map(feed =>
                 <div className="card" key={feed.token}>
                   <div className="card-body">
-                    <h5 className="card-title">{feed.topic}</h5>
+                    <h5 className="card-title">{feed.name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{feed.topic}</h6>
                     <p className="card-text">{feed.content}</p>
-                  </div>
+                    <div className="d-flex justify-content-around">
+                      <a href={`/pe/${feed.token}`}><button type="button" className="btn btn-outline-primary btn-sm">User thread</button></a>
+                      <a href={`/dashboard/${feed.decathlonid}`}><button type="button" className="btn btn-outline-secondary btn-sm">Product info</button></a>
+                    </div>
+                    </div>
                   <div className="card-footer">
-                    <small className="text-muted">{feed.decathlonid} - {feed.name}</small>
+                    <small className="text-muted">{feed.decathlonid} - {
+                      this.state.productsList.filter(prod => prod.decathlonid === feed.decathlonid)
+                      .map(prod => <span key={prod.decathlonid}>{prod.name}</span>)
+                    }</small>
                   </div>
+
                 </div>
               )}
             </div>

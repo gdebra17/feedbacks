@@ -58,7 +58,7 @@ class Connect extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div className="container-fluid">
       {this.state.logout
         ?  <Redirect to='/' />
         :
