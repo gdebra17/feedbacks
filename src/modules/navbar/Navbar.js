@@ -29,7 +29,14 @@ class Connect extends React.Component {
         //console.log("componentDidMount productList=", data);
         this.setState({"productList": data});
       })
+  }
 
+  sendMails = () => {
+    fetch("/sendMails")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("sendMails: data=", data);
+      })
   }
 
   logout = (response) => {
@@ -115,6 +122,7 @@ class Connect extends React.Component {
                   }</a>
                   <div className="dropdown-divider"></div>
                   <a className="dropdown-item" href="/about">About project</a>
+                  <a className="dropdown-item" onClick={this.sendMails}>Send Mails</a>
                 </div>
               </li>
             </ul>

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const AddMessage = (props) => {
-  let input
+  let input;
 
   return (
     <div className="container">
@@ -44,8 +44,6 @@ const AddMessage = (props) => {
             }
           }> Send </button>
         </div>
-
-
       </section>
     </div>
   )
