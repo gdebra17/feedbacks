@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./message.css"
 
 
-const Message = ({ message, author, path }) => (
-  <p>
-    <a><i style={{fontWeight: "bold"}}>{author}</i>: {message} </a>
-  </p>
+const Message = ({ message, author, path, myStyle, textColor}) => (
+  <span className={`${myStyle} ${textColor} border border-dark rounded`}>
+    <b>{author}</b>: {message}
+  </span>
 )
 // {
 //   `/${path}` === window.location.pathname ? <a>(you) <i style={{fontWeight: "bold"}}>{author}</i> : {message}</a>

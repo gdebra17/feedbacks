@@ -31,11 +31,6 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-          {/* <div className="container">
-            <a href="/feedback">Page feedback de l'utilisateur</a> ||
-            <a href="/dashboard">  Dashboard de l'ingénieur</a> ||
-          </div> */}
-
           <Route exact path="/" component={Connect}/>
           <Route path="/connect" component={Connect}/>
           <Route path="/postfeedback/:decathlonid" render={this.postFeedback}/>

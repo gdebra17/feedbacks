@@ -7,7 +7,9 @@
     justify-content: flex-start;
 }
 
-
+.buttonCard {
+  text-decoration-color: blue;
+}
 
 .card-columns {
   @include media-breakpoint-up(md) {
@@ -24,4 +26,5 @@
 
 .Qrcode {
   cursor: pointer;
+  align-items: center;
 }

@@ -29,7 +29,14 @@ class Connect extends React.Component {
         //console.log("componentDidMount productList=", data);
         this.setState({"productList": data});
       })
+  }
 
+  sendMails = () => {
+    fetch("/sendMails")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("sendMails: data=", data);
+      })
   }
 
   logout = (response) => {
@@ -58,18 +65,18 @@ class Connect extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div className="container-fluid">
       {this.state.logout
         ?  <Redirect to='/' />
         :
-        <nav className="navbar navbar-expand-lg navbar-light " style={{backgroundColor:"azure"}} >
-          <img src={logo} className="img-fluid rounded pr-2 navbar-img-header" alt=""/>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <a href='/dashboard'><img src={logo} className="img-fluid rounded pr-2 navbar-img-header" alt=""/></a>
 
-          <div className="btn-group nounderline">
-            <button type="button" className="btn btn-link dropdown-toggle pr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Products
             </button>
-            <div className="dropdown-menu bg-light">
+            <div className="dropdown-menu">
               {this.state.productList.map((product, index) =>
                 <a key={index} className="dropdown-item" href={"/dashboard/"+product.decathlonid}>{product.name}</a>
               )}
@@ -77,11 +84,9 @@ class Connect extends React.Component {
               <a key="all" className="dropdown-item" href="/dashboard">Tous les produits</a>
 
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="">
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#Modal">
-                  Add a new product
-                </button>
-              </a>
+              <button type="button" className="btn btn-outline-primary btn-sm ml-4" data-toggle="modal" data-target="#Modal">
+                Add a new product
+              </button>
             </div>
           </div>
 
@@ -117,6 +122,7 @@ class Connect extends React.Component {
                   }</a>
                   <div className="dropdown-divider"></div>
                   <a className="dropdown-item" href="/about">About project</a>
+                  <a className="dropdown-item" onClick={this.sendMails}>Send Mails</a>
                 </div>
               </li>
             </ul>

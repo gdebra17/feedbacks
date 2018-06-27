@@ -52,7 +52,7 @@ class Tchat extends Component {
     return (
       <div>
       { (this.state.loginFlag === "loading")
-        ?<h1></h1>
+        ?<span></span>
         :(this.state.loginFlag === true)
           ? <div>
               <Navbar />
