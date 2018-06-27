@@ -30,7 +30,7 @@ class App extends Component {
 
     return (
       <Router>
-        <div className="container">
+        <div>
           <Route exact path="/" component={Connect}/>
           <Route path="/connect" component={Connect}/>
           <Route path="/postfeedback/:decathlonid" render={this.postFeedback}/>

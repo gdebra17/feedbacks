@@ -20,7 +20,7 @@ class Tchat extends Component {
   render() {
     // fetch("https://accounts.google.com/CheckCookie?continue=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&followup=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&chtml=LoginDoneHtml&checkedDomains=youtube&checkConnection=youtube%3A291%3A1").then((result) => console.log("info here is :", result)).catch(console.log)
     return (
-      <div>
+      <div className="container">
         <h1> Welcome to your Feedback Chat !</h1>
         <MessagesList />
         <AddMessage />
