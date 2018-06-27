@@ -30,7 +30,7 @@ function getNameByUserId(id){
     raw: true
   })
   .then(dbUsers => {
-    return dbUsers[0].name;
+    return dbUsers[0];
   })
 }
 

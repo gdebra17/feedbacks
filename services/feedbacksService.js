@@ -158,12 +158,22 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
     }
   })
   .then(currentFeedbackToken => {
-    emailsService.createEmailTosend("WELCOME_CUSTOMER", currentUserId, {tokenFeedback: currentFeedbackToken, customerName: username, productDescription: currentProductName, ipName: ""});
-    return currentFeedbackToken;
+    return emailsService.createEmailTosend("WELCOME_CUSTOMER", currentUserId, {tokenFeedback: currentFeedbackToken, customerName: username, productDescription: currentProductName, ipName: ""})
+    .then(data => {
+      return currentFeedbackToken;
+    });
   })
   .then(currentFeedbackToken => {
-    emailsService.createEmailTosend("IP_NEW_FEEDBACK", currentProductUserId, {tokenFeedback: currentFeedbackToken, decathlonid: decathlonid});
-    return currentFeedbackToken;
+    return emailsService.createEmailTosend("IP_NEW_FEEDBACK", currentProductUserId, {tokenFeedback: currentFeedbackToken, decathlonid: decathlonid})
+    .then(data => {
+      return currentFeedbackToken;
+    });
+  })
+  .then(currentFeedbackToken => {
+    return emailsService.sendAllEmailToSend()
+    .then(data => {
+      return currentFeedbackToken;
+    });
   })
   .catch(error => {
     //console.log("createNewFeedback ERROR:", error.message);

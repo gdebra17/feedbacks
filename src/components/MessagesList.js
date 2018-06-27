@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Message from "./Message";
-
+import "./message.css";
 
 const MessagesList = ({messages}) => (
   // console.log("messages is: ", messages);
@@ -9,17 +9,34 @@ const MessagesList = ({messages}) => (
   // {loadDiscussion(window.location.pathname)}
   // {props.dispatch(window.location.pathname)}
     <section id="messages-list" >
-    <div data-spy="scroll">
+    <div data-spy="scroll" className="d-flex flex-column">
       {}
       {messages.map(message => {
         console.log("message printed has the following information :", message)
+        if(message.path === window.location.pathname){
         return (
+          <div className=" d-flex justify-content-end">
           <Message
-          key={message.id}
-          {...message}
+            key={message.id}
+            {...message}
+            myStyle="messageLeft"
+            textColor="text-white"
           />
+        </div>
         )
-      })}
+      } else {
+          return(<div className=" d-flex">
+                    <Message
+                      key={message.id}
+                      {...message}
+                      myStyle="messageOther"
+                      textColor = "text-dark"
+                    />
+                  </div>
+                )
+              }
+            }
+      )}
       </div>
     </section>
   // );
