@@ -60,9 +60,11 @@ class About extends Component {
 
 
     return (
-
+      <div>
+  <Navbar />
+  <div className="container">
       <div className={classes.root + " mb-5"}>
-        <Navbar />
+
         <h3 className="mt-5 mb-4 text-center" >About project</h3>
 
         <ExpansionPanel>
@@ -116,15 +118,17 @@ class About extends Component {
             <div>
               <div className="row mt-3 align-items-center">
                 <div className="col">
-                  <img src="/images/img_agile1.jpeg" alt=""/>
+                  <img src="/images/img_agile1.jpeg" className="rounded" alt=""/>
                 </div>
                 <div className="col">
-                  <img src="/images/img_agile2.JPG" alt="" style={{width:550, height:420}}/>
+                  <img src="/images/img_agile2.JPG" className="rounded" alt="" style={{width:550, height:420}}/>
                 </div>
               </div>
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+      </div>
+      </div>
       </div>
     );
   }
