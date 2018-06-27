@@ -12,13 +12,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("photo");
 
 function postNewFeedback(request, result) {
-  console.log("handlers/postNewFeedback:", request.body);
+  // console.log("handlers/postNewFeedback:", request.body);
 
   upload(request, result, function(err) {
     if (err) {
       result.json({status: "error", errorMessage: "Error uploading file."});
     }
-    console.log("handlers/postNewFeedback in upload:", request.body);
+    // console.log("handlers/postNewFeedback in upload:", request.body);
     const username = request.body.username;
     const mail = request.body.mail;
     const pathImageUser = request.body.path_image_user;

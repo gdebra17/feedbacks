@@ -13,7 +13,7 @@ function getInternalConnexion(request, result) {
       return result.json({status: "error", errorMessage: "problem in database"});
     } else {
       if (users[0].type === "IP") {
-        console.log("getUserByEmail: email=", emailToCheck, " OK !!!");
+        // console.log("getUserByEmail: email=", emailToCheck, " OK !!!");
         return result.json({username: users[0].name, userToken: users[0].token});
       } else {
         return result.json({status: "error", errorMessage: "You are not authorized to access this website !!! You must be a product engineer."});

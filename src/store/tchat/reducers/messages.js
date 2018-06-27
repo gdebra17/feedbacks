@@ -39,7 +39,7 @@ export function messagesReducer(state = initialState, action) {
         //     messages: [...state.messages.messages, {id: action.id, message: action.message, author: "sender"}],
         //   }
         // }
-        console.log("action/message is : ", action);
+        // console.log("action/message is : ", action);
         if(action.messages === undefined){return state}
         return {...state,
           messages: {

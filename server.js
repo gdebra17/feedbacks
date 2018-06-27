@@ -53,7 +53,7 @@ const broadcast = (data, ws) => {
   wss.clients.forEach((client) => {
     // console.log("client is :", ws);
     // console.log(client.readyState === ws.OPEN, client !== ws);
-    console.log("data from broadcast :", data);
+    // console.log("data from broadcast :", data);
     // if (client.readyState === ws.OPEN && client !== ws) {
       // console.log("data is : ", );
       client.send(JSON.stringify({ type: data.type, data: data.message, author: data.author, users: data.users, userId: data.name}));
@@ -65,14 +65,15 @@ const broadcast = (data, ws) => {
 // let list = handlers.getFeedbackList();
 
 wss.on('connection', (ws) => {
-  console.log("wss information", wss);
-  console.log("ws information", ws);
+  // console.log("wss information", wss);
+  // console.log("ws information", ws);
   let tokenList = [];
 
   feedbacksService.getFeedbackList()
   .then(feedbackList => {
     feedbackList.forEach(feedback => {
-      tokenList.push({id:feedback.token, name:feedback.topic, decatId: feedback.decathlonid})
+      // console.log("feeedback has : ", feedback);
+      tokenList.push({id:feedback.token, topic:feedback.topic, decatId: feedback.decathlonid, name: feedback.name})
     })
     return tokenList})
   .then((tokenList) => {
@@ -94,11 +95,11 @@ wss.on('connection', (ws) => {
       //console.log("message added : ", message);
       usersService.getNameByUserId(message.user_id)
       .then(userName => {
-        console.log("userName :", userName);
+        // console.log("userName :", userName);
         return {type: userName.type, name:userName.name}})
       .then(userName => {
         if(userName.type === "CUSTOMER"){
-          console.log("been here niggas");
+          // console.log("been here niggas");
           ws.send(JSON.stringify({
             type: 'MESSAGES',
             data: message.content,
@@ -136,16 +137,16 @@ wss.on('connection', (ws) => {
   ws.id = userID;
   webSockets[userID] = ws
   i++;
-  console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(webSockets))
-  console.log("ws id is : ", ws.id)
+  // console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(webSockets))
+  // console.log("ws id is : ", ws.id)
   // let socketTry = new Websocket("http:/")
   let index
   ws.onopen = (event) => {
-    console.log("logged in with the event : ", event)
+    // console.log("logged in with the event : ", event)
   }
 
   ws.onmessage = (event) => {
-    console.log("been here", event.data);
+    // console.log("been here", event.data);
 
     const data = JSON.parse(event.data)
 
@@ -174,21 +175,21 @@ wss.on('connection', (ws) => {
           feedbackToken = data.channel.substring(4);
           userToken = feedbackToken;
 
-          console.log("ip userToken is : ", userToken);
+          // console.log("ip userToken is : ", userToken);
 
           usersService.getIPByFeedbackToken(feedbackToken)
           // .then(result => console.log("result from IPByToken is : ", result))
           .then(result => {
             let actualUserId = result[0].token;
-            console.log("actualUserId is : ", actualUserId);
+            // console.log("actualUserId is : ", actualUserId);
             feedbacksService.getFeedbackHeaderByToken(feedbackToken)
             .then(feedbackHeader => {
-              console.log("handlers/postNewMessage:", feedbackHeader);
+              // console.log("handlers/postNewMessage:", feedbackHeader);
               if (actualUserId) {
-                console.log("handlers/postNewMessage: message is added by actualUserId", actualUserId);
+                // console.log("handlers/postNewMessage: message is added by actualUserId", actualUserId);
                 return usersService.getUserHeaderByToken(actualUserId).
                 then(dbUser => {
-                  console.log("dbUser is :" , dbUser);
+                  // console.log("dbUser is :" , dbUser);
                   return {feedbackId: feedbackHeader.id, userId: dbUser.id};
                 })
               } else {
@@ -200,7 +201,7 @@ wss.on('connection', (ws) => {
               usersService.getNameByUserId(data.userId)
               .then(name => { return name.name })
               .then(name => {
-                console.log("result is : ", name);
+                // console.log("result is : ", name);
                 broadcast({
                   type: 'MESSAGES',
                   message: messageContent,
@@ -229,15 +230,15 @@ wss.on('connection', (ws) => {
           usersService.getUserByFeedbackToken(feedbackToken)
           .then(result => {
             let actualUserId = result[0].token;
-            console.log("actualUserId is : ", actualUserId);
+            // console.log("actualUserId is : ", actualUserId);
             feedbacksService.getFeedbackHeaderByToken(feedbackToken)
             .then(feedbackHeader => {
-              console.log("handlers/postNewMessage:", feedbackHeader);
+              // console.log("handlers/postNewMessage:", feedbackHeader);
               if (actualUserId) {
-                console.log("handlers/postNewMessage: message is added by actualUserId", actualUserId);
+                // console.log("handlers/postNewMessage: message is added by actualUserId", actualUserId);
                 return usersService.getUserHeaderByToken(actualUserId).
                 then(dbUser => {
-                  console.log("dbUser is :" , dbUser);
+                  // console.log("dbUser is :" , dbUser);
                   return {feedbackId: feedbackHeader.id, userId: dbUser.id};
                 })
               } else {
@@ -249,7 +250,7 @@ wss.on('connection', (ws) => {
               usersService.getNameByUserId(data.userId)
               .then(name => { return name.name })
               .then(name => {
-                console.log("result is : ", name);
+                // console.log("result is : ", name);
                 broadcast({
                   type: 'MESSAGES',
                   message: messageContent,
@@ -259,7 +260,7 @@ wss.on('connection', (ws) => {
               return data;
             })
             .then(data => {
-              console.log("handlers/postNewMessage: insert data=", data);
+              // console.log("handlers/postNewMessage: insert data=", data);
               return feedbacksService.addNewMessageToFeedback(data.feedbackId, messageContent, data.userId)
             })
             .then(infos => {
