@@ -12,7 +12,7 @@ function getInternalConnexion(request, result) {
     } if (users.length > 1) {
       return result.json({status: "error", errorMessage: "problem in database"});
     } else {
-      if (users[0].type === "IP") {
+      if (users[0].type === "pe") {
         console.log("getUserByEmail: email=", emailToCheck, " OK !!!");
         return result.json({username: users[0].name, userToken: users[0].token});
       } else {

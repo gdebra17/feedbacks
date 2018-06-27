@@ -98,13 +98,13 @@ wss.on('connection', (ws) => {
           type: 'MESSAGES',
           data: message.content,
           userId: userName,
-          author: `IP/${message.token}`
+          author: `pe/${message.token}`
         }));
         broadcast({
           type: 'MESSAGES',
           userId: userName,
           data: message.content,
-          author: `IP/${message.token}`
+          author: `pe/${message.token}`
         }, ws);
       })
     })
@@ -151,7 +151,7 @@ wss.on('connection', (ws) => {
         let feedbackToken;
         let userToken;
         let messageContent = data.message;
-        if(data.channel.charAt(1) === "I"){
+        if(data.channel.charAt(1) === "p"){
           feedbackToken = data.channel.substring(4);
           userToken = feedbackToken;
 
@@ -184,7 +184,7 @@ wss.on('connection', (ws) => {
                 broadcast({
                   type: 'MESSAGES',
                   message: messageContent,
-                  author: `SP/${userToken}`,
+                  author: `pe/${userToken}`,
                   name,
                 }, ws)})
               return data;
@@ -232,7 +232,7 @@ wss.on('connection', (ws) => {
                 broadcast({
                   type: 'MESSAGES',
                   message: messageContent,
-                  author: `SP/${userToken}`,
+                  author: `su/${userToken}`,
                   name,
                 }, ws)})
               return data;
