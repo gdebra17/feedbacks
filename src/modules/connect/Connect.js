@@ -68,7 +68,7 @@ render() {
         :
         <div className="jumbotron">
           {/* <img src={backpic} className="img-fluid rounded" alt="..."/> */}
-          <div className="mainBody">
+          <div className="mainBody p-2">
           <h1 className="display-5">DECATHLON</h1>
 
           <div>
@@ -92,7 +92,7 @@ render() {
           }
           <div className="lead">
 
-            <div>
+            <div className="m-2">
             {imagePath
               ? <button title="logout" onClick={disconnect} style={{width:120, height:33}}>Sign Out</button>
               : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>

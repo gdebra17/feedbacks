@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { getProfileInfo} from "../../store/profile/selectors";
 import { profileHandler } from "../../store/profile/handlers";
 
-let logo = require ("./images/logobtwin.png")
+let logo = require ("./images/logofeedback.png")
 
 class Navbar extends React.Component {
 
@@ -24,19 +24,12 @@ class Navbar extends React.Component {
 
   componentDidMount = () => {
     fetch("/products")
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log("componentDidMount productList=", data);
-        this.setState({"productList": data});
-      })
-  }
+    .then((response) => response.json())
+    .then((data) => {
+      //console.log("componentDidMount productList=", data);
+      this.setState({"productList": data});
+    })
 
-  sendMails = () => {
-    fetch("/sendMails")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("sendMails: data=", data);
-      })
   }
 
   logout = (response) => {
@@ -66,97 +59,80 @@ class Navbar extends React.Component {
 
     return (
       <div>
-      {this.state.logout
-        ?  <Redirect to='/' />
-        :
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        {this.state.logout
+          ?  <Redirect to='/' />
+          :
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
 
-
-          <div className="logonav">
-            <a href='/dashboard'><img src={logo} className="img-fluid rounded pr-2 navbar-img-header" alt=""/></a>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Products
-            </button>
-            <div className="dropdown-menu">
-              {this.state.productList.map((product, index) =>
-                <a key={index} className="dropdown-item" href={"/dashboard/"+product.decathlonid}>{product.name}</a>
-              )}
-              <div className="dropdown-divider"></div>
-              <a key="all" className="dropdown-item" href="/dashboard">Tous les produits</a>
-
-              <div className="dropdown-divider"></div>
-              <button type="button" className="btn btn-outline-primary btn-sm ml-4" data-toggle="modal" data-target="#Modal">
-                Add a new product
-              </button>
+            <div className="logonav">
+              <a href='/dashboard'><img src={logo} className="img-fluid rounded pr-2 navbar-img-header" alt=""/></a>
             </div>
-          </div>
 
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
 
-          <div className="collapse navbar-collapse" id="navbarNav">
 
-            <ul className="navbar-nav">
-              <li className="nav-item dropdown">
 
-                <div className="btn-group">
-                  <button type="button" className="btn btn-link dropdown-toggle pr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">
+                <li className="nav-item dropdown">
+
+                  <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Products
-                  </button>
-                  <div className="dropdown-menu bg-light">
+                  </a>
+                  <div className="dropdown-menu">
                     {this.state.productList.map((product, index) =>
                       <a key={index} className="dropdown-item" href={"/dashboard/"+product.decathlonid}>{product.name}</a>
                     )}
                     <div className="dropdown-divider"></div>
                     <a key="all" className="dropdown-item" href="/dashboard">Tous les produits</a>
-
                     <div className="dropdown-divider"></div>
-                    <a className="dropdown-item" href="">
-                      <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#Modal">
+
+                      <button type="button" className="btn btn-outline-primary btn-sm ml-3" data-toggle="modal" data-target="#Modal">
                         Add a new product
                       </button>
-                    </a>
-                  </div>
-                </div>
-              </li>
 
-              <li>
+                  </div>
+                </li>
+
+                <li>
+                  <a className="nav-link disabled" href="/about">About project</a>
+                </li>
+              </ul>
+            </div>
+            <ul className="navbar-nav">
+              <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {imagePath
-                    ?<img className='mt-2 mr-2' src={imagePath} alt="" style={{
-                       borderWidth:1,
-                       borderStyle:'solid',
-                       borderColor:'white',
-                       alignItems:'center',
-                       paddingLeft:1,
-                       marginLeft: 40,
-                       justifyContent:'center',
-                       width:50,
-                       height:50,
-                       backgroundColor:'#fff',
-                       borderRadius:100,
-                     }}/>
-                    : <span> Your Account </span>
+                    ?<img className='mr-2' src={imagePath} alt="" style={{
+                      borderWidth:1,
+                      borderStyle:'solid',
+                      borderColor:'white',
+                      alignItems:'center',
+                      paddingLeft:1,
+                      marginLeft: 40,
+                      justifyContent:'center',
+                      width:50,
+                      height:50,
+                      backgroundColor:'#fff',
+                      borderRadius:100,
+                    }}/>
+                    : <span>Sign in</span>
                   }
-                  {/* {addressPath} */}
                 </a>
-              </li>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                <div className="dropdown-menu">
                   <a className="dropdown-item" href="">{imagePath
-                    ? <button title="logout" onClick={this.logout} style={{width:120, height:33}}>Sign Out</button>
+                    ? <span title="logout" onClick={this.logout} style={{width:120, height:33}}>Sign Out</span>
                     : <div className="g-signin2" data-onsuccess="googleConnectCallback" data-theme="primary"/>
                   }</a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="/about">About project</a>
-                  <a className="dropdown-item" onClick={this.sendMails}>Send Mails</a>
                 </div>
-            </ul> */}
-          </div>
-        </nav>
-      }
+            </li>
+            </ul>
+          </nav>
+        }
       </div>
 
     );
