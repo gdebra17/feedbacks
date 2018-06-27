@@ -1,0 +1,17 @@
+Vérifier qu'on n'a pas de commit sur develop
+git pull origin develop ou git pull //se mettre à jour de develop
+git checkout -b newbranch //créer sa propre branch
+
+travailler sur sa branche
+
+git add/commit
+git pull --rebase origin develop
+git push --force-with-lease origin newbranch // s'il y a eu des commits entre temps
+pull request sur github
+
+
+------si commit sur develop
+git checkout -b mabranch
+git checkout develop
+git reset --hard HEAD~1 //autant de fois que de commit
+git checkout mabranch
