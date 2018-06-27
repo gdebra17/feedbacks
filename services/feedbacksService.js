@@ -165,6 +165,10 @@ function createNewFeedback(username, mail, pathImageUser, topic, content, decath
     emailsService.createEmailTosend("IP_NEW_FEEDBACK", currentProductUserId, {tokenFeedback: currentFeedbackToken, decathlonid: decathlonid});
     return currentFeedbackToken;
   })
+  .then(currentFeedbackToken => {
+    emailsService.sendAllEmailToSend();
+    return currentFeedbackToken;
+  })
   .catch(error => {
     //console.log("createNewFeedback ERROR:", error.message);
     return {errorMessage: error.message};
