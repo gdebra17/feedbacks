@@ -121,7 +121,7 @@ postNewProduct = () => {
 
 
 displayQrcode = (itemToManage) => {
-  console.log("eventtutu:", itemToManage);
+  //console.log("displayQrcode: itemToManage=", itemToManage);
   if (this.state.displayQrCode.includes(itemToManage)) {
     const displayQrCodeWithoutItem = this.state.displayQrCode.filter(item => item !== itemToManage);
     this.setState({displayQrCode: [...displayQrCodeWithoutItem]});
@@ -203,7 +203,7 @@ displayQrcode = (itemToManage) => {
                       <div className="row justify-content-center " >
                       { this.state.displayQrCode.includes(product.decathlonid)
                         ? <div id="idQRcode" className=" mt-3 mb-3">
-                          <a href="/dashboard/qrcode" target="_blank">
+                          <a href={"/postfeedback/" + product.decathlonid} target="_blank">
                           <QRCode
                             value={`${this.state.qrcode.value}${product.decathlonid}`}
                             size={this.state.qrcode.size}
