@@ -72,7 +72,8 @@ wss.on('connection', (ws) => {
   feedbacksService.getFeedbackList()
   .then(feedbackList => {
     feedbackList.forEach(feedback => {
-      tokenList.push({id:feedback.token, name:feedback.topic, decatId: feedback.decathlonid})
+      console.log("feeedback has : ", feedback);
+      tokenList.push({id:feedback.token, topic:feedback.topic, decatId: feedback.decathlonid, name: feedback.name})
     })
     return tokenList})
   .then((tokenList) => {
