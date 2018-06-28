@@ -6,12 +6,14 @@ const http = require("http");
 const usersService = require("./services/usersService");
 const cors = require("cors");
 const handlers = require("./handlers/index");
+const enforce = require('express-sslify');
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: path.resolve(process.cwd(), ".env.local") });
 }
 
 const app = express();
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.static("./build"));
