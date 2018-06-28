@@ -12,9 +12,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: path.resolve(process.cwd(), ".env.local") });
 }
 
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
-
 const app = express();
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.static("./build"));
