@@ -10,9 +10,9 @@ const enforce = require('express-sslify');
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: path.resolve(process.cwd(), ".env.local") });
-} else {
-  app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
+
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 const app = express();
 app.use("/static", express.static("./build/static"));
