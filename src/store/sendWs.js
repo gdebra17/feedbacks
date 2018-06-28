@@ -86,7 +86,6 @@ function sendMessage(username, channel, message) {
   );
 }
 
-
 export default sendLogin;
 
 export {websocket, sendMessage, openSocket, closeSocket, loadDiscussion};
