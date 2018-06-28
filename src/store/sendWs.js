@@ -1,6 +1,6 @@
 import store from './store';
 
-const host = window.location.origin.replace(/^https/, 'ws');
+const host = window.location.origin.replace(/^https/, 'wss');
 // let websocket;
 
 // const websocket = new WebSocket(`ws://localhost:${process.env.NODE_ENV === "production" ? "" : "8080"}`);
