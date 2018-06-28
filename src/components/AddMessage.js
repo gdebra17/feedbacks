@@ -52,7 +52,7 @@ class AddMessage extends Component {
               <span className="text-muted">Product: {this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid})</span>
               {this.state.uploadUrlList.map(url =>
                 <div>
-                  <img src={url} style={{maxHeight: 250}}/>
+                  <img src={url} style={{maxHeight: 250}} alt=""/>
                 </div>
               )}
             </div>
