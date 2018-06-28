@@ -8,7 +8,8 @@ git add/commit
 git pull --rebase origin develop
 git push --force-with-lease origin newbranch // s'il y a eu des commits entre temps
 pull request sur github
-
+git checkout develop
+git pull origin develop
 
 ------si commit sur develop
 git checkout -b mabranch
