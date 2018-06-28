@@ -12,7 +12,7 @@ export default class Dashboard extends React.Component {
       super(props);
       this.state = {
         qrcode: {
-          value: `${window.location.hostname}/postfeedback/`,
+          value: `${window.location.origin}/postfeedback/`,
           size: 128,
           fgColor: '#000000',
           bgColor: '#ffffff',
