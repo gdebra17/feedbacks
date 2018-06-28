@@ -5,7 +5,10 @@ const host = window.location.origin.replace(/^https/, 'wss');
 
 // const websocket = new WebSocket(`ws://localhost:${process.env.NODE_ENV === "production" ? "" : "8080"}`);
 const websocket = new WebSocket(`${host}${process.env.NODE_ENV === "production" ? "" : ""}`);
-// console.log("here is the origin : ", window.location.origin.replace(/^http/,"ws"));
+// 
+// process.env.NODE_ENV === "production"
+// ? websocket = new WebSocket(`${host}`)
+// : websocket = new WebSocket(`ws://localhost:8080`);
 
 websocket.addEventListener("message", event => {
 
