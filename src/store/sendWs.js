@@ -3,12 +3,12 @@ import store from './store';
 const host = window.location.origin.replace(/^https/, 'wss');
 // let websocket;
 
-// const websocket = new WebSocket(`ws://localhost:${process.env.NODE_ENV === "production" ? "" : "8080"}`);
-const websocket = new WebSocket(`${host}${process.env.NODE_ENV === "production" ? "" : ""}`);
-// 
-// process.env.NODE_ENV === "production"
-// ? websocket = new WebSocket(`${host}`)
-// : websocket = new WebSocket(`ws://localhost:8080`);
+// (process.env.NODE_ENV === "development")
+// ? websocket = new WebSocket(`ws://localhost:8080`)
+// : websocket = new WebSocket(`${host}`);
+const websocket = new WebSocket("ws://localhost:8080");
+// const websocket = new WebSocket(`${host}${process.env.NODE_ENV === "production" ? "" : ""}`);
+
 
 websocket.addEventListener("message", event => {
 

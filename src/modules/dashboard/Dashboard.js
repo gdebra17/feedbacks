@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from "../navbar/Navbar";
-//import Header from "../header/Header";
+import { connect } from "react-redux";
+import { getFeedbacksList} from "../../store/feedbacks/selectors";
+import { feedbacksHandler } from "../../store/feedbacks/handlers";
 import "./dashboard.css";
 const QRCode = require('qrcode-react');
 
 
-
-
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
@@ -44,11 +44,9 @@ onClose = () => {
 }
 
 componentDidMount = () => {
-
   this.getProductsList();
   this.getFeedbacks();
   this.setExpiringDate();
-
 }
 
 handleProductName = (event) => {
@@ -60,19 +58,8 @@ handleProductDecathlonId = (event) => {
 }
 
 handleExpiringDate = (event) => {
-
   console.log("event.target.value ", event.target.value);
-
   this.setState({expiringDate: event.target.value})
-//   const now = new Date().toJSON().slice(0,10);
-//   const monthsNow = now.slice(5,7);
-//   const months = this.state.expiringDate.slice(5,7);
-//   const withinM = `${months - monthsNow} months and `;
-//   const daysNow = now.slice(8,10);
-//   const days = this.state.expiringDate.slice(8,10);
-//   const withinD = `${days - daysNow} days`;
-// console.log(withinD);
-// console.log(withinM);
 }
 
 getProductsList = () => {
@@ -101,23 +88,25 @@ getFeedbacks = () => {
         .then((response) => response.json())
         .then((resp) => {
           this.setState({"feedbacks": resp})
-          //console.log(this.state.feedbacks);
+          // this.props.storeFeedbacksList(resp)
+          // console.log(this.props.feedbacksList);
         })
+
 }
 
 postNewProduct = () => {
-  console.log("decathlon id reconnu ? ", this.state.productDecathlonId);
+  // console.log("decathlon id reconnu ? ", this.state.productDecathlonId);
   fetch("/newproduct", {
     method: "POST",
-    body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId, expiringdate: this.state.expiringDate, user_id: this.state.username}),
+    body: JSON.stringify({name: this.state.productName, decathlonid: this.state.productDecathlonId, expiringdate: this.state.expiringDate, user_id: this.state.user_id}),
     headers: {
     'content-type': 'application/json'
     }
   })
-        .catch((error) => {
-          console.warn(error);
-        })
-        .then((response) => console.log(response))
+    .catch((error) => {
+      console.warn(error);
+    })
+    .then((response) => console.log(response))
 }
 
 displayQrcode = (itemToManage) => {
@@ -135,8 +124,6 @@ displayQrcode = (itemToManage) => {
       <div>
         <Navbar />
         <div className="container">
-
-          {/*<Header /> */}
           <div className="text-center p-3">
             <div className="modal fade" id="Modal" tabIndex="-1" role="dialog" aria-hidden="true">
               <div className="modal-dialog" role="document">
@@ -253,3 +240,6 @@ displayQrcode = (itemToManage) => {
     );
   }
 }
+
+// const Connected = connect(getFeedbacksList, feedbacksHandler)(Dashboard);
+export default Dashboard;

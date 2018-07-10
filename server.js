@@ -13,7 +13,9 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-app.use(enforce.HTTPS({ trustProtoHeader: true }))
+// (process.env.NODE_ENV === "development")
+// ? null
+// : app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.static("./build"));
@@ -23,17 +25,16 @@ app.use(require("body-parser").urlencoded({ extended: false }));
 
 app.get("/welcome", handlers.getWelcome);
 
-//http://localhost:8080/feedbacks/TOKEN_2
 app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
 app.post("/feedbacks", handlers.postNewFeedback);
 app.get("/feedbackList/:decathlonid", handlers.getFeedbackList);
 app.get("/feedbackList", handlers.getFeedbackList);
 app.post("/messages", handlers.postNewMessage);
-//app.post("/messages/:idtoken", handlers.getAllMessages);
 app.get("/products", handlers.getAllProducts);
 app.get("/sendMails", handlers.sendMails);
 app.post("/newproduct", handlers.postNewProduct);
 app.post("/internalconnexion", handlers.getInternalConnexion);
+
 
 app.get("*", (request, result)=>{
   result.sendFile(path.resolve("./build/index.html"));
@@ -43,7 +44,7 @@ const port = process.env.PORT || 8080;
 
 const server = http.createServer();
 const wss = new Websocket.Server({server, "clientTracking":true});
-let webSockets = {} // userID: webSocket
+let webSockets = {}; // userID: webSocket
 let i = 1000;
 
 
