@@ -15,6 +15,8 @@ function profileReducer(state = initialState, action) {
         id_token: action.id_token,
         message: action.message,
         email: action.email,
+        IP: action.IP,
+        id: action.id,
       }
 
     case "DISCONNECT":

@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+// app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.static("./build"));
