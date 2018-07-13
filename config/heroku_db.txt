@@ -1,6 +1,10 @@
+-------------------------CREATE DB-------------------------
 heroku pg:reset
 confirm en retapant le nom de la DBB
 
 heroku addons:create heroku-postgresql:hobby-dev
 
 heroku pg:push namelocaldb DATABASE_URL --app nameapp
+
+-------------------------CONNECT-------------------------
+Etre sur un réseau HORS Decathlon

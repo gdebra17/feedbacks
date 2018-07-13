@@ -6,3 +6,11 @@ Dans index.html :
         __REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function() {};
     }
 </script>
+
+
+Dans /src/store/sendWs.js
+Décommenter ligne du websocket qui contient le "host"
+Commenter ligne du websocket qui pointe vers le 8080
+
+Dans server.js
+Décommenter le app.use qui enforce le https en PRODUCTION

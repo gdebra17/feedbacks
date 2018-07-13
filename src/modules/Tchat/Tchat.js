@@ -57,7 +57,6 @@ class Tchat extends Component {
           ?<span></span>
           :(this.state.loginFlag === true)
             ? <div>
-
                 {imageExists()}
                 <div id="container">
                   <Sidebar />
