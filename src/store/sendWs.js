@@ -9,7 +9,7 @@ let websocket;
 // : websocket = new WebSocket(`${host}`);
 
 // const websocket = new WebSocket("ws://localhost:8080");
-const websocket = new WebSocket(host);
+const websocket = new WebSocket(`${host}`);
 
 websocket.addEventListener("message", event => {
 
