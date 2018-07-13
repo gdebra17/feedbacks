@@ -2,7 +2,7 @@ import store from './store';
 
 const host = window.location.origin.replace(/^https/, 'wss');
 
-let websocket;
+// let websocket;
 
 // (process.env.NOVE_ENV === 'development')
 // ? websocket = new WebSocket("ws://localhost:8080")
