@@ -23,5 +23,4 @@ yarn-error.log*
 /uploads
 /config/config.json
 /config/herokuDatabase.txt
-
 /seeders
