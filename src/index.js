@@ -40,7 +40,6 @@ window.googleConnectCallback = function(googleUser){
       // console.log("Fetch Index Resp :", resp)
         if (resp.status === "error") {
           let errorMessage = resp.errorMessage;
-          let status = resp.status;
           console.log("error ?");
           store.dispatch({type: "SET_PROFILE", message: errorMessage, disconnect: disconnect, profile: profile});
         } else {

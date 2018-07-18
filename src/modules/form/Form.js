@@ -149,14 +149,21 @@ export default class Form extends React.Component {
 
     return (
       <div className="container">
+
         <Header />
+
+        <div className="alert alert-primary alert-dismissible fade show mt-3" role="alert">
+          <strong>Great first step!</strong> Now, you're about to submit a feedback and chat with the engineer about your {this.state.productName}, no intermediary whatsoever. Thanks in advance for your time. Let's start by choosing the bike part (only one choice)...
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
         <form onSubmit={this.handleSubmit} id="userform">
-
-
           <div id="accordion">
             <div className="card mt-3">
               <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <h5 className="mb-0">Concerned bike part - {this.state.productName}</h5>
+                <h5 className="mb-0">What can be improved on your {this.state.productName}?</h5>
                 <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
                 <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
               </a>
@@ -164,15 +171,15 @@ export default class Form extends React.Component {
 
                 <div className="card-body" onClick={this.handleTopic}>
                   <ul className="list-group">
-                    <LineTopic label="Handlebar" activeTopic={this.state.form.topic}/>
-                    {/* <LineTopic label="Saddle" activeTopic={this.state.form.topic}/> */}
-                    {/* <LineTopic label="Brakes" activeTopic={this.state.form.topic}/> */}
-                    <LineTopic label="Frame" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Bicycle drive" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Wheels" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Pedals" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Derailleurs" activeTopic={this.state.form.topic}/>
-                    {/* <LineTopic label="Accessories" activeTopic={this.state.form.topic}/> */}
+                    <LineTopic label="Cadre / Frame" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Fourche / Fork" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Cintre / Handlebar" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Selle / Saddle" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Freins / Brakes" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Dérailleur / Rear Derailleur" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Pneus / Tires" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Roue / Wheel" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Plateau / Chainring" activeTopic={this.state.form.topic}/>
 
                   </ul>
                 </div>
