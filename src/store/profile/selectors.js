@@ -5,5 +5,7 @@ export function getProfileInfo(reduxState) {
     id_token: reduxState.profileReducer.id_token,
     message: reduxState.profileReducer.message,
     email: reduxState.profileReducer.email,
+    IP: reduxState.profileReducer.IP,
+    id:  reduxState.profileReducer.id,
   }
 }

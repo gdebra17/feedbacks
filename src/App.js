@@ -26,6 +26,8 @@ class App extends Component {
     return <Dashboard {...routerProps} />
   }
 
+
+
   render() {
 
     return (
@@ -40,6 +42,7 @@ class App extends Component {
           <Route exact path="/testform" component={TestForm} />
           <Route exact path="/about" component={About} />
           <Route exact path="/dashboard" component={Dashboard} />
+          {/* <PrivateRoute path='/dashboard' component={Dashboard} /> */}
           <Route path="/dashboard/:decathlonid" component={Dashboard} />
           <Route exact path="/navbar" component={Navbar}/>
 
