@@ -14,12 +14,12 @@ websocket.addEventListener("message", event => {
     default:
       return;
     case "MESSAGES":
-    // console.log(`check this equality : ${window.location.pathname.substring(2)} === ${message.author.substring(3)}`);
-    // console.log(`check this equality : ${window.location.pathname.substring(3)} === ${message.author.substring(2)}`);
-    // console.log(`check this equality : ${window.location.pathname.substring(3)} === ${message.author.substring(3)}`);
+    // console.log(`1 check this equality : ${window.location.pathname.substring(5)} ${message.author.substring(3)}`);
+    // console.log(`2 check this equality : ${window.location.pathname.substring(4)} === ${message.author.substring(6)}`);
+    // console.log(`3 check this equality : ${window.location.pathname.substring(3)} === ${message.author.substring(3)}`);
     // if(event.data.id !== undefined){
-      if(window.location.pathname.substring(3) === `${message.author.substring(2)}` || `${window.location.pathname.substring(2)}` === message.author.substring(3) || `${window.location.pathname.substring(3)}` === message.author.substring(3)){
-        //console.log("wow such LKZAJELKJA code", message);
+      if(window.location.pathname.substring(6) === `${message.author.substring(2)}` || `${window.location.pathname.substring(5)}` === message.author.substring(3) || `${window.location.pathname.substring(3)}` === message.author.substring(3) || `${window.location.pathname.substring(4)}` === message.author.substring(6)){
+        // console.log("wow such LKZAJELKJA code", message);
         store.dispatch({type: "MESSAGE_RECEIVED", messages: message.data, author: message.userId, path: message.author})
         return;
       }
