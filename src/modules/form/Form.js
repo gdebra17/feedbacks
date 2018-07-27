@@ -206,7 +206,7 @@ export default class Form extends React.Component {
 
                 <div className="card-body">
                   <textarea onChange={this.handleFeedback} className="form-control" id="feedback" name="feedback" rows="5" required></textarea>
-                  <button type="button" id="feedbackSubmit" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Next step</button>
+                  <button type="button" id="feedbackSubmit" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Next step...</button>
                 </div>
               </div>
             </div>
