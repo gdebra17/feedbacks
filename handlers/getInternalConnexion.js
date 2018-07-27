@@ -15,16 +15,16 @@ function getInternalConnexion(request, result) {
         return usersService.getUserByEmail(resp.email)
           .then(users => {
             if (users.length === 0) {
-              return result.json({status: "error", errorMessage: "user not authorized"});
+              return result.json({status: "error", errorMessage: "Sorry, you are not authorized to access this page."});
             } if (users.length > 1) {
-              return result.json({status: "error", errorMessage: "problem in database"});
+              return result.json({status: "error", errorMessage: "Apparently, there is a duplicated user in the database"});
             } else {
               if (users[0].type === "IP") {
-                // console.log(users[0].type);
-                return result.json({username: users[0].name, userToken: users[0].token, email: users[0].mail});
+                // console.log(users[0]);
+                return result.json({username: users[0].name, userToken: users[0].token, email: users[0].mail, IP: users[0].type, id: users[0].id});
               } else {
                 // console.log("mauvaise adresse mail");
-                return result.json({status: "error", errorMessage: "You are not authorized to access this website !!! You must be a product engineer."});
+                return result.json({status: "error", errorMessage: "Sorry, only our Product Engineers can access the dashboard page."});
               }
             }
           });

@@ -73,8 +73,8 @@ wss.on('connection', (ws) => {
   feedbacksService.getFeedbackList()
   .then(feedbackList => {
     feedbackList.forEach(feedback => {
-      console.log("feeedback has : ", feedback);
-      tokenList.push({id:feedback.token, productId:feedback.product_id, topic:feedback.topic, decatId: feedback.decathlonid, name: feedback.name})
+      // console.log("feeedback has : ", feedback);
+      tokenList.push({id:feedback.token, topic:feedback.topic, decatId: feedback.decathlonid, name: feedback.name})
     })
     return tokenList})
   .then((tokenList) => {
@@ -93,10 +93,10 @@ wss.on('connection', (ws) => {
   feedbacksService.getAllMessage()
   .then(messageList =>
     messageList.forEach( message => {
-      console.log("message added : ", message);
+      //console.log("message added : ", message);
       usersService.getNameByUserId(message.user_id)
       .then(userName => {
-        console.log("userName :", userName);
+        // console.log("userName :", userName);
         return {type: userName.type, name:userName.name}})
       .then(userName => {
         if(userName.type === "CUSTOMER"){
@@ -118,13 +118,13 @@ wss.on('connection', (ws) => {
             type: 'MESSAGES',
             data: message.content,
             userId: userName.name,
-            author: `/pe/${message.product_id}/${message.token}`
+            author: `/pe/${message.token}`
           }));
           broadcast({
             type: 'MESSAGES',
             userId: userName.name,
             data: message.content,
-            author: `/pe/${message.product_id}/${message.token}`
+            author: `/pe/${message.token}`
           }, ws);
         }
       })
@@ -172,14 +172,11 @@ wss.on('connection', (ws) => {
         let feedbackToken;
         let userToken;
         let messageContent = data.message;
-        let pathMessage;
         if(data.channel.charAt(1) === "p"){
-          feedbackToken = data.channel.substring(6);
+          feedbackToken = data.channel.substring(4);
           userToken = feedbackToken;
-          pathMessage = data.channel;
 
-          console.log("ip userToken is : ", userToken);
-          console.log("data is : ", data);
+          // console.log("ip userToken is : ", userToken);
 
           usersService.getIPByFeedbackToken(feedbackToken)
           // .then(result => console.log("result from IPByToken is : ", result))
@@ -205,11 +202,11 @@ wss.on('connection', (ws) => {
               usersService.getNameByUserId(data.userId)
               .then(name => { return name.name })
               .then(name => {
-                console.log("result is : ", name, messageContent, pathMessage);
+                // console.log("result is : ", name);
                 broadcast({
                   type: 'MESSAGES',
                   message: messageContent,
-                  author: pathMessage,
+                  author: `/pe/${userToken}`,
                   name,
                 }, ws)})
               return data;

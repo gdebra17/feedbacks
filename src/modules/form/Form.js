@@ -5,6 +5,7 @@ import Header from "../header/Header";
 
 const arrowDown = require ("./images/down2.png");
 const arrowUp = require ("./images/up2.png");
+const loading = require ("./images/loading.gif");
 
 function LineTopic(props) {
   let currentStyle = "list-group-item list-group-item-action";
@@ -42,6 +43,7 @@ export default class Form extends React.Component {
   componentDidMount() {
     document.getElementById("feedbackSuccess").style.display = "none";
     document.getElementById("feedbackFail").style.display = "none";
+    document.getElementById("loading").style.display = "none";
     document.getElementById("feedbackSubmit").setAttribute("disabled","disabled");
     this.setState({redirect: false});
       fetch("/products")
@@ -66,8 +68,10 @@ export default class Form extends React.Component {
     }
     if (this.state.fetchResult.status === "succeeded") {
       document.getElementById("feedbackSuccess").style.display = "block";
+      document.getElementById("loading").style.display = "none";
     } else if (this.state.fetchResult.status === "error") {
       document.getElementById("feedbackFail").style.display = "block";
+      document.getElementById("loading").style.display = "none";
     }
   }
 
@@ -133,6 +137,7 @@ export default class Form extends React.Component {
       });
     })
     this.clearForm();
+    this.displayLoading();
   }
 
   clearForm = () => {
@@ -141,22 +146,34 @@ export default class Form extends React.Component {
       content: "",
     }})
     document.getElementById("userform").reset();
-
     console.log(this.state.form);
+  }
+
+  displayLoading = () => {
+    if (this.state.fetchResult.status === null) {
+      document.getElementById("loading").style.display = "block";
+    }
   }
 
   render() {
 
     return (
       <div className="container">
+
         <Header />
+
+        <div className="alert alert-primary alert-dismissible fade show mt-3" role="alert">
+          <strong>Great first step!</strong> Now, you're about to submit a feedback and chat with the engineer about your {this.state.productName}, no intermediary whatsoever. Thanks in advance for your time. Let's start by choosing the bike part (only one choice)...
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
         <form onSubmit={this.handleSubmit} id="userform">
-
-
           <div id="accordion">
             <div className="card mt-3">
               <a className="card-header" id="headingOne" data-toggle="collapse" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <h5 className="mb-0">Concerned bike part - {this.state.productName}</h5>
+                <h5 className="mb-0">What can be improved on your {this.state.productName}?</h5>
                 <div className="arrowOpen"><img className="arrow" src={arrowDown} alt=""/></div>
                 <div className="arrowClose"><img className="arrow" src={arrowUp} alt=""/></div>
               </a>
@@ -164,15 +181,15 @@ export default class Form extends React.Component {
 
                 <div className="card-body" onClick={this.handleTopic}>
                   <ul className="list-group">
-                    <LineTopic label="Handlebar" activeTopic={this.state.form.topic}/>
-                    {/* <LineTopic label="Saddle" activeTopic={this.state.form.topic}/> */}
-                    {/* <LineTopic label="Brakes" activeTopic={this.state.form.topic}/> */}
-                    <LineTopic label="Frame" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Bicycle drive" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Wheels" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Pedals" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Derailleurs" activeTopic={this.state.form.topic}/>
-                    {/* <LineTopic label="Accessories" activeTopic={this.state.form.topic}/> */}
+                    <LineTopic label="Frame (Cadre)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Fork (Fourche)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Handlebar (Cintre)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Saddle (Selle)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Brakes (Freins)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Rear Derailleur (Dérailleur)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Tires (Pneus)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Wheel (Roue)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Chainring (Plateau)" activeTopic={this.state.form.topic}/>
 
                   </ul>
                 </div>
@@ -189,7 +206,7 @@ export default class Form extends React.Component {
 
                 <div className="card-body">
                   <textarea onChange={this.handleFeedback} className="form-control" id="feedback" name="feedback" rows="5" required></textarea>
-                  <button type="button" id="feedbackSubmit" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Confirm</button>
+                  <button type="button" id="feedbackSubmit" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseThree">Next step</button>
                 </div>
               </div>
             </div>
@@ -209,7 +226,7 @@ export default class Form extends React.Component {
                   <input onChange={this.handlePhoto} type="file" id="photo" accept="image/*" />
                 </div>
                 <div className="card-body photo">
-                  <button type="button" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseFour">Upload</button>
+                  <button type="button" className="btn btn-outline-primary btn-lg btn-block mt-3" data-toggle="collapse" data-target="#collapseFour">One more step...</button>
                 </div>
               </div>
             </div>
@@ -228,13 +245,16 @@ export default class Form extends React.Component {
                     <input onChange={this.handleName} type="text" className="form-control" id="name" placeholder="Enter your Name" required/>
                     <input onChange={this.handleMail} type="email" className="form-control mt-3" id="mail" placeholder="Enter your email address" required/>
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <div className="loading">
+                      <img id="loading" src={loading} alt="" />
+                    </div>
                     <div className="card-body alert alert-success" role="alert" id="feedbackSuccess">
                       Your feedback was successfully sent straight to the engineer who developed your bike. You can access the <a href={`/su/${this.state.fetchResult.data}`} className="alert-link">dialog page by clicking here</a>!
                     </div>
                     <div className="card-body alert alert-danger" role="alert" id="feedbackFail">
                       Sorry, an error occured. We are working on it, please try again later.
                     </div>
-                    <button type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3">Send my feedback !</button>
+                    <button type="submit" className="btn btn-outline-primary btn-lg btn-block mt-3">This is it! Send my feedback!</button>
 
 
                   </div>

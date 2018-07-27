@@ -52,10 +52,10 @@ class Navbar extends React.Component {
     //   window.location.reload();
     // }
 
-    let addressPath = "";
-    if(this.props.profileInfo.U3){
-      addressPath = this.props.profileInfo.U3;
-    }
+    // let addressPath = "";
+    // if(this.props.profileInfo.U3){
+    //   addressPath = this.props.profileInfo.U3;
+    // }
 
     return (
       <div>

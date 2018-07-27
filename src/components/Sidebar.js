@@ -12,14 +12,11 @@ const Sidebar = ({users}) => (
   <aside id="sidebar" className="sidebar">
     <ul class="list-group">
       {users.map(user => {
-        // console.log(`user has : `, user);
-        // console.log("the number is ; ", window.location.pathname.substring(4,5), "and", user.productId)
-        if(`${user.productId}` === window.location.pathname.substring(4,5)){
-          if(`/pe/${user.productId}/${user.id}` === window.location.pathname){
-            return(<Link style={{fontWeight: "bold", color:"white"}} to={`/pe/${user.productId}/${user.id}`} onClick={window.location.reload} ><li class="list-group-item list-group-item-action active" key={user.id} style={{marginBottom:3}}>{user.topic} <br/> {user.name}</li></Link>)
-          } else {
-            return(<Link to={`/pe/${user.productId}/${user.id}`} onClick={window.location.reload} ><li class="list-group-item list-group-item-action" key={user.id} style={{marginBottom:3}}>{user.topic} <br/> {user.name}</li></Link>)
-          }
+        console.log(`user has : `, user);
+        if(`/pe/${user.id}` === window.location.pathname){
+          return(<Link style={{fontWeight: "bold", color:"white"}} to={`/pe/${user.id}`} onClick={window.location.reload} ><li class="list-group-item list-group-item-action active" key={user.id} style={{marginBottom:3}}>{user.topic} <br/> {user.name}</li></Link>)
+        } else {
+          return(<Link to={`/pe/${user.id}`} onClick={window.location.reload} ><li class="list-group-item list-group-item-action" key={user.id} style={{marginBottom:3}}>{user.topic} <br/> {user.name}</li></Link>)
         }
       })}
     </ul>
