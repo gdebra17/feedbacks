@@ -42,6 +42,7 @@ const MessagesList = ({messages}) => {
   );
 }
 
+
 MessagesList.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.shape({
