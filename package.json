@@ -49,17 +49,4 @@
   },
   "devDependencies": {
     "sequelize-cli": "^4.0.0"
-  },
-  "description": "Best Minitel Feedback EVER",
-  "main": "cdetest.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cdedkt/feedbacks.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cdedkt/feedbacks/issues"
-  },
-  "homepage": "https://github.com/cdedkt/feedbacks#readme"
-}
+  }
