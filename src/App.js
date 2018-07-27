@@ -44,6 +44,7 @@ class App extends Component {
           <Route exact path="/dashboard" component={Dashboard} />
           {/* <PrivateRoute path='/dashboard' component={Dashboard} /> */}
           <Route path="/dashboard/:decathlonid" component={Dashboard} />
+          
           <Route exact path="/navbar" component={Navbar}/>
 
 
