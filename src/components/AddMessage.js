@@ -47,7 +47,7 @@ class AddMessage extends Component {
         <section id="new-message">
           <div className="collapse" id="navbarToggleExternalContent" >
             <div className="bg-light p-4">
-              <h5 className="text-dark h4">FEEDBACK RECAP</h5>
+              <h5 className="text-dark"><b>Feedback Summary</b></h5>
               {console.log("this.state", this.state.feedbackDetail.header)}
               <span className="text-muted">Product: {this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid})</span>
               {this.state.uploadUrlList.map(url =>
@@ -60,8 +60,8 @@ class AddMessage extends Component {
           <div className="col-12">
             <button className="btn btn-outline-info m-2" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" style={{marginLeft: 15,
               borderStyle:'thin',
-              borderColor:'black', height:35, width:80,}}>
-              <a>Recap</a>
+              borderColor:'black', height:35,}}>
+              <a>See the feedback infos</a>
             </button>
           </div>
           <div className="col-12">
@@ -73,6 +73,7 @@ class AddMessage extends Component {
                 }
               }}
               type="text"
+              className="inputText ml-2"
               ref={(node) => {
                 input = node
               }}
@@ -80,12 +81,12 @@ class AddMessage extends Component {
 
             <button className="btn btn-outline-primary m-2" type="button"  style={{marginLeft: 15,
               borderStyle:'thin',
-              borderColor:'black', height:35, width:80}}
+              borderColor:'black', height:35,}}
               onClick={() => {
                 this.props.dispatch(input.value, 'Me', window.location.pathname)
                 input.value = ''
               }
-            }> Send </button>
+            }>Send</button>
           </div>
         </section>
       </div>
