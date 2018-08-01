@@ -224,7 +224,7 @@ displayQrcode = (itemToManage) => {
                       <h6 className="card-subtitle mb-2 text-muted">{feed.topic}</h6>
                       <p className="card-text">{feed.content}</p>
                       <div className="d-flex justify-content-around">
-                        <a href={`/pe/${feed.token}`}><button type="button" className="btn btn-outline-primary btn-sm">User thread</button></a>
+                        <a href={`/pe/${feed.product_id}/${feed.token}`}><button type="button" className="btn btn-outline-primary btn-sm">User thread</button></a>
                         <a href={`/dashboard/${feed.decathlonid}`}><button type="button" className="btn btn-outline-secondary btn-sm">Product info</button></a>
                       </div>
                     </div>

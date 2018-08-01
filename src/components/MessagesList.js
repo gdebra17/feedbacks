@@ -4,13 +4,13 @@ import Message from "./Message";
 import "./message.css";
 
 const MessagesList = ({messages}) => {
-  // console.log("messages is: ", messages)
+  console.log("messages is: ", messages)
   return(
   // {loadDiscussion(window.location.pathname)}
   // {props.dispatch(window.location.pathname)}
     <section id="messages-list" >
     <div data-spy="scroll" className="d-flex flex-column">
-      {}
+      {/* {} */}
       {messages.map(message => {
         // console.log("message printed has the following information :", message)
         if(message.path === window.location.pathname){

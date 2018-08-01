@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-// app.use(enforce.HTTPS({ trustProtoHeader: true }));
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.static("./build"));
@@ -94,14 +94,14 @@ wss.on('connection', (ws) => {
   feedbacksService.getAllMessage()
   .then(messageList =>
     messageList.forEach( message => {
-      console.log("message added : ", message);
+      // console.log("message added : ", message);
       usersService.getNameByUserId(message.user_id)
       .then(userName => {
-        console.log("userName :", userName);
+        // console.log("userName :", userName);
         return {type: userName.type, name:userName.name}})
       .then(userName => {
         if(userName.type === "CUSTOMER"){
-          // console.log("been here niggas");
+          // console.log("been here mate");
           ws.send(JSON.stringify({
             type: 'MESSAGES',
             data: message.content,

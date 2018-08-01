@@ -48,7 +48,7 @@ class AddMessage extends Component {
           <div className="collapse" id="navbarToggleExternalContent" >
             <div className="bg-light p-4">
               <h5 className="text-dark"><b>Feedback Summary</b></h5>
-              {console.log("this.state", this.state.feedbackDetail.header)}
+              {/* {console.log("this.state", this.state.feedbackDetail.header)} */}
               <span className="text-muted">Product: {this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid})</span>
               {this.state.uploadUrlList.map(url =>
                 <div>
