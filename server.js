@@ -24,6 +24,7 @@ app.use(require("body-parser").urlencoded({ extended: false }));
 app.get("/welcome", handlers.getWelcome);
 
 app.get("/feedbacks/:token/", handlers.getFeedbackByToken);
+app.get("/feedbacks/:productId/:feedbackToken", handlers.getFeedbackByToken);
 app.post("/feedbacks", handlers.postNewFeedback);
 app.get("/feedbackList/:decathlonid", handlers.getFeedbackList);
 app.get("/feedbackList", handlers.getFeedbackList);
