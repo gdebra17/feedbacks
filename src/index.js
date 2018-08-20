@@ -40,10 +40,10 @@ window.googleConnectCallback = function(googleUser){
       // console.log("Fetch Index Resp :", resp)
         if (resp.status === "error") {
           let errorMessage = resp.errorMessage;
-          console.log("error ?");
+          // console.log("error ?");
           store.dispatch({type: "SET_PROFILE", message: errorMessage, disconnect: disconnect, profile: profile});
         } else {
-          console.log("Dispatch into Redux State ", resp);
+          // console.log("Dispatch into Redux State ", resp);
           store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect, id_token: id_token, email: email, IP: resp.IP, id: resp.id});
         }
 

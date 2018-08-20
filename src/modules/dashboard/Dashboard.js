@@ -59,7 +59,7 @@ handleProductDecathlonId = (event) => {
 }
 
 handleExpiringDate = (event) => {
-  console.log("event.target.value ", event.target.value);
+  // console.log("event.target.value ", event.target.value);
   this.setState({expiringDate: event.target.value})
 }
 
@@ -90,7 +90,7 @@ getFeedbacks = () => {
         .then((resp) => {
           this.setState({"feedbacks": resp})
           // this.props.storeFeedbacksList(resp)
-          // console.log("resp ", resp);
+          console.log("resp ", resp);
         })
 
 }
@@ -109,6 +109,16 @@ postNewProduct = () => {
     .then((response) => {
       console.log("Response New Product", response)
     })
+}
+
+formatDate = (oneDate) => {
+  const feedbackDate = new Date(oneDate);
+  let day = feedbackDate.getDate();
+  let month = feedbackDate.getMonth();
+  const year = feedbackDate.getFullYear();
+  let fullDay = (day < 10) ? `0${day}`: day;
+  let fullMonth = (month < 10) ? `0${month}`: month;
+  return `${fullDay}/${fullMonth}/${year}`;
 }
 
 displayQrcode = (itemToManage) => {
@@ -221,7 +231,7 @@ displayQrcode = (itemToManage) => {
                   <div className="card" key={feed.token}>
                     <div className="card-body">
                       <h5 className="card-title">{feed.name}</h5>
-                      <h6 className="card-subtitle mb-2 text-muted">{feed.topic}</h6>
+                      <h6 className="card-subtitle mb-2 text-muted">{feed.topic} - {this.formatDate(feed.created_at)}</h6>
                       <p className="card-text">{feed.content}</p>
                       <div className="d-flex justify-content-around">
                         <a href={`/pe/${feed.product_id}/${feed.token}`}><button type="button" className="btn btn-outline-primary btn-sm">User thread</button></a>
