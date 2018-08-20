@@ -10,18 +10,19 @@ class AddMessage extends Component {
       feedbackDetail: {
         header: {product: ""},
         messages: []
-      }
+      },
+      feedbackDate: ""
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     fetch("/feedbacks/"+this.state.token, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     })
       .then(response => response.json())
       .then(feedbackDetail => {
-        //console.log("feedbackDetail :", feedbackDetail);
+        console.log("feedbackDetail :", feedbackDetail);
         const uploadUrlList = [];
         feedbackDetail.messages.forEach(message => {
           message.uploads.forEach(upload => {
@@ -31,9 +32,21 @@ class AddMessage extends Component {
         //console.log("uploadUrlList=", uploadUrlList);
         this.setState({
           uploadUrlList: uploadUrlList,
-          feedbackDetail: feedbackDetail
+          feedbackDetail: feedbackDetail,
+          feedbackDate: feedbackDetail.messages[0].createdDate
         });
       });
+  }
+
+  formatDate = (oneDate) => {
+    console.log("oneDate", oneDate);
+    const feedbackDate = new Date(oneDate);
+    let day = feedbackDate.getDate();
+    let month = feedbackDate.getMonth();
+    const year = feedbackDate.getFullYear();
+    let fullDay = (day < 10) ? `0${day}`: day;
+    let fullMonth = (month < 10) ? `0${month}`: month;
+    return `${fullDay}/${fullMonth}/${year}`;
   }
 
   render() {
@@ -48,8 +61,8 @@ class AddMessage extends Component {
           <div className="collapse" id="navbarToggleExternalContent" >
             <div className="bg-light p-4">
               <h5 className="text-dark"><b>Feedback Summary</b></h5>
-              {console.log("this.state", this.state.feedbackDetail.header)}
-              <span className="text-muted">Product: {this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid})</span>
+              {console.log("this.state", this.state.feedbackDetail.messages[0])}
+              <span className="text-muted">{this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid}) - {this.formatDate(this.state.feedbackDate)}</span>
               {this.state.uploadUrlList.map(url =>
                 <div>
                   <img src={url} style={{maxHeight: 250}} alt=""/>

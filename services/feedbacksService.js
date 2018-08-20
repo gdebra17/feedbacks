@@ -194,7 +194,7 @@ function addNewMessageToFeedback(feebackId, messageContent, userId) {
 }
 
 function getFeedbackList(decathlonid="ALL") {
-  let sql = "SELECT f.token, p.decathlonid, f.topic, u.name, m.content"
+  let sql = "SELECT f.token, f.product_id, f.created_at, f.updated_at, p.decathlonid, f.topic, u.name, m.content"
   + " FROM feedbacks f"
   + " inner join products p on p.id=f.product_id"
   + " inner join users u on u.id=f.user_id"
@@ -216,7 +216,7 @@ function getMessageList(urlToken) {
 }
 
 function getAllMessage() {
-  return db.sequelize.query(`SELECT f.token, m.feedback_id, m.user_id, m.content, m.read FROM messages m inner join feedbacks f on f.id=m.feedback_id`,
+  return db.sequelize.query(`SELECT f.token, f.product_id, m.feedback_id, m.user_id, m.content, m.read FROM messages m inner join feedbacks f on f.id=m.feedback_id`,
     { type: db.sequelize.QueryTypes.SELECT })
 }
 
