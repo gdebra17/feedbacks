@@ -22,7 +22,7 @@ class AddMessage extends Component {
     })
       .then(response => response.json())
       .then(feedbackDetail => {
-        console.log("feedbackDetail :", feedbackDetail);
+        // console.log("feedbackDetail :", feedbackDetail);
         const uploadUrlList = [];
         feedbackDetail.messages.forEach(message => {
           message.uploads.forEach(upload => {
@@ -39,7 +39,7 @@ class AddMessage extends Component {
   }
 
   formatDate = (oneDate) => {
-    console.log("oneDate", oneDate);
+    // console.log("oneDate", oneDate);
     const feedbackDate = new Date(oneDate);
     let day = feedbackDate.getDate();
     let month = feedbackDate.getMonth();
@@ -61,7 +61,7 @@ class AddMessage extends Component {
           <div className="collapse" id="navbarToggleExternalContent" >
             <div className="bg-light p-4">
               <h5 className="text-dark"><b>Feedback Summary</b></h5>
-              {console.log("this.state", this.state.feedbackDetail.messages[0])}
+              {/* {console.log("this.state", this.state.feedbackDetail)} */}
               <span className="text-muted">{this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid}) - {this.formatDate(this.state.feedbackDate)}</span>
               {this.state.uploadUrlList.map(url =>
                 <div>
