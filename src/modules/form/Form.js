@@ -163,7 +163,7 @@ export default class Form extends React.Component {
         <Header />
 
         <div className="alert alert-primary alert-dismissible fade show mt-3" role="alert">
-          <strong>Great first step!</strong> Now, you're about to submit a feedback and chat with the engineer about your {this.state.productName}, no intermediary whatsoever. Thanks in advance for your time. Let's start by choosing the bike part (only one choice)...
+          <strong>Welcome, {this.state.productName} user!</strong> And thank you for your time! We are sure you have great feedbacks to help us improve your beloved bike. Simply begin by choosing a bike part (only one choice possible) and get ready to be part of Decathlon’s co-conception project. <br/>Enjoy, ride safe, and have a great day!
           <button type="button" className="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
