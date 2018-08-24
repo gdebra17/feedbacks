@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     product_id: DataTypes.INTEGER,
     topic: DataTypes.STRING,
     token: DataTypes.STRING
-  }, {});
+  }, {
+    underscored: true,
+  });
   feedbacks.associate = function(models) {
     // associations can be defined here
   };

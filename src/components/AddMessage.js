@@ -10,18 +10,19 @@ class AddMessage extends Component {
       feedbackDetail: {
         header: {product: ""},
         messages: []
-      }
+      },
+      feedbackDate: ""
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     fetch("/feedbacks/"+this.state.token, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     })
       .then(response => response.json())
       .then(feedbackDetail => {
-        //console.log("feedbackDetail :", feedbackDetail);
+        // console.log("feedbackDetail :", feedbackDetail);
         const uploadUrlList = [];
         feedbackDetail.messages.forEach(message => {
           message.uploads.forEach(upload => {
@@ -31,9 +32,21 @@ class AddMessage extends Component {
         //console.log("uploadUrlList=", uploadUrlList);
         this.setState({
           uploadUrlList: uploadUrlList,
-          feedbackDetail: feedbackDetail
+          feedbackDetail: feedbackDetail,
+          feedbackDate: feedbackDetail.messages[0].createdDate
         });
       });
+  }
+
+  formatDate = (oneDate) => {
+    // console.log("oneDate", oneDate);
+    const feedbackDate = new Date(oneDate);
+    let day = feedbackDate.getDate();
+    let month = feedbackDate.getMonth();
+    const year = feedbackDate.getFullYear();
+    let fullDay = (day < 10) ? `0${day}`: day;
+    let fullMonth = (month < 10) ? `0${month}`: month;
+    return `${fullDay}/${fullMonth}/${year}`;
   }
 
   render() {
@@ -47,9 +60,9 @@ class AddMessage extends Component {
         <section id="new-message">
           <div className="collapse" id="navbarToggleExternalContent" >
             <div className="bg-light p-4">
-              <h5 className="text-dark h4">FEEDBACK RECAP</h5>
-              {console.log("this.state", this.state.feedbackDetail.header)}
-              <span className="text-muted">Product: {this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid})</span>
+              <h5 className="text-dark"><b>Feedback Summary</b></h5>
+              {/* {console.log("this.state", this.state.feedbackDetail)} */}
+              <span className="text-muted">{this.state.feedbackDetail.header.product.name} ({this.state.feedbackDetail.header.product.decathlonid}) - {this.formatDate(this.state.feedbackDate)}</span>
               {this.state.uploadUrlList.map(url =>
                 <div>
                   <img src={url} style={{maxHeight: 250}} alt=""/>
@@ -60,8 +73,8 @@ class AddMessage extends Component {
           <div className="col-12">
             <button className="btn btn-outline-info m-2" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" style={{marginLeft: 15,
               borderStyle:'thin',
-              borderColor:'black', height:35, width:80,}}>
-              <a>Recap</a>
+              borderColor:'black', height:35,}}>
+              <a>See the feedback infos</a>
             </button>
           </div>
           <div className="col-12">
@@ -73,6 +86,7 @@ class AddMessage extends Component {
                 }
               }}
               type="text"
+              className="inputText ml-2"
               ref={(node) => {
                 input = node
               }}
@@ -80,12 +94,12 @@ class AddMessage extends Component {
 
             <button className="btn btn-outline-primary m-2" type="button"  style={{marginLeft: 15,
               borderStyle:'thin',
-              borderColor:'black', height:35, width:80}}
+              borderColor:'black', height:35,}}
               onClick={() => {
                 this.props.dispatch(input.value, 'Me', window.location.pathname)
                 input.value = ''
               }
-            }> Send </button>
+            }>Send</button>
           </div>
         </section>
       </div>

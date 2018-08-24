@@ -26,6 +26,8 @@ class App extends Component {
     return <Dashboard {...routerProps} />
   }
 
+
+
   render() {
 
     return (
@@ -34,13 +36,15 @@ class App extends Component {
           <Route exact path="/" component={Connect}/>
           <Route path="/connect" component={Connect}/>
           <Route path="/postfeedback/:decathlonid" render={this.postFeedback}/>
-          <Route path="/pe/:tokenFeedback" component={Tchat}/>
+          <Route exact path="/pe/:productId/:tokenFeedback" component={Tchat}/>
           <Route path="/su/:tokenFeedback" component={Tchat0}/>
 
           <Route exact path="/testform" component={TestForm} />
           <Route exact path="/about" component={About} />
           <Route exact path="/dashboard" component={Dashboard} />
+          {/* <PrivateRoute path='/dashboard' component={Dashboard} /> */}
           <Route path="/dashboard/:decathlonid" component={Dashboard} />
+
           <Route exact path="/navbar" component={Navbar}/>
 
 

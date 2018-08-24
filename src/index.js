@@ -5,14 +5,13 @@ import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
-//import createSagaMiddleware from 'redux-saga'
+// import createSagaMiddleware from 'redux-saga'
 // import handleNewMessage from './src/store/sagas'
 import { addUser } from './store/tchat/actions/index'
 
 
-
-
 window.googleConnectCallback = function(googleUser){
+  // console.log("googleUser: ", googleUser);
   const profile = googleUser.getBasicProfile();
   const disconnect = () => googleUser.disconnect();
 
@@ -23,25 +22,35 @@ window.googleConnectCallback = function(googleUser){
   // console.log('Family Name: ' + profile.getFamilyName());
   // console.log("Image URL: " + profile.getImageUrl());
   // console.log("Email: " + profile.getEmail());
-
+  const email = profile.getEmail();
   // The ID token you need to pass to your backend:
-  //const id_token = googleUser.getAuthResponse().id_token;
-  //console.log("ID Token: " + id_token);
-  //console.log("authResponse : ", googleUser.getAuthResponse());
-  //console.log("complete profile : ", profile);
-  store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect});
+  const id_token = googleUser.getAuthResponse().id_token;
+  // console.log("ID Token: " + id_token);
+  // console.log("authResponse : ", googleUser.getAuthResponse());
+  // console.log("complete profile : ", profile);
+
+  fetch("/internalconnexion", {
+    method: "POST",
+    headers: {
+      "Authorization": id_token
+    }
+  })
+    .then((result) => result.json())
+    .then((resp) => {
+      // console.log("Fetch Index Resp :", resp)
+        if (resp.status === "error") {
+          let errorMessage = resp.errorMessage;
+          // console.log("error ?");
+          store.dispatch({type: "SET_PROFILE", message: errorMessage, disconnect: disconnect, profile: profile});
+        } else {
+          // console.log("Dispatch into Redux State ", resp);
+          store.dispatch({type: "SET_PROFILE", profile: profile, disconnect: disconnect, id_token: id_token, email: email, IP: resp.IP, id: resp.id});
+        }
+
+        })
 };
+
 store.dispatch(addUser('Me'));
-
-//
-// const sagaMiddleware = createSagaMiddleware();
-//
-// const socket = setupSocket(store.dispatch);
-//
-// sagaMiddleware.run(handleNewMessage, { socket });
-
-//document.getElementById('google-signin-client_id').content = '918173514776-uta30cs8f0pllsp3k2j83e8qekqvs530.apps.googleusercontent.com';
-//document.getElementById('google-signin-client_id').content = '1067884850483-vhed3duodar5tf92frpf72tanq5juepi.apps.googleusercontent.com';
 
 ReactDOM.render(
   <BrowserRouter>

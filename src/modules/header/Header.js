@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.css';
-let triban100 = require ("./images/triban100hor.jpg")
+let triban100 = require ("./images/triban100.jpg")
 
 export default class Header extends React.Component {
   render() {

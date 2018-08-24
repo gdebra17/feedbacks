@@ -1,0 +1,8 @@
+Dans /src/store/sendWs.js
+Commenter ligne du websocket qui contient le "host"
+Décommenter ligne du websocket qui pointe vers le 8080
+
+Dans server.js
+Commenter le app.use qui enforce le https
+
+Sourcer le fichier .env.local dans le terminal: source .env.local

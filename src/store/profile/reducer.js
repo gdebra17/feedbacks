@@ -12,10 +12,15 @@ function profileReducer(state = initialState, action) {
         ...state,
         profileInfo: action.profile,
         disconnect: action.disconnect,
+        id_token: action.id_token,
+        message: action.message,
+        email: action.email,
+        IP: action.IP,
+        id: action.id,
       }
 
     case "DISCONNECT":
-      
+
       return {
         ...state,
         profileInfo: {},

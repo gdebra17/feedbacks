@@ -17,46 +17,44 @@ class Connect extends React.Component {
     }
   }
 
-  logout = (response) => {
+  logout = () => {
   console.log("logout");
   this.props.signed(false);
  }
 
-componentWillMount(){
-  // window.location.reload();
-}
+componentWillReceiveProps(nextProps) {
+  console.log("componentWillReceiveProps auth=", nextProps);
+  console.log("redux state email ", nextProps.email);
+  console.log("redux state message ", nextProps.message);
+  // console.log("redux state profileInfo email", nextProps.profileInfo.U3);
+  if (nextProps.message) {
+    this.setState({
+      checkEmail: nextProps.message,
+      authOk: false,
+    });
+  } else if (nextProps.profileInfo.Eea) {
+    // console.log("email ok, non ?");
+    this.setState({
+      checkEmail: nextProps.email,
+      authOk: true,
+    });
+  } else {
+    this.setState({
+      authOk: false,
+    });
+  }
 
-componentWillReceiveProps(nextProps, nextContext) {
-  console.log("componentWillReceiveProps email=", nextProps.profileInfo.U3);
-   fetch("/internalconnexion", {
-     method: "POST",
-     body: JSON.stringify({email: nextProps.profileInfo.U3}),
-     headers: { "Content-Type": "application/json" }
-   })
-     .then(response => response.json())
-     .then(result => {
-       //console.log("componentWillReceiveProps result=", result);
-         if (result.errorMessage) {
-           this.setState({
-             checkEmail: result.errorMessage,
-           });
-         } else {
-           this.setState({
-             authOk: true,
-           });
-         }
-     })
+
 }
 
 render() {
-
     let imagePath;
     if(this.props.profileInfo.Paa){
       imagePath = this.props.profileInfo.Paa;
     } else {
       imagePath = "";
     }
-    let disconnect = () => {
+    const disconnect = () => {
       this.props.disconnect();
       window.location.reload();
     }

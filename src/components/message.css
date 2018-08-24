@@ -17,6 +17,13 @@
   color: blue;
 }
 
-.messageCadre {
-
+.inputText {
+  border-color: lightgrey;
+  height: 35px;
+  width:170px;
+}
+@media (min-width: 576px) {
+  .inputText {
+    width:350px;
+  }
 }
