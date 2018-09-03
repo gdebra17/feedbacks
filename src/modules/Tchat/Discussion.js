@@ -15,7 +15,7 @@ class Discussion extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("data :", data);
+        console.log("data /feedbacks :", data);
         this.setState({
           detailFeedback: data,
         })

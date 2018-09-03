@@ -5,7 +5,7 @@ class AddMessage extends Component {
   constructor() {
     super();
     this.state = {
-      token: window.location.pathname.substring(4),
+      token: window.location.pathname.substring(6),
       uploadUrlList: [],
       feedbackDetail: {
         header: {product: ""},

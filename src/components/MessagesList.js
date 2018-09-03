@@ -10,9 +10,10 @@ const MessagesList = ({messages}) => {
   // {props.dispatch(window.location.pathname)}
     <section id="messages-list" >
     <div data-spy="scroll" className="d-flex flex-column">
-      {/* {} */}
+
       {messages.map(message => {
-        // console.log("message printed has the following information :", message)
+        // console.log("message printed has the following information :", message.path);
+        // console.log("message printed has the following information :", window.location.pathname);
         if(message.path === window.location.pathname){
         return (
           <div className=" d-flex justify-content-end">

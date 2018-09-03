@@ -23,9 +23,9 @@ class Connect extends React.Component {
  }
 
 componentWillReceiveProps(nextProps) {
-  console.log("componentWillReceiveProps auth=", nextProps);
-  console.log("redux state email ", nextProps.email);
-  console.log("redux state message ", nextProps.message);
+  // console.log("componentWillReceiveProps auth=", nextProps);
+  // console.log("redux state email ", nextProps.email);
+  // console.log("redux state message ", nextProps.message);
   // console.log("redux state profileInfo email", nextProps.profileInfo.U3);
   if (nextProps.message) {
     this.setState({

@@ -3,7 +3,7 @@ const operator = db.sequelize.Op;
 const uuid = require('uuid-v4');
 
 function dbProductToFacade(dbProduct) {
-  return {decathlonid: dbProduct.decathlonid, name: dbProduct.name, productUrl: dbProduct.url, expiringDate: dbProduct.expiringdate, userId: dbProduct.user_id, createdDate: dbProduct.createdAt};
+  return {id: dbProduct.id, decathlonid: dbProduct.decathlonid, name: dbProduct.name, productUrl: dbProduct.url, expiringDate: dbProduct.expiringdate, userId: dbProduct.user_id, createdDate: dbProduct.createdAt};
 }
 
 

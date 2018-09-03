@@ -12,12 +12,13 @@ function postNewMessage(request, result) {
     //console.log("handlers/postNewMessage:", feedbackHeader);
     if (userToken) {
       //console.log("handlers/postNewMessage: message is added by userToken", userToken);
-      return usersService.getUserHeaderByToken(userToken).
-      then(dbUser => {
+      return usersService.getUserHeaderByToken(userToken)
+      .then(dbUser => {
+        // console.log("dbUser :", dbUser);
         return {feedbackId: feedbackHeader.id, userId: dbUser.id};
       })
     } else {
-      //console.log("handlers/postNewMessage: message is added by feedback creator", feedbackHeader.user_id);
+      // console.log("handlers/postNewMessage: message is added by feedback creator", feedbackHeader);
       return {feedbackId: feedbackHeader.id, userId: feedbackHeader.user_id};
     }
   })

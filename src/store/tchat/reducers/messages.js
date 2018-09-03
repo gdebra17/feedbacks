@@ -14,7 +14,7 @@ const initialState = {
 export function messagesReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_MESSAGE':
-      sendMessage(action.pathname, state.message.currentChannel ,action.message);
+      sendMessage(action.pathname, state.message.currentChannel, action.message);
       return state;
       // return {
       //   ...state,
