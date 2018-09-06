@@ -11,7 +11,7 @@ class AddMessage extends Component {
         header: {product: ""},
         messages: []
       },
-      feedbackDate: ""
+      feedbackDate: "",
     };
   }
 
@@ -42,7 +42,7 @@ class AddMessage extends Component {
     // console.log("oneDate", oneDate);
     const feedbackDate = new Date(oneDate);
     let day = feedbackDate.getDate();
-    let month = feedbackDate.getMonth();
+    let month = feedbackDate.getMonth() + 1;
     const year = feedbackDate.getFullYear();
     let fullDay = (day < 10) ? `0${day}`: day;
     let fullMonth = (month < 10) ? `0${month}`: month;

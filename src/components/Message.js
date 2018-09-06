@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./message.css"
 
-
 const Message = ({ id, message, author, path, myStyle, textColor}) => (
   <span className={`${myStyle} ${textColor} border border-dark rounded`}>
     <b>{author}</b>: {message}
@@ -19,4 +18,4 @@ Message.propTypes = {
   author: PropTypes.string.isRequired
 }
 
-export default Message
+export default Message;

@@ -4,7 +4,7 @@ import { AddMessage } from "../../containers/AddMessage";
 import "../../App.css";
 import { closeSocket } from "../../store/sendWs";
 
-class Tchat extends Component {
+class Tchat0 extends Component {
 
   componentDidMount(){
     // console.log("I did update")
@@ -30,4 +30,4 @@ class Tchat extends Component {
   }
 }
 
-export default Tchat;
+export default Tchat0;

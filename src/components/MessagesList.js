@@ -4,7 +4,8 @@ import Message from "./Message";
 import "./message.css";
 
 const MessagesList = ({messages}) => {
-  console.log("messages is: ", messages)
+  console.log("messages is: ", messages);
+  console.log("this.props: ", this.props);
   return(
   // {loadDiscussion(window.location.pathname)}
   // {props.dispatch(window.location.pathname)}
@@ -54,4 +55,5 @@ MessagesList.propTypes = {
   ).isRequired
 }
 
-export default MessagesList
+
+export default MessagesList;
