@@ -216,7 +216,7 @@ function getMessageList(urlToken) {
 }
 
 function getAllMessage() {
-  return db.sequelize.query(`SELECT f.token, f.product_id, m.feedback_id, m.user_id, m.id, m.content, m.read FROM messages m inner join feedbacks f on f.id=m.feedback_id`,
+  return db.sequelize.query(`SELECT f.token, f.product_id, m.feedback_id, m.user_id, m.id, m.content, m.read FROM messages m inner join feedbacks f on f.id=m.feedback_id ORDER BY m.id`,
     { type: db.sequelize.QueryTypes.SELECT })
 }
 

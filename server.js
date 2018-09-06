@@ -106,6 +106,7 @@ wss.on('connection', (ws) => {
           ws.send(JSON.stringify({
             type: 'MESSAGES',
             data: message.content,
+            messageId: message.id,
             userId: userName.name,
             author: `/su/${message.product_id}/${message.token}`
           }));
@@ -183,14 +184,14 @@ wss.on('connection', (ws) => {
           userToken = feedbackToken;
           pathMessage = data.channel;
 
-          // console.log("ip userToken is : ", userToken);
           console.log("data is : ", data);
 
           usersService.getIPByFeedbackToken(feedbackToken)
           // .then(result => console.log("result from IPByToken is : ", result))
           .then(result => {
+            // let actualUserId = result[0].token;
             let actualUserId = result[0].token;
-            // console.log("actualUserId is : ", actualUserId);
+            console.log("actualUserId is : ", actualUserId);
             feedbacksService.getFeedbackHeaderByToken(feedbackToken)
             .then(feedbackHeader => {
               // console.log("handlers/postNewMessage:", feedbackHeader);
@@ -208,7 +209,9 @@ wss.on('connection', (ws) => {
             })
             .then(data => {
               usersService.getNameByUserId(data.userId)
-              .then(name => { return name.name })
+              .then(name => {
+                return name.name;
+              })
               .then(name => {
                 console.log("result is : ", name, messageContent, pathMessage);
                 broadcast({
@@ -257,7 +260,7 @@ wss.on('connection', (ws) => {
               }
             })
             .then(data => {
-              console.log("result is pour SU : ", data);
+              // console.log("result is pour SU : ", data);
               usersService.getNameByUserId(data.userId)
               .then(name => { return name.name })
               .then(name => {
@@ -276,6 +279,7 @@ wss.on('connection', (ws) => {
             })
             .then(infos => {
               // console.log("infos:", infos);
+
               if (infos.errorMessage) {
                 result.json({status: "error", errorMessage: infos.errorMessage});
               } else {
