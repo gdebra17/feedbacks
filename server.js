@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+//app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use("/static", express.static("./build/static"));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.static("./build"));
@@ -56,7 +56,7 @@ const broadcast = (data, ws) => {
   wss.clients.forEach((client) => {
     // console.log("client is :", ws);
     // console.log(client.readyState === ws.OPEN, client !== ws);
-    console.log("data from broadcast :", data);
+    //console.log("data from broadcast :", data);
     // if (client.readyState === ws.OPEN && client !== ws) {
       // console.log("data is : ", );
       client.send(JSON.stringify({ type: data.type, data: data.message, author: data.author, users: data.users, userId: data.name}));
@@ -75,7 +75,7 @@ wss.on('connection', (ws) => {
   feedbacksService.getFeedbackList()
   .then(feedbackList => {
     feedbackList.forEach(feedback => {
-      console.log("feeedback has : ", feedback);
+      //console.log("feeedback has : ", feedback);
       tokenList.push({id:feedback.token, productId:feedback.product_id, topic:feedback.topic, decatId: feedback.decathlonid, name: feedback.name})
     })
     return tokenList})

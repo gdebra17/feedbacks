@@ -90,17 +90,17 @@ export default class Form extends React.Component {
 
   handlePhoto = (event) => {
     this.setState({form: {...this.state.form, photo: event.target.files[0]}});
-    console.log(this.state);
+    console.log("handlePhoto: this.state=", this.state);
   }
 
-  fileUpload(file){
-    const formData = new FormData();
-    formData.append("file", file);
-    return fetch("/upload-file", {
-      method: "POST",
-      body: formData
-    });
-  }
+  // fileUpload(file){
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   return fetch("/upload-file", {
+  //     method: "POST",
+  //     body: formData
+  //   });
+  // }
 
   handleName = (event) => {
     //console.log("event.target.value ", event.target.value);
