@@ -36,6 +36,7 @@ export default class Form extends React.Component {
         errorMessage: null,
       },
       productName: "",
+      productId: "",
       redirect: false,
     };
   }
@@ -52,7 +53,8 @@ export default class Form extends React.Component {
         const product = products.find(product => product.decathlonid === this.props.match.params.decathlonid);
 
         if (product !== undefined) {
-          this.setState({form: {...this.state.form, decathlonid: this.props.match.params.decathlonid}, productName: product.name});
+          console.log("fetch product", product);
+          this.setState({form: {...this.state.form, decathlonid: this.props.match.params.decathlonid}, productName: product.name, productId: product.id});
         } else {
           alert("The product you try to give a feedback on is not available...");
           //<Redirect to="/" />
@@ -88,17 +90,17 @@ export default class Form extends React.Component {
 
   handlePhoto = (event) => {
     this.setState({form: {...this.state.form, photo: event.target.files[0]}});
-    console.log(this.state);
+    console.log("handlePhoto: this.state=", this.state);
   }
 
-  fileUpload(file){
-    const formData = new FormData();
-    formData.append("file", file);
-    return fetch("/upload-file", {
-      method: "POST",
-      body: formData
-    });
-  }
+  // fileUpload(file){
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   return fetch("/upload-file", {
+  //     method: "POST",
+  //     body: formData
+  //   });
+  // }
 
   handleName = (event) => {
     //console.log("event.target.value ", event.target.value);
@@ -249,7 +251,7 @@ export default class Form extends React.Component {
                       <img id="loading" src={loading} alt="" />
                     </div>
                     <div className="card-body alert alert-success" role="alert" id="feedbackSuccess">
-                      Your feedback was successfully sent straight to the engineer who developed your bike. You can access the <a href={`/su/${this.state.fetchResult.data}`} className="alert-link">dialog page by clicking here</a>!
+                      Your feedback was successfully sent straight to the engineer who developed your bike. You can access the <a href={`/su/${this.state.productId}/${this.state.fetchResult.data}`} className="alert-link">dialog page by clicking here</a>!
                     </div>
                     <div className="card-body alert alert-danger" role="alert" id="feedbackFail">
                       Sorry, an error occured. We are working on it, please try again later.

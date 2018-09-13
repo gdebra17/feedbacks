@@ -71,7 +71,7 @@ getProductsList = () => {
         .then((response) => response.json())
         .then((resp) => {
           this.setState({"productsList": resp})
-          console.log("Liste des produits ", this.state.productsList);
+          // console.log("Liste des produits ", this.state.productsList);
         })
 }
 
@@ -90,7 +90,7 @@ getFeedbacks = () => {
         .then((resp) => {
           this.setState({"feedbacks": resp})
           // this.props.storeFeedbacksList(resp)
-          console.log("resp ", resp);
+          // console.log("resp ", resp);
         })
 
 }
@@ -114,7 +114,7 @@ postNewProduct = () => {
 formatDate = (oneDate) => {
   const feedbackDate = new Date(oneDate);
   let day = feedbackDate.getDate();
-  let month = feedbackDate.getMonth();
+  let month = feedbackDate.getMonth() + 1;
   const year = feedbackDate.getFullYear();
   let fullDay = (day < 10) ? `0${day}`: day;
   let fullMonth = (month < 10) ? `0${month}`: month;

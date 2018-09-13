@@ -10,19 +10,19 @@ const websocket = (process.env.NODE_ENV === "development") ? new WebSocket(`ws:/
 websocket.addEventListener("message", event => {
 
   const message = JSON.parse(event.data);
-  //console.log("Message from server ", message);
+  // console.log("Message from server ", message);
   switch (message.type) {
     case "CONNECTION_START":
     default:
       return;
     case "MESSAGES":
     // console.log(`1 check this equality : ${window.location.pathname.substring(5)} ${message.author.substring(3)}`);
-    // console.log(`2 check this equality : ${window.location.pathname.substring(4)} === ${message.author.substring(6)}`);
+    // console.log(`2 check this equality : ${window.location.pathname.substring(6)} === ${message.author.substring(2)}`);
     // console.log(`3 check this equality : ${window.location.pathname.substring(3)} === ${message.author.substring(3)}`);
     // if(event.data.id !== undefined){
-      if(window.location.pathname.substring(6) === `${message.author.substring(2)}` || `${window.location.pathname.substring(5)}` === message.author.substring(3) || `${window.location.pathname.substring(3)}` === message.author.substring(3) || `${window.location.pathname.substring(4)}` === message.author.substring(6)){
+      if(`${window.location.pathname.substring(3)}` === message.author.substring(3)){
         // console.log("wow such LKZAJELKJA code", message);
-        store.dispatch({type: "MESSAGE_RECEIVED", messages: message.data, author: message.userId, path: message.author})
+        store.dispatch({type: "MESSAGE_RECEIVED", id: message.messageId, messages: message.data, author: message.userId, path: message.author})
         return;
       }
       else {return}
@@ -38,7 +38,7 @@ websocket.addEventListener("message", event => {
 
 websocket.addEventListener("onopen", event => {
 
-  console.log("plop i've been opened from ", window.location.pathname)
+  // console.log("plop i've been opened from ", window.location.pathname)
 
 });
 
@@ -65,7 +65,7 @@ function sendLogin(username) {
 }
 
 function loadDiscussion(urlToken){
-  console.log(`I will load this discussion : ${urlToken}`);
+  // console.log(`I will load this discussion : ${urlToken}`);
   websocket.send(
     JSON.stringify({
       type: "LOAD_DISCUSSION",
@@ -75,7 +75,7 @@ function loadDiscussion(urlToken){
 }
 
 function sendMessage(username, channel, message) {
-  console.log("I sent a message on : ", websocket.url, " and ", window.location.pathname);
+  // console.log("I sent a message on : ", websocket.url, " and ", window.location.pathname);
   websocket.send(
     JSON.stringify({
       type: "NEW_MESSAGE",
