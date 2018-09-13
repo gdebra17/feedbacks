@@ -17,8 +17,8 @@ function copyUploadFileFromAwsToLocalServer(fileName) {
           if (err) {
               console.log('copyUploadFileFromAwsToLocalServer: error=', err);
           } else {
-              console.log(file.Body);
-              const destination = path.join(__dirname, "./../uploads/" + getParams.Key);
+              console.log('file.Body=', file.Body);
+              const destination = path.join(__dirname, '/uploads/' + getParams.Key);
               console.log('destination=', destination);
               fs.writeFileSync(destination, file.Body);
               resolve("ok");
