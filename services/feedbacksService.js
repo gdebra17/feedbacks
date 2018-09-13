@@ -4,6 +4,7 @@ const uuid = require('uuid-v4');
 
 const usersService = require("./usersService");
 const emailsService = require("./emailsService");
+const uploadFilesService = require("./uploadFilesService");
 
 function newFeedback() {
   const newFeedback = {
@@ -53,9 +54,8 @@ function getFeedbackHeaderByToken(feedbackToken) {
   })
 }
 
-
 function getFeedbackDetailById(feedbackId) {
-  //console.log("services/getFeedbackDetailById:", feedbackId);
+  //console.log("services/getFeedbackDetailById:", feedbackId, "##################################");
   const feedbackResult = newFeedback();
 
   return db.sequelize.query('SELECT * FROM feedbacks f left outer join products p on p.id=f.product_id WHERE f.id = :feedbackId ',
@@ -83,7 +83,25 @@ function getFeedbackDetailById(feedbackId) {
     .then(values => {
       feedbackResult.messages = values;
       return feedbackResult
-    });
+    })
+    .then(feedbackResult => {
+      const fileNameList = [];
+      feedbackResult.messages.forEach(message => {
+        message.uploads.forEach(upload => {
+          if (upload.pathUpload) {
+            fileNameList.push(upload.pathUpload);
+          }
+        })
+      });
+
+      if (fileNameList.length > 0) {
+        return uploadFilesService.copyUploadFileFromAwsToLocalServer(fileNameList[0]);
+      } else {
+        return "OK";
+      }
+    }).then(resultCopy => {
+      return feedbackResult;
+    })
   })
 }
 
