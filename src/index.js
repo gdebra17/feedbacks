@@ -9,6 +9,8 @@ import store from "./store/store";
 // import handleNewMessage from './src/store/sagas'
 import { addUser } from './store/tchat/actions/index'
 
+import * as serviceWorker from './serviceWorker';
+
 
 window.googleConnectCallback = function(googleUser){
   // console.log("googleUser: ", googleUser);
@@ -60,4 +62,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root'));
 
-// registerServiceWorker();
+serviceWorker.register();
