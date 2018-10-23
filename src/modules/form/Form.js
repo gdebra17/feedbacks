@@ -183,15 +183,13 @@ export default class Form extends React.Component {
 
                 <div className="card-body" onClick={this.handleTopic}>
                   <ul className="list-group">
-                    <LineTopic label="Frame (Cadre)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Fork (Fourche)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Handlebar (Cintre)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Saddle (Selle)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Brakes (Freins)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Rear Derailleur (Dérailleur)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Tires (Pneus)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Wheel (Roue)" activeTopic={this.state.form.topic}/>
-                    <LineTopic label="Chainring (Plateau)" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Poste 1" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Poste 2" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Poste 3" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Poste 4" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Poste 5" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Poste 6" activeTopic={this.state.form.topic}/>
+                    <LineTopic label="Poste 7" activeTopic={this.state.form.topic}/>
 
                   </ul>
                 </div>
